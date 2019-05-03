@@ -6,6 +6,15 @@
             <b-row>
                 <b-col>Near By Events</b-col>
                 <b-col><b-button size="sm">Create Event</b-button></b-col>
+
+            </b-row>
+            <b-row>
+                <b-col>
+                  <gmap-map :center="{lat: 1.38, lng: 103.8}"
+                        :zoom="12"
+                    style="width: 100%; height: 500px">
+                    </gmap-map>
+                </b-col>
             </b-row>
             <b-row>
                 <b-col>
@@ -17,15 +26,12 @@
             <b-row>
                 <b-col>Near By Events</b-col>
                 <b-col><b-button size="sm">Search</b-button></b-col>
-            
                 <b-table striped hover :items="Events"></b-table>
 
             </b-row>
               <div>
     <b-table :items="items" :fields="fields" striped>
       <template slot="online" slot-scope="row">
-        <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
-        </b-form-checkbox>
         <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
       </template>
     </b-table>
@@ -37,7 +43,7 @@
 </template>
 
 <script>
-
+import {gmapApi} from 'vue2-google-maps'
 export default {
     data() {
       return {
@@ -61,8 +67,13 @@ export default {
             online: true}
         ]
       }
+    },
+    computed: {
+        google: gmapApi
     }
 }
+
+
 </script>
 
 <style>
