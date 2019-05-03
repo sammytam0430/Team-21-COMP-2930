@@ -1,8 +1,20 @@
 <template>
-    <b-jumbotron header="Connect with Konnect" lead="Start looking for people to do things with">
-        <b-button variant="primary" href="#">More Info</b-button>
+    <b-jumbotron header="" lead="">
+        <FormCard class="ml-5"/>
     </b-jumbotron>
 </template>
+
+<script>
+import FormCard from '@/components/FormCard.vue';
+
+export default {
+    name: 'jumbotron',
+    components: {
+        FormCard
+    }
+}
+</script>
+
 
 <style scoped>
     .jumbotron {
