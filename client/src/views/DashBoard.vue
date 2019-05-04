@@ -2,12 +2,12 @@
     <div class="DashBoard">
     <b-container >
     <b-row>
-        <b-col cols="12" md="8">
-            <b-row>
-                <b-col>Near By Events</b-col>
+        <b-col lg="9" md="6">
+            <b-row align-v="center">
+                <b-col cols="8">Near By Events</b-col>
                 <b-col><b-button size="sm">Create Event</b-button></b-col>
-
             </b-row>
+
             <b-row>
                 <b-col>
                   <gmap-map :center="{lat: 1.38, lng: 103.8}"
@@ -22,20 +22,23 @@
                 </b-col>
             </b-row>
         </b-col>
-        <b-col cols="6" md="4">
+        <b-col lg="3"  md="6">
             <b-row>
-                <b-col>Near By Events</b-col>
+                <b-col cols="8">Near By Events</b-col>
                 <b-col><b-button size="sm">Search</b-button></b-col>
-                <b-table striped hover :items="Events"></b-table>
-
+                <b-table bordered fixed :fields="fieldsEvent" :items="Events">
+                    <template slot="peopleJoined" slot-scope="data">
+                        {{data.item.userJoin}} / {{data.item.people}}
+                    </template>
+                </b-table>
             </b-row>
-              <div>
-    <b-table :items="items" :fields="fields" striped>
-      <template slot="online" slot-scope="row">
-        <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
-      </template>
-    </b-table>
-  </div>
+        <div>
+            <b-table :items="items" :fields="fields" :bordered=true :fixed=true>
+            <template slot="online" slot-scope="row">
+                <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
+            </template>
+            </b-table>
+        </div>
         </b-col>
     </b-row>
     </b-container>
@@ -47,11 +50,12 @@ import {gmapApi} from 'vue2-google-maps'
 export default {
     data() {
       return {
+        fieldsEvent: ['event', {key: 'peopleJoined', label: 'People'}],
         Events: [
-          {Event: "Basketball", People: "2/4"},
-          {Event: "BaseBall", People: "2/20"},
-          {Event: "Soccer", People: "2/10"},
-          {Event: "Yelling", People: "2/5"}
+          {event: "Basketball", people: 23, userJoin: 16},
+          {event: "BaseBall", people: 20, userJoin: 5},
+          {event: "Soccer", people: 16, userJoin: 10},
+          {event: "Badminton", people: 15, userJoin: 5}
         ],
         fields: ['friend', 'online'],
         items: [
@@ -70,6 +74,11 @@ export default {
     },
     computed: {
         google: gmapApi
+    },
+    method:{
+        mergePeople: function(People, userJoined){
+
+        }
     }
 }
 
