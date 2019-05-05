@@ -1,4 +1,5 @@
 <template>
+
     <div class="DashBoard">
     <b-container >
     <b-row>
@@ -80,6 +81,7 @@ export default {
 
         }
     }
+    
 }
 
 

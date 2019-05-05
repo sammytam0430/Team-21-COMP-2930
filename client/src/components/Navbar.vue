@@ -9,8 +9,7 @@
             <b-navbar-nav class="ml-auto">
                     <b-nav-item href="#"><SignUpBtn /></b-nav-item>
                     <b-nav-item href="#"><LogInBtn /></b-nav-item>
-
-                
+                                    
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -24,7 +23,7 @@ export default {
     name: 'navbar',
     components: {
         SignUpBtn,
-        LogInBtn
+        LogInBtn,
     }
 }
 </script>
