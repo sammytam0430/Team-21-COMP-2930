@@ -5,7 +5,7 @@
     <b-row>
         <b-col lg="9" md="6">
             <b-row align-v="center">
-                <b-col cols="8">Near By Events</b-col>
+                <b-col cols="10">Near By Events</b-col>
                 <b-col><b-button size="sm">Create Event</b-button></b-col>
             </b-row>
 
@@ -25,19 +25,23 @@
         </b-col>
         <b-col lg="3"  md="6">
             <b-row>
-                <b-col cols="8">Near By Events</b-col>
-                <b-col><b-button size="sm">Search</b-button></b-col>
-                <b-table bordered fixed :fields="fieldsEvent" :items="Events">
-                    <template slot="peopleJoined" slot-scope="data">
-                        {{data.item.userJoin}} / {{data.item.people}}
-                    </template>
-                </b-table>
+              <b-col cols="8">Near By Events</b-col>
+              <b-col><b-button size="sm">Search</b-button></b-col>
+              <b-table bordered fixed :fields="fieldsEvent" :items="Events">
+                  <template slot="peopleJoined" slot-scope="data">
+                      {{data.item.userJoin}} / {{data.item.people}}
+                  </template>
+              </b-table>
             </b-row>
         <div>
+          <b-row>
+            <b-col cols="7">Friend Konnect</b-col>
+            <b-col><addFriendModal /></b-col>
+          </b-row>
             <b-table :items="items" :fields="fields" :bordered=true :fixed=true>
-            <template slot="online" slot-scope="row">
-                <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
-            </template>
+              <template slot="online" slot-scope="row">
+                  <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
+              </template>
             </b-table>
         </div>
         </b-col>
@@ -47,7 +51,8 @@
 </template>
 
 <script>
-import {gmapApi} from 'vue2-google-maps'
+import {gmapApi} from 'vue2-google-maps';
+import addFriendModal from '@/components/addFriendModal.vue';
 export default {
     data() {
       return {
@@ -80,6 +85,9 @@ export default {
         mergePeople: function(People, userJoined){
 
         }
+    },
+    components: {
+      addFriendModal,
     }
     
 }
