@@ -4,16 +4,16 @@
     <b-container >
     <b-row>
         <b-col lg="9" md="6">
-            <b-row align-v="center">
-                <b-col cols="10">Near By Events</b-col>
-                <b-col><b-button size="sm">Create Event</b-button></b-col>
+            <b-row class='p-2'>
+                <b-col>Near By Events</b-col>
+                <b-col cols="4"><b-button size="sm" class="float-right">Create Event</b-button></b-col>
             </b-row>
 
             <b-row>
                 <b-col>
                   <gmap-map :center="{lat: 1.38, lng: 103.8}"
                         :zoom="12"
-                    style="width: 100%; height: 500px">
+                    style="width: 100%; height: 550px">
                     </gmap-map>
                 </b-col>
             </b-row>
@@ -23,20 +23,20 @@
                 </b-col>
             </b-row>
         </b-col>
-        <b-col lg="3"  md="6">
-            <b-row>
-              <b-col cols="8">Near By Events</b-col>
-              <b-col><b-button size="sm">Search</b-button></b-col>
+        <b-col lg="3"  md="6" >
+            <b-row class='p-2'>
+              <b-col >Near By Events</b-col>
+              <b-col cols="4"><b-button size="sm" class="float-right">Search</b-button></b-col>
+            </b-row>
               <b-table bordered fixed :fields="fieldsEvent" :items="Events">
                   <template slot="peopleJoined" slot-scope="data">
                       {{data.item.userJoin}} / {{data.item.people}}
                   </template>
               </b-table>
-            </b-row>
         <div>
-          <b-row>
-            <b-col cols="7">Friend Konnect</b-col>
-            <b-col><addFriendModal /></b-col>
+          <b-row class='p-2'>
+            <b-col font-size=1rem>Friend Konnect</b-col>
+            <b-col cols="5.7" class="float-right"><addFriendModal /></b-col>
           </b-row>
             <b-table :items="items" :fields="fields" :bordered=true :fixed=true>
               <template slot="online" slot-scope="row">
