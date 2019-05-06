@@ -11,8 +11,8 @@
 
             <b-row>
                 <b-col>
-                  <gmap-map :center="{lat: 1.38, lng: 103.8}"
-                        :zoom="12"
+                  <gmap-map :center="{lat: 49.2511, lng: -123.0}"
+                        :zoom="16"
                     style="width: 100%; height: 550px">
                     </gmap-map>
                 </b-col>
