@@ -24,5 +24,6 @@ export default new Router({
       name: 'Profile',
       component: Profile
     }
+
   ]
 })

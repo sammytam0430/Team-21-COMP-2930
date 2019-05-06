@@ -56,7 +56,31 @@
 <b-row>
   <b-col cols="1"> </b-col>
   <b-col cols="3" class="mb-3">    <span> Interests: </span>  </b-col>
-  <b-col>  {{interests}}  </b-col>
+  <b-col>  {{interests}}  
+    <div>
+  <b-img src="../assets/edits.png" v-b-modal.modal-1/>
+
+  <b-modal id="modal-1" title="Select Interests">
+    <p class="my-4"> stuff!!!! 
+      
+
+    <b-form-group label="Check all that apply!">
+      <b-form-checkbox
+        v-for="option in options"
+        v-model="selected"
+        :key="option.value"
+        :value="option.value"
+        name="flavour-3a"
+      >
+        {{ option.text }}
+      </b-form-checkbox>
+    </b-form-group>
+
+
+
+    </p>
+  </b-modal>
+  </div></b-col>
 </b-row>
 
 <b-row>
@@ -66,6 +90,9 @@
 </b-row>
 
 </div>
+
+
+
 
 </b-container>
 
@@ -96,17 +123,22 @@ export default {
         prefEmail: 'cmooshie@gmail.com',
         score: '15',
         interests: 'blip, blop and bloop',
-        blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence'
+        blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence',
+        selected: [],
+        options: [
+          { text: 'blip', value: 'blip'},
+          { text: 'blop', value: 'blop'},
+          { text: 'blap', value: 'blap'},
+          { text: 'bloop', value: 'bloop'}
+          
+        ]
+
       }
   }
 }
 
 
-
-
-
 </script>
-
 
 <style>
 p {
