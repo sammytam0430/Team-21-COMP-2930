@@ -1,17 +1,20 @@
 <template>
       <p>
     <span v-show="!editing">
-      {{value}}
+      {{value}} 
     </span>
     <span v-show="editing" >
       <input :value="value"
              @input="$emit('input', $event.target.value)"
              @keydown.enter="editing=false"
+             @blur="editing=false"
              type="text" 
-             class="form-control" >
+             class="form-control"
+             autofocus=true>
     </span>
-    <button v-show="editing" @click="editing=false">Done</button>
-    <button v-show="!editing" @click="editing=true">Edit</button>
+
+
+    <img src="../assets/edits.png" class="ml-5" v-show="!editing" @click="editing=true"/>
   </p>
 </template>
 
