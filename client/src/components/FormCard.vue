@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card title="Find people to join your event" tag="article" style="max-width: 25rem;" class="mb-2">
+        <b-card title="Find people to join your event" tag="article" style="max-width: 25rem;">
             <hr>
             <GreetingForm/>
         </b-card>
