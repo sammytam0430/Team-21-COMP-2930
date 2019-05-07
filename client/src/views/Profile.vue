@@ -61,7 +61,7 @@
 <b-row>
   <b-col cols="1"> </b-col>
   <b-col cols="3" class="mb-3">    <span> Interests: </span>  </b-col>
-  <b-col>  {{interests}}  
+  <b-col>  {{selected}}  
 
   <b-img :src="require('../assets/edits.png')" v-b-modal.modal-1/>
 
