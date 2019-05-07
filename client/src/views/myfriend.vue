@@ -5,7 +5,7 @@
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" 
         crossorigin="anonymous">
         <b-container>
-            <div class="input-group md-form">
+            <div class="input-group md-form mt-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text purple lighten-3"><i class="fas fa-search text-white"></i></span>
                 </div>
@@ -20,7 +20,7 @@
                         <b-col class="col-lg-3 col-md-2 col-xs-2"><b-img thumbnail v-bind:src="particularFriend.image" alt="" left></b-img></b-col>
                         <b-col class="friendName"> {{ particularFriend.name }}</b-col>
                         <b-col class="favToggleButton">
-                            <b-button size="sm" variant="outline-primary" :pressed.sync="particularFriend.isFav">{{particularFriend.isFav ? "Added to my favourites" : "Add to my favourites"}} </b-button>
+                            <b-button size="sm" variant="outline-primary" :pressed.sync="particularFriend.isFav">{{particularFriend.isFav ? "Favourite" : "Unfavourite"}} </b-button>
                         </b-col>
                     </b-row>
                 </b-card>
