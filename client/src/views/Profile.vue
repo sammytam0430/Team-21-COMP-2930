@@ -5,9 +5,14 @@
 <b-container>
 
 <div class="boo">
+
+
+
+
 <b-row class="m-5">
     <b-col cols="3">
       <div> 
+        <span id="heading"> Profile </span>
         <img class="pic" src="../assets/blop.png" />
       </div>
     </b-col>
@@ -52,36 +57,41 @@
 
 </b-row>
 
-
+    <div>
 <b-row>
   <b-col cols="1"> </b-col>
   <b-col cols="3" class="mb-3">    <span> Interests: </span>  </b-col>
   <b-col>  {{interests}}  
-    <div>
-  <b-img src="../assets/edits.png" v-b-modal.modal-1/>
+
+  <b-img :src="require('../assets/edits.png')" v-b-modal.modal-1/>
 
   <b-modal id="modal-1" title="Select Interests">
-    <p class="my-4"> stuff!!!! 
+    <p class="my-4"> 
       
 
-    <b-form-group label="Check all that apply!">
-      <b-form-checkbox
-        v-for="option in options"
-        v-model="selected"
-        :key="option.value"
-        :value="option.value"
-        name="flavour-3a"
-      >
-        {{ option.text }}
-      </b-form-checkbox>
+    <b-form-group class="pah" label="Check all that apply!">
+      <b-container fluid> 
+        <b-form-checkbox
+          v-for="option in options"
+          v-model="selected"
+          :key="option.value"
+          :value="option.value"
+          name="interests"
+        >
+          {{ option.text }}
+        </b-form-checkbox>
+      </b-container>
     </b-form-group>
 
 
 
     </p>
   </b-modal>
-  </div></b-col>
-</b-row>
+  </b-col>
+  </b-row>
+</div>
+
+
 
 <b-row>
     <b-col cols="1"> </b-col>
@@ -126,11 +136,16 @@ export default {
         blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence',
         selected: [],
         options: [
-          { text: 'blip', value: 'blip'},
-          { text: 'blop', value: 'blop'},
-          { text: 'blap', value: 'blap'},
-          { text: 'bloop', value: 'bloop'}
-          
+          { text: 'outdoor sports', value: 'outdoorSports'},
+          { text: 'indoor sports', value: 'indoorSports'},
+          { text: 'card/board games', value: 'games'},
+          { text: 'PC games', value: 'pcGames'},
+          { text: 'mobile games', value: 'mobileGames'},
+          { text: 'literature', value: 'literature'},
+          { text: 'music', value: 'music'},
+          { text: 'dance', value: 'dance'},
+          { text: 'food', value: 'food'},
+          { text: 'other', value: 'other'}
         ]
 
       }
@@ -141,6 +156,12 @@ export default {
 </script>
 
 <style>
+
+#heading {
+  font-size: 30px;
+  font-weight: bold;
+}
+
 p {
   background: #63A6C1;
 } 
@@ -155,6 +176,8 @@ p {
 .pic {
   width: 100%;  
 }
-
+.pah {
+  padding: 20px;
+}
 
 </style>
