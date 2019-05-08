@@ -1,8 +1,13 @@
 <template>
 
+
 <b-container class="p-5">
 
+
+
 <b-container>
+<span id="heading"> Profile </span> 
+
 
 <div class="boo">
 
@@ -12,7 +17,7 @@
 <b-row class="m-5">
     <b-col cols="3">
       <div> 
-        <span id="heading"> Profile </span>
+        
         <img class="pic" src="../assets/blop.png" />
       </div>
     </b-col>
@@ -20,6 +25,7 @@
     <b-col cols="1"> </b-col>
 
     <b-col> 
+ 
       <b-row>
         <b-col cols="3"> <span> First Name: </span> </b-col>
         <b-col> <EditField label="First Name:" v-model="firstName"></EditField> </b-col>
@@ -61,18 +67,20 @@
 <b-row>
   <b-col cols="1"> </b-col>
   <b-col cols="3" class="mb-3">    <span> Interests: </span>  </b-col>
-  <b-col>  {{selected}}  
+  <b-col>  {{selected.join(', ')}}  
 
   <b-img :src="require('../assets/edits.png')" v-b-modal.modal-1/>
 
-  <b-modal id="modal-1" title="Select Interests">
+  <b-modal id="modal-1" ok-only title="Select Interests">
     <p class="my-4"> 
       
 
     <b-form-group class="pah" label="Check all that apply!">
       <b-container fluid> 
         <b-form-checkbox
+        
           v-for="option in options"
+          
           v-model="selected"
           :key="option.value"
           :value="option.value"
@@ -95,8 +103,8 @@
 
 <b-row>
     <b-col cols="1"> </b-col>
-    <b-col cols="3" class="mb-3"> <span> Blurb: </span> </b-col>
-    <b-col> <EditField label="Blurb:" v-model="blurb"></EditField> </b-col>
+    <b-col cols="3" class="mb-5"> <span> Blurb: </span> </b-col>
+    <b-col class="mb-5"> <EditField label="Blurb:" v-model="blurb"></EditField> </b-col>
 </b-row>
 
 </div>
@@ -136,16 +144,16 @@ export default {
         blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence',
         selected: [],
         options: [
-          { text: 'outdoor sports', value: 'outdoorSports'},
-          { text: 'indoor sports', value: 'indoorSports'},
-          { text: 'card/board games', value: 'games'},
-          { text: 'PC games', value: 'pcGames'},
-          { text: 'mobile games', value: 'mobileGames'},
-          { text: 'literature', value: 'literature'},
-          { text: 'music', value: 'music'},
-          { text: 'dance', value: 'dance'},
-          { text: 'food', value: 'food'},
-          { text: 'other', value: 'other'}
+          { text: 'Outdoor Sports', value: 'Outdoor Sports'},
+          { text: 'Indoor Sports', value: 'Indoor Sports'},
+          { text: 'Card/Board games', value: 'Card/Board Games'},
+          { text: 'PC Games', value: 'PC Games'},
+          { text: 'Mobile Games', value: 'Mobile Games'},
+          { text: 'Literature', value: 'Literature'},
+          { text: 'Music', value: 'Music'},
+          { text: 'Dance', value: 'Dance'},
+          { text: 'Food', value: 'Food'},
+          { text: 'Other', value: 'Other'}
         ]
 
       }
