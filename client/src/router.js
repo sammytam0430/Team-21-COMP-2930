@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Posts from './components/Posts.vue'
+import Profile from '@/views/Profile.vue'
 import CreateEvent from '@/views/CreateEvent.vue'
 import myfriend from './views/myfriend.vue'
 import eventdetails from './views/eventdetails.vue'
@@ -20,6 +21,11 @@ export default new Router({
       path: '/posts',
       name: 'Posts',
       component: Posts
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     },
     {
       path: '/create',
@@ -41,5 +47,6 @@ export default new Router({
       name: 'Dashboard',
       component: DashBoard
     }
+
   ]
 })
