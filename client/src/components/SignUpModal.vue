@@ -95,7 +95,7 @@ export default {
         const response = await UsersService.createUser(this.signup);
         this.response = response.data;
         if (response.success) {
-            router.push('dashboard');
+            this.$router.push('dashboard');
         } else {
             
         }
