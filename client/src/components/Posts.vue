@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import PostsService from '@/services/PostsService'
+// import PostsService from '@/services/PostsService'
 export default {
   name: 'posts',
   data () {
@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     async getPosts () {
-      const response = await PostsService.fetchPosts()
-      this.posts = response.data
+      // const response = await PostsService.fetchPosts()
+      // this.posts = response.data
     }
   }
 }
