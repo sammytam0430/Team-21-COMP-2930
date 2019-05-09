@@ -12,6 +12,7 @@ exports.seed = function(knex, Promise) {
             lname: "Dang",
             email: "ddang@my.bcit.ca",
             prefEmail: "ddang@gmail.com",
+            password: "$2b$10$H0E2dVwyfzo.soa4lb4Hf.Rdk0gMxGVQ0vJFZh7eYbLSF7bCl4nbi",
             randBlurb: "I'm god"
           },
           {
@@ -20,6 +21,7 @@ exports.seed = function(knex, Promise) {
             lname: "Chan",
             email: "lchan@my.bcit.ca",
             prefEmail: "lchan@gmail.com",
+            password: "$2b$10$H0E2dVwyfzo.soa4lb4Hf.Rdk0gMxGVQ0vJFZh7eYbLSF7bCl4nbi",
             randBlurb: "Random thing"
           },
           {
@@ -28,6 +30,7 @@ exports.seed = function(knex, Promise) {
             lname: "Cheong",
             email: "jcheong@my.bcit.ca",
             prefEmail: "jcheong@gmail.com",
+            password: "$2b$10$H0E2dVwyfzo.soa4lb4Hf.Rdk0gMxGVQ0vJFZh7eYbLSF7bCl4nbi",
             randBlurb: "Sammy, give me your Latios"
           },
           {
@@ -36,6 +39,7 @@ exports.seed = function(knex, Promise) {
             lname: "King",
             email: "aking@my.bcit.ca",
             prefEmail: "aking@gmail.com",
+            password: "$2b$10$H0E2dVwyfzo.soa4lb4Hf.Rdk0gMxGVQ0vJFZh7eYbLSF7bCl4nbi",
             randBlurb: "Whatever, like literally whatever"
           },
           {
@@ -44,6 +48,7 @@ exports.seed = function(knex, Promise) {
             lname: "Huang",
             email: "chuang@my.bcit.ca",
             prefEmail: "chuang@gmail.com",
+            password: "$2b$10$H0E2dVwyfzo.soa4lb4Hf.Rdk0gMxGVQ0vJFZh7eYbLSF7bCl4nbi",
             randBlurb: "Hi"
           }
         ])
