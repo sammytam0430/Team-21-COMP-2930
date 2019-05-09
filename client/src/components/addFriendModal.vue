@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button size='sm' v-b-modal.modal-prevent-closing>Add Friend</b-button>
+    <b-button size='sm' v-b-modal.modal-prevent-closing>Add</b-button>
 
     <b-modal
       id="modal-prevent-closing"
@@ -11,12 +11,7 @@
       @ok="handleOk"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group
-          :state="nameState"
-          label="Friend's Email"
-          label-for="Email-input"
-          invalid-feedback="Email is required"
-        >
+        <b-form-group>
           <b-form-input
             id="Email-input"
             v-model="email"
@@ -31,6 +26,7 @@
 
 <script>
   export default {
+    name: "addfriend",
     data() {
       return {
         email: '',

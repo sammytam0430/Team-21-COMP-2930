@@ -11,9 +11,9 @@
             </b-button>
         </template>
      </b-modal> -->
-      <b-popover :show.sync="show" target="popover-upcoming" title="Upcoming Event" placement="bottomleft" >
+      <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft" >
         <b-list-group>
-          <b-list-group-item style="max-width: 30rem;" v-for="item in items">
+          <b-list-group-item style="max-width: 30rem;" v-for="item in items" :key="item.name">
             Join {{item.name}} starts {{item.startTime}} @ {{item.location}} {{item.date}}
           </b-list-group-item>
         </b-list-group>

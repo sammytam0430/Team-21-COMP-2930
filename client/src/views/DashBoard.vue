@@ -11,10 +11,11 @@
 
             <b-row>
                 <b-col>
-                  <gmap-map :center="{lat: 49.2511, lng: -123.0}"
+                  <!-- <gmap-map :center="{lat: 49.2511, lng: -123.0}"
                         :zoom="16"
                     style="width: 100%; height: 550px">
-                    </gmap-map>
+                    </gmap-map> -->
+                    <Map />
                 </b-col>
             </b-row>
             <b-row>
@@ -51,8 +52,9 @@
 </template>
 
 <script>
-import {gmapApi} from 'vue2-google-maps';
+// import {gmapApi} from 'vue2-google-maps';
 import addFriendModal from '@/components/addFriendModal.vue';
+import Map from '@/components/Map.vue'
 export default {
     data() {
       return {
@@ -78,21 +80,16 @@ export default {
         ]
       }
     },
-    computed: {
-        google: gmapApi
-    },
     method:{
         mergePeople: function(People, userJoined){
-
         }
     },
     components: {
       addFriendModal,
+      Map
     }
     
 }
-
-
 </script>
 
 <style>
@@ -111,7 +108,3 @@ export default {
   display: inline-block;
 }
 </style>
-
-
-
-

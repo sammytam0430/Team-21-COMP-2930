@@ -12,7 +12,8 @@ Vue.use(BootstrapVue)
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyAs0qWEo_NI5f6FNcD3rOjUM-4z3IymrHw'
+    key: 'AIzaSyAdpQHJGvXvQe_NAc_LScbDwe5JeRJ34aM',
+    libraries: 'places',
   },
 })
 new Vue({
