@@ -1,6 +1,6 @@
 <template>
     <div class="signUpBtn">
-        <b-button variant="outline-primary">Sign Up</b-button>
+        <b-button v-b-modal.signup variant="outline-primary">Sign Up</b-button>
     </div>
 </template>
 
