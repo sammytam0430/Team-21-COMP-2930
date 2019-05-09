@@ -51,11 +51,7 @@
         <b-col> <EditField label="Preferred Email:" v-model="prefEmail"></EditField> </b-col>
       </b-row>
 
-      <b-row>
-        
-        <b-col cols="3"> <span> Score </span> </b-col>
-        <b-col>  {{score}} </b-col>
-      </b-row>
+
 
     </b-col>
 
@@ -139,7 +135,7 @@ export default {
         lastName: 'Monster',
         email: 'cmonster27@my.bcit.com',
         prefEmail: 'cmooshie@gmail.com',
-        score: '15',
+        
         interests: 'blip, blop and bloop',
         blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence',
         selected: [],
