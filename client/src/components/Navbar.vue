@@ -6,7 +6,8 @@
         <b-navbar-toggle target="nav-collapse" class="ml-auto"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav class="ml-auto">
-                    <b-nav-item href="#"><SignUpBtn/></b-nav-item>
+                    <b-nav-item href="#"><UpcomingEventModal /></b-nav-item>
+                    <b-nav-item href="#"><SignUpBtn /></b-nav-item>
                     <b-nav-item href="#"><LogInBtn /></b-nav-item>
             </b-navbar-nav>
         </b-collapse>
@@ -20,6 +21,7 @@ import SignUpBtn from '@/components/SignUpBtn.vue'
 import LogInBtn from '@/components/LogInBtn.vue'
 import SignUpModal from '@/components/SignUpModal.vue';
 import LogInModal from '@/components/LogInModal.vue';
+import UpcomingEventModal from '@/components/UpcomingEventModal.vue'
 
 export default {
     name: 'navbar',
@@ -28,6 +30,7 @@ export default {
         LogInBtn,
         SignUpModal,
         LogInModal
+        UpcomingEventModal
     }
 }
 </script>
