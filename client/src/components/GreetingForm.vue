@@ -77,12 +77,12 @@ export default {
       let now = new Date();
       let year = now.getFullYear();
       let month =
-        now.getMonth() > 9 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);
+        now.getMonth() > 8 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);
       let date =
-        now.getDate() > 9 ? now.getDate() + 1 : "0" + (now.getDate() + 1);
+        now.getDate() > 8 ? now.getDate() + 1 : "0" + (now.getDate() + 1);
       let hour = now.getHours() > 10 ? now.getHours() : "0" + now.getDate();
       let minute =
-        now.getMinutes() > 10 ? now.getMinutes() : "0" + now.getDate();
+        now.getMinutes() > 9 ? now.getMinutes() : "0" + now.getDate();
       this.form.date = year + "-" + month + "-" + date;
       this.form.start = hour + ":" + minute;
     }
