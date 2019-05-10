@@ -1,6 +1,9 @@
 import Api from "@/services/Api";
 
 export default {
+  authenticateUser(data) {
+    return Api().post("/login", data);
+  },
   getUser(id) {
     return Api().get("/users/" + id);
   },

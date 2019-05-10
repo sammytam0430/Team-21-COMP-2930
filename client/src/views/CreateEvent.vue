@@ -1,21 +1,4 @@
-<style>
-ol {
-  list-style-type: none;
-  overflow: auto;
-  min-height: 237px;
-  max-height: 237px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 0px;
-}
-
-li {
-  padding: 2px;
-  border-bottom: 1px solid lightgray;
-}
-</style>
-
-<template >
+<template>
   <b-container>
     <b-form v-on:submit.prevent="createEvent" class="pt-3">
       <b-form-row>
@@ -209,4 +192,19 @@ export default {
 };
 </script>
 
+<style>
+ol {
+  list-style-type: none;
+  overflow: auto;
+  min-height: 237px;
+  max-height: 237px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 0px;
+}
 
+li {
+  padding: 2px;
+  border-bottom: 1px solid lightgray;
+}
+</style>
