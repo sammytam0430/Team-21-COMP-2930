@@ -103,20 +103,6 @@ export default {
             ]
         }
     },
-    // methods: {
-    //     toggleFav: function(isFav){
-    //         this.isFav = !this.isFav;
-    //         console.log(this.isFav);
-
-    //         if(isFav){
-    //             this.favFriend = "unFavourites"
-    //         }
-    //         if(isFav==false){
-    //             this.favFriend = "Favourites"
-    //         }
-        
-    //     }
-    // },
 
     computed: {
         filteredFriends() {
