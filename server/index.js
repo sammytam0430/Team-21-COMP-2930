@@ -17,12 +17,9 @@ app.use(
   })
 );
 app.use(cors());
-app.use("/", serveStatic ( path.join ('client/dist') ) )
 app.use(require('connect-history-api-fallback')());
 app.use("/api", api);
 
-app.get('*', function (req, res) {
-  res.sendFile('client/dist/index.html')
-})
+app.use("/", serveStatic ( path.join ('client/dist') ) )
 
 app.listen(process.env.PORT || 5000);
