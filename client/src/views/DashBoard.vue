@@ -9,7 +9,6 @@
               <b-button size="sm" class="float-right">Create Event</b-button>
             </b-col>
           </b-row>
-
           <b-row>
             <b-col>
               <!-- <gmap-map :center="{lat: 49.2511, lng: -123.0}"
@@ -40,7 +39,7 @@
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
               <b-col cols="5.7" class="float-right">
-                <addFriendModal/>
+                <AddFriendModal/>
               </b-col>
             </b-row>
             <b-table :items="items" :fields="fields" :bordered="true" :fixed="true">
@@ -57,7 +56,7 @@
 
 <script>
 // import {gmapApi} from 'vue2-google-maps';
-import addFriendModal from "@/components/addFriendModal.vue";
+import AddFriendModal from "@/components/AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 
@@ -89,7 +88,7 @@ export default {
     }
   },
   components: {
-    addFriendModal,
+    AddFriendModal,
     Map
   }
 };

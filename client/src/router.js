@@ -1,15 +1,15 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/views/Home.vue";
-import Posts from "@/components/Posts.vue";
 import Profile from "@/views/Profile.vue";
 import CreateEvent from "@/views/CreateEvent.vue";
-import myfriend from "@/views/myfriend.vue";
-import eventdetails from "@/views/eventdetails.vue";
+import Friends from "@/views/Friends.vue";
+import EventDetails from "@/views/EventDetails.vue";
 import DashBoard from "@/views/DashBoard.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 import LogInModal from "@/components/LogInModal.vue";
-import interestselection from './views/interestselection.vue'
+import Listing from "@/views/Listing.vue";
+import EditInterests from "./views/EditInterests.vue";
 
 Vue.use(Router);
 
@@ -49,39 +49,34 @@ export default new Router({
       ]
     },
     {
-      path: "/posts",
-      name: "Posts",
-      component: Posts
-    },
-    {
       path: "/profile",
       name: "Profile",
       component: Profile
     },
     {
-      path: '/listing',
-      name: 'Listing',
+      path: "/listing",
+      name: "Listing",
       component: Listing
     },
     {
-      path: '/create',
-      name: 'Create',
+      path: "/create",
+      name: "Create",
       component: CreateEvent
     },
     {
       path: "/myfriend",
       name: "myfriend",
-      component: myfriend
+      component: Friends
     },
     {
       path: "/eventdetails",
       name: "eventdetails",
-      component: eventdetails
+      component: EventDetails
     },
     {
-      path: '/interestselection',
-      name: 'interestselection',
-      component: interestselection
+      path: "/interests",
+      name: "interests",
+      component: EditInterests
     },
     {
       path: "/dashboard",

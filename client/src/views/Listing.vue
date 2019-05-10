@@ -73,10 +73,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import EventsService from "@/services/EventsService";
-
-import EditField from "@/components/EditField.vue";
 
 export default {
   name: "listing",
@@ -89,7 +86,6 @@ export default {
       this.events = response.data;
     }
   },
-  components: { EditField },
   data() {
     return {
       location: "location is here",

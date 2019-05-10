@@ -1,12 +1,8 @@
 
 <template>
   <div>
-
     <gmap-map :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
-            <GmapMarker v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-        />
+      <GmapMarker v-for="(marker, index) in markers" :key="index" :position="marker.position"/>
       <GmapMarker
         v-if="this.place"
         label="★"
@@ -14,7 +10,7 @@
           lat: this.place.geometry.location.lat(),
           lng: this.place.geometry.location.lng(),
         }"
-        />
+      />
     </gmap-map>
   </div>
 </template>
@@ -24,10 +20,8 @@
 import { gmapApi } from "vue2-google-maps";
 
 export default {
-    data() {
-
-        return {
-            
+  data() {
+    return {
       name: "map",
       map: null,
       mapLoaded: false,
@@ -53,22 +47,20 @@ export default {
   },
   methods: {
     setPlace(place) {
-      this.place = place
+      this.place = place;
     },
-    usePlace(place) {
+    usePlace() {
       if (this.place) {
         this.markers.push({
           position: {
             lat: this.place.geometry.location.lat(),
-            lng: this.place.geometry.location.lng(),
+            lng: this.place.geometry.location.lng()
           }
-        })
+        });
         this.place = null;
       }
     }
   }
-
-
 };
 </script>
 

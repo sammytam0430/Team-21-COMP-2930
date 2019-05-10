@@ -7,10 +7,10 @@ export default {
   props: ["time"],
   data() {
     return {
-      fromNow: ''
-    }
+      fromNow: ""
+    };
   },
-  mounted () {
+  mounted() {
     this.fromNow = this.convertTime();
   },
   methods: {
