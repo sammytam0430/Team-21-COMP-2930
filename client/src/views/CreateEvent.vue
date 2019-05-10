@@ -1,21 +1,3 @@
-<style>
-ol {
-  list-style-type: none;
-  overflow: auto;
-  min-height: 220px;
-  max-height: 220px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding-left: 0px;
-}
-
-#list {
-  padding: 10px;
-  border-bottom: 1px solid lightgray;
-}
-</style>
-
-
 <template>
   <b-container>
     <b-form>
@@ -190,3 +172,19 @@ export default {
 };
 </script>
 
+<style>
+ol {
+  list-style-type: none;
+  overflow: auto;
+  min-height: 220px;
+  max-height: 220px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding-left: 0px;
+}
+
+#list {
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+}
+</style>

@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
           message: "Email does not exist"
         });
       }
-      if(bcrypt.compareSync(req.body.password, data[0].password)) {
+      if (bcrypt.compareSync(req.body.password, data[0].password)) {
         res.send({
           status: 200,
           success: true,
@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
           status: 403,
           success: false,
           message: "Incorrect password"
-        })
+        });
       }
     });
 });

@@ -100,7 +100,7 @@ export default {
         const response = await UsersService.createUser(this.signup);
         this.response = response.data;
         if (this.response.success) {
-          
+          this.showAlert = true;
         } else {
           this.showAlert = true;
         }

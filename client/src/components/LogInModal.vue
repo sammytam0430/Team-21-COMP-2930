@@ -64,7 +64,7 @@ export default {
       const response = await UsersService.authenticateUser(this.login);
       this.response = response.data;
       if (this.response.success) {
-        this.$router.push('dashboard');
+        this.$router.push("dashboard");
       } else {
         this.showAlert = true;
       }
