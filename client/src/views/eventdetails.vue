@@ -129,7 +129,7 @@ export default {
         }
 
         #vac{
-            padding: 0; 
+            padding: 0;
         }
 
     }
