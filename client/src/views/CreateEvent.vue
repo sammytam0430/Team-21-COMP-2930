@@ -1,8 +1,10 @@
 <template>
   <b-container>
+ 
+
     <b-form v-on:submit.prevent="createEvent" class="pt-3">
       <b-form-row>
-        <b-col class="px-3">
+        <b-col md="6" class="px-3">
           <b-form-row>
             <b-col>
               <b-form-group id="nameGroup" label="Event Name" label-for="name">
@@ -20,14 +22,14 @@
           </b-form-row>
 
           <b-form-row>
-            <b-col cols="9">
+            <b-col cols="7">
               <b-form-group id="typeGroup" label="Event Type" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
 
-            <b-col cols="3">
-              <b-form-group id="numberGroup" label="People Needed">
+            <b-col cols="5">
+              <b-form-group id="numberGroup" label="People Needed" label-for="number">
                 <b-form-input
                   id="number"
                   v-model="event.numOfPeople"
@@ -53,28 +55,30 @@
             </b-col>
           </b-form-row>
 
-          <b-form-row>
-            <b-col>
+          <b-form-row id="time">
+
+            <b-col lg="4">
               <b-form-group id="dateGroup" label="Date" label-for="date">
                 <b-form-input id="date" v-model="event.date" type="date" required></b-form-input>
               </b-form-group>
             </b-col>
 
-            <b-col>
-              <b-form-group id="startGroup" label="Start Time" class="pr-2">
+            <b-col col="6" sm="6" lg="4">
+              <b-form-group id="startGroup" label="Start Time">
                 <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
 
-            <b-col>
+            <b-col col="6" sm="6" lg="4">
               <b-form-group id="endGroup" label="End Time">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
+
           </b-form-row>
         </b-col>
 
-        <b-col class="px-3">
+        <b-col md="6" class="px-3">
           <b-form-group id="inviteGroup" label="Invite Friends (optional)">
             <b-form-row>
               <b-col cols="9">
@@ -116,7 +120,13 @@
         </b-col>
       </b-form-row>
     </b-form>
+
+   
+   
+   
+
   </b-container>
+  
 </template>
 
 <script>
@@ -129,6 +139,8 @@ export default {
 
   data() {
     return {
+      alert: true,
+      alertMessage: "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.",
       remaining: null,
       newFriend: "",
       response: null,
@@ -150,7 +162,7 @@ export default {
 
   methods: {
     addFriend() {
-      if (this.newFriend.trim() != "" && this.calcInvitees() > 0) {
+      if (this.calcInvitees() > 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
         this.remaining--;
@@ -229,4 +241,5 @@ li {
   padding: 2px;
   border-bottom: 1px solid lightgray;
 }
+
 </style>
