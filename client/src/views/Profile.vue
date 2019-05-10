@@ -71,7 +71,7 @@
     <p class="my-4"> 
       
 
-    <b-form-group class="pah" label="Check all that apply!">
+    <b-form-group class="pah" label="">
       <b-container fluid> 
         <b-form-checkbox
         
@@ -128,7 +128,7 @@ import EditField from '@/components/EditField.vue'
 export default {
   name: 'profile',
   runtimeCompiler: true,
-  components: { EditField},
+  components: {EditField},
   data () {
       return {
         firstName: 'Cookie',
@@ -137,7 +137,7 @@ export default {
         prefEmail: 'cmooshie@gmail.com',
         
         interests: 'blip, blop and bloop',
-        blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence',
+        blurb: 'something nothing whatever - likes random days of nothingness and sitting in silence; the end is near',
         selected: [],
         options: [
           { text: 'Outdoor Sports', value: 'Outdoor Sports'},
@@ -167,10 +167,10 @@ export default {
 }
 
 p {
-  background: #63A6C1;
+  background: rgb(206, 230, 240);
 } 
 .boo {
-  background: #63A6C1;
+  background: rgb(206, 230, 240);
   border: 3px solid black;
 }
 .boop {

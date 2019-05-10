@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Posts from './components/Posts.vue'
 import Profile from '@/views/Profile.vue'
+import Listing from '@/views/Listing.vue'
 import CreateEvent from '@/views/CreateEvent.vue'
 import myfriend from './views/myfriend.vue'
 import eventdetails from './views/eventdetails.vue'
@@ -26,6 +27,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/listing',
+      name: 'Listing',
+      component: Listing
     },
     {
       path: '/create',
