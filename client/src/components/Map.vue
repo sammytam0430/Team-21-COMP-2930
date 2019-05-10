@@ -6,7 +6,7 @@
       :position="infoPosition"
       :opened="infoOpened"
       :content="infoContent"
-      @closeclick="infoOpened=false"
+      @closeclick="infoOpened=true"
     ></gmap-info-window>
     <gmap-marker
       :key="index"
