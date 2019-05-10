@@ -17,6 +17,11 @@ Vue.use(VueGoogleMaps, {
   }
 });
 new Vue({
+  data() {
+    return {
+      currentUser: 0
+    }
+  },
   router,
   render: h => h(App)
 }).$mount("#app");
