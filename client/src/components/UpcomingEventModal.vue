@@ -2,15 +2,6 @@
   <div>
     <div class="mb-2">
      <b-button id="popover-upcoming" @click="showMsgBoxOne(items)" >upcoming</b-button>
-     <!-- <b-modal id="myModal" title="Upcoming Event">
-
-        Join for {{items[0].name}} starting {{items[0].startTime}} at {{items[0].location}} {{items[0].date}}
-        <template slot="modal-footer" slot-scope="{ok}">
-            <b-button size="sm" variant="success" @click="ok()">
-                OK
-            </b-button>
-        </template>
-     </b-modal> -->
       <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft" >
         <b-list-group>
           <b-list-group-item style="max-width: 30rem;" v-for="item in items" :key="item.name">
