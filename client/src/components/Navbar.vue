@@ -11,16 +11,12 @@
                     <b-nav-item href="#"><LogInBtn /></b-nav-item>
             </b-navbar-nav>
         </b-collapse>
-        <SignUpModal/>
-        <LogInModal/>
     </b-navbar>
 </template>
 
 <script>
 import SignUpBtn from '@/components/SignUpBtn.vue'
 import LogInBtn from '@/components/LogInBtn.vue'
-import SignUpModal from '@/components/SignUpModal.vue';
-import LogInModal from '@/components/LogInModal.vue';
 import UpcomingEventModal from '@/components/UpcomingEventModal.vue'
 
 export default {
@@ -28,8 +24,6 @@ export default {
     components: {
         SignUpBtn,
         LogInBtn,
-        SignUpModal,
-        LogInModal,
         UpcomingEventModal
     }
 }

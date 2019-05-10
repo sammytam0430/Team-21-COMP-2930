@@ -1,7 +1,10 @@
 <template>
-  <b-modal id="signup" title="Sign Up">
-    <b-alert :show="response" :variant="response.success ? success : danger">{{ response.message }}</b-alert>
-    <b-form @submit="createAccount()">
+  <b-modal id="signup" v-model="show" title="Sign Up" @hide="close">
+    <b-alert
+      v-model="showAlert"
+      :variant="response.success ? 'success' : 'danger'"
+    >{{ response.message }}</b-alert>
+    <b-form @submit.prevent="createAccount">
       <b-container class="px-0">
         <b-form-row>
           <b-col>
@@ -57,12 +60,7 @@
     <template slot="modal-footer">
       <span class="mr-auto">
         Already have an account?
-        <a
-          href
-          v-on:click.prevent
-          v-b-modal.login
-          @click="$bvModal.hide('signup')"
-        >Log In</a>
+        <router-link :to="{name: 'LogInModal'}">Log In</router-link>
       </span>
     </template>
   </b-modal>
@@ -75,30 +73,42 @@ export default {
   name: "SignUpModal",
   data() {
     return {
+      agreed: false,
       response: {
-        success: null,
+        success: false,
         message: {}
       },
-      agreed: false,
       signup: {
         fname: "",
         lname: "",
         email: "",
         prefEmail: "",
         password: ""
-      }
+      },
+      showAlert: false,
+      show: this.$route.meta.showSignUp
     };
+  },
+  watch: {
+    "$route.meta"({ showSignUp }) {
+      this.show = showSignUp;
+    }
   },
   methods: {
     async createAccount() {
       if (this.agreed) {
         const response = await UsersService.createUser(this.signup);
         this.response = response.data;
-        if (response.success) {
-            router.push('dashboard');
+        if (this.response.success) {
+          
         } else {
-            
+          this.showAlert = true;
         }
+      }
+    },
+    close() {
+      if (this.$route.path !== "/login") {
+        this.$router.push("/");
       }
     }
   }
