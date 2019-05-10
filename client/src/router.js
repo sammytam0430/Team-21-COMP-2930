@@ -58,8 +58,13 @@ export default new Router({
       component: Profile
     },
     {
-      path: "/create",
-      name: "Create",
+      path: '/listing',
+      name: 'Listing',
+      component: Listing
+    },
+    {
+      path: '/create',
+      name: 'Create',
       component: CreateEvent
     },
     {
