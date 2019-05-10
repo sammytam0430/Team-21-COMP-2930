@@ -15,12 +15,12 @@
         
         <b-container class="friendList mt-3">
             <b-container>
-                <b-card v-for="particularFriend in filteredFriends" class="mt-3">
+                <b-card v-bind:key="particularFriend" v-for="particularFriend in filteredFriends" class="mt-3">
                     <b-row>
                         <b-col class="col-lg-3 col-md-2 col-xs-2"><b-img thumbnail v-bind:src="particularFriend.image" alt="" left></b-img></b-col>
                         <b-col class="friendName"> {{ particularFriend.name }}</b-col>
-                        <b-col class="favToggleButton">
-                            <b-button size="sm" variant="outline-primary" :pressed.sync="particularFriend.isFav">{{particularFriend.isFav ? "Favourite" : "Unfavourite"}} </b-button>
+                        <b-col class="favToggleButtonDiv">
+                            <b-button class="favToggleButton" size="sm" variant="outline-primary" :pressed.sync="particularFriend.isFav">{{particularFriend.isFav ? "Favourite" : "Add to favourites"}} </b-button>
                         </b-col>
                     </b-row>
                 </b-card>
@@ -177,9 +177,21 @@ export default {
         align-items: center;
     }
 
-    .favToggleButton{
+    .favToggleButtonDiv{
         font-size: 12px;
         display: flex;
         align-items: center;
+    }
+
+    
+    @media only screen and (min-width: 1024px){
+        .friendName{
+            font-size: 25px;
+        }
+
+        .favToggleButton{
+            font-size: 22px;
+        }
+        
     }
 </style>
