@@ -1,7 +1,5 @@
 .DS_Store
 node_modules
-/dist
-settings.json
 
 # local env files
 .env
