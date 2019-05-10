@@ -41,6 +41,7 @@ router.delete("/:id", (req, res) => {
 
 router.get("/:id", (req, res) => {
   db("events")
+    .join('users', {'events.organizer': 'users.userID'})
     .where({ eventID: req.params.id })
     .select()
     .then(data => {
