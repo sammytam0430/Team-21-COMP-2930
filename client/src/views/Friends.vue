@@ -16,16 +16,15 @@
         <input
           type="text"
           class="form-control my-0 py-1"
-          placeholder="Search your Friends ..."
+          placeholder="Search your friends..."
           v-model="searchVal"
         >
       </div>
     </b-container>
-
     <b-container class="friendList mt-3">
       <b-container>
         <b-card
-          v-bind:key="particularFriend"
+          v-bind:key="particularFriend.name"
           v-for="particularFriend in filteredFriends"
           class="mt-3"
         >
@@ -57,7 +56,7 @@ export default {
     return {
       searchVal: "",
       favFriend: "",
-      manyFriends: [
+      friends: [
         {
           name: "Subbi",
           image:
@@ -150,7 +149,7 @@ export default {
 
   computed: {
     filteredFriends() {
-      let filteredList = this.manyFriends.filter(item => {
+      let filteredList = this.friends.filter(item => {
         let matchBoolean = item.name
           .toLowerCase()
           .match(this.searchVal.toLowerCase());
