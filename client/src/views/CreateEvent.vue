@@ -52,6 +52,7 @@ li {
                   id="number"
                   v-model="event.numOfPeople"
                   type="number"
+                  v-on:change="calcInvitees"
                   min="1"
                   max="999"
                   required
@@ -110,7 +111,8 @@ li {
 
           <b-row>
             <b-container>
-              <b-form-group id="typeGroup" label="Invitees">
+              Invitees (spots remaining: {{remaining}})
+              <b-form-group id="typeGroup">
                 <ol>
                   <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}}
@@ -144,6 +146,7 @@ export default {
 
   data() {
     return {
+      remaining: null,
       newFriend: "",
       response: null,
       options: [{value: null, text: "Please select an event type"}],
@@ -164,15 +167,34 @@ export default {
 
   methods: {
     addFriend() {
-      if (this.newFriend.trim() != "") {
+      if (this.newFriend.trim() != "" && this.calcInvitees() > 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
-        this.isRoll = true;
+        this.remaining--;
       }
     },
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
+      this.calcInvitees();
+    },
+
+    calcInvitees() {
+      let people = this.event.numOfPeople;
+      let friends = this.invitees.length;
+      let remaining = people - friends
+      this.remaining = remaining;
+      if (remaining <= 0) {
+        alert("You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.");
+        this.event.numOfPeople = friends;
+        this.remaining = 0;
+      }
+      return remaining;
+    },
+
+    spotsRemaining() {
+      let num = this.calcInvitees();
+      this.remaining = num;
     },
 
     async createEvent() {
