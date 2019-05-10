@@ -15,25 +15,23 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    // Store hash in your password DB.
-    req.body.password = hash;
-    db.insert(req.body)
-      .returning("*")
-      .into("users")
-      .then(data => {
-        res.json({ status: 201, success: true, message: "User created" });
-      })
-      .catch(err => {
-        if (err.code === 23505) {
-          res.json({
-            status: 403,
-            success: false,
-            message: "This email already exists"
-          });
-        }
-      });
-  });
+  let salt = bcrypt.genSaltSync(saltRounds);
+  req.body.password = bcrypt.hashSync(req.body.password, salt);
+  db.insert(req.body)
+    .returning("*")
+    .into("users")
+    .then(data => {
+      res.json({ status: 201, success: true, message: "User created" });
+    })
+    .catch(err => {
+      if (err.code === "23505") {
+        res.json({
+          status: 403,
+          success: false,
+          message: "This email already exists"
+        });
+      }
+    });
 });
 
 router.patch("/:id", (req, res) => {
