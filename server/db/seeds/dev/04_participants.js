@@ -6,7 +6,16 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return Promise.all([
         knex("participants").insert([
-          { userID: 1, eventID: 1 }
+          { eventID: 1, userID: 1 },
+          { eventID: 1, userID: 2 },
+          { eventID: 1, userID: 3 },
+          { eventID: 2, userID: 3 },
+          { eventID: 2, userID: 5 },
+          { eventID: 2, userID: 4 },
+          { eventID: 3, userID: 3 },
+          { eventID: 3, userID: 2 },
+          { eventID: 3, userID: 5 }
+
         ])
       ]);
     });
