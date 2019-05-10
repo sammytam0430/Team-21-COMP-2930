@@ -3,7 +3,6 @@
     <b-form v-on:submit.prevent="createEvent" class="pt-3">
       <b-form-row>
         <b-col class="px-3">
-
           <b-form-row>
             <b-col>
               <b-form-group id="nameGroup" label="Event Name" label-for="name">
@@ -19,16 +18,14 @@
               </b-form-group>
             </b-col>
           </b-form-row>
-         
 
           <b-form-row>
             <b-col cols="9">
               <b-form-group id="typeGroup" label="Event Type" label-for="type">
-                <b-form-select id="type" v-model="event.type" :options="options" required>
-                </b-form-select>
+                <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
-            
+
             <b-col cols="3">
               <b-form-group id="numberGroup" label="People Needed">
                 <b-form-input
@@ -45,7 +42,11 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="descriptionGroup" label="Description (optional)" label-for="description">
+              <b-form-group
+                id="descriptionGroup"
+                label="Description (optional)"
+                label-for="description"
+              >
                 <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
               </b-form-group>
             </b-col>
@@ -63,7 +64,7 @@
                 <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
-            
+
             <b-col>
               <b-form-group id="endGroup" label="End Time">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
@@ -73,7 +74,7 @@
         </b-col>
 
         <b-col class="px-3">
-          <b-form-group id="inviteGroup" label="Invite Friends (optional)">    
+          <b-form-group id="inviteGroup" label="Invite Friends (optional)">
             <b-form-row>
               <b-col cols="9">
                 <b-form-input
@@ -81,7 +82,7 @@
                   v-model="newFriend"
                   type="text"
                   @keydown.enter="addFriend()"
-                  @keydown.enter.prevent=""
+                  @keydown.enter.prevent
                 ></b-form-input>
               </b-col>
 
@@ -108,9 +109,8 @@
               </b-form-group>
             </b-container>
           </b-row>
-          
-          <b-button type="submit" block variant="primary">Create Event</b-button>
 
+          <b-button type="submit" block variant="primary">Create Event</b-button>
         </b-col>
       </b-form-row>
     </b-form>
@@ -129,14 +129,14 @@ export default {
     return {
       newFriend: "",
       response: null,
-      options: [{value: null, text: "Please select an event type"}],
+      options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
       event: {
         name: "",
         description: "",
         organizer: 0,
         type: null,
-        date: new Date().toISOString().slice(0,10),
+        date: new Date().toISOString().slice(0, 10),
         start: "",
         end: "",
         location: "",
@@ -160,16 +160,16 @@ export default {
 
     async createEvent() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
-        document.body.animate([
-          {transform: 'rotate(0deg)'},
-          {transform: 'rotate(360deg)'}
-          ], {
-          duration: 2000,
-          easing: "ease-in-out"
-          });
+        document.body.animate(
+          [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+          {
+            duration: 2000,
+            easing: "ease-in-out"
+          }
+        );
       }
-        // const response = await EventsService.createEvent(this.event);
-        // this.response = response.data;
+      const response = await EventsService.createEvent(this.event);
+      this.response = response.data;
     },
 
     async getEventType() {
@@ -192,7 +192,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 ol {
   list-style-type: none;
   overflow: auto;

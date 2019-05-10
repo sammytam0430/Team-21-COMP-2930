@@ -1,6 +1,5 @@
 <template>
   <div class="interestselection">
-    <b-button v-b-modal.interestmodal>Click to select your interests</b-button>
     <b-modal id="interestmodal" title="Select your interests">
       <b-container>
         <b-row>

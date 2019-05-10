@@ -1,7 +1,6 @@
 <template>
   <div class="logInBtn">
-    <router-link :to="{name: 'LogInModal'}">
-      <b-button variant="primary">Log In</b-button>
+    <router-link :to="{name: 'LogInModal'}">Log In
     </router-link>
   </div>
 </template>

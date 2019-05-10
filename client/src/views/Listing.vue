@@ -1,72 +1,45 @@
 <template>
   <b-container>
-    <span id="title">Events</span>
-
+    <EventDetails/>
+    <span class="h1 mr-5">Events</span>
+    <b-button v-b-toggle.collapse variant="primary">Filter</b-button>
     <b-container>
       <b-row>
-        <b-col cols="8">
-          <b-container class="markBox">
-            <b-row>
-              <b-col cols="9">
-                <b-row class="desc">{{events[0].name}}</b-row>
-              </b-col>
-
-              <b-col>{{events[0].date}}</b-col>
-            </b-row>
-
-            <b-container>
-              <b-row>Location: {{events[0].location}}</b-row>
-              <b-row>Start: {{events[0].start}}</b-row>
-              <b-row>End: {{events[0].end}}</b-row>
-            </b-container>
-          </b-container>
-        </b-col>
-
-        <b-col cols="4">
-          <b-container class="markBox2">
-            <b-row class="p-2">Filter by:</b-row>
-
-            <b-form-row>
-              <b-form-group id="typeGroup" label="Event Type">
+        <b-col sm="6" md="4">
+          <b-collapse visible id="collapse" class="mt-2">
+            <b-container class="markBox2 py-2">
+              <b-row class="pl-2 h3">Filter by:</b-row>
+              <b-form-group id="typeGroup" label="Event Type" label-for="type">
                 <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
               </b-form-group>
-            </b-form-row>
-
-            <b-form-row>
               <b-form-group id="dateGroup" label="From:">
                 <b-form-input id="date" type="date" required></b-form-input>
+                <b-form-input id="start" type="time" required></b-form-input>
               </b-form-group>
-            </b-form-row>
-
-            <b-form-row>
-              <b-form-group id="timeGroup" label>
-                <b-form-row>
-                  <b-col>
-                    <b-form-input id="start" type="time" required></b-form-input>
-                  </b-col>
-                </b-form-row>
-              </b-form-group>
-            </b-form-row>
-
-            <b-form-row>
               <b-form-group id="dateGroup" label="To:">
                 <b-form-input id="date" type="date" required></b-form-input>
+                <b-form-input id="start" type="time" required></b-form-input>
               </b-form-group>
-            </b-form-row>
-
-            <b-form-row>
-              <b-form-group id="timeGroup" label>
-                <b-form-row>
-                  <b-col>
-                    <b-form-input id="start" type="time" required></b-form-input>
-                  </b-col>
-                </b-form-row>
-              </b-form-group>
-            </b-form-row>
-          </b-container>
+            </b-container>
+          </b-collapse>
         </b-col>
-
-        <b-col cols="4">stuff.</b-col>
+        <b-col sm="6" md="8">
+          <b-card-group class="mt-2" columns>
+            <b-card :key="event.eventID" v-for="event in events" :title="event.name">
+              <b-card-sub-title>{{ event.description }}</b-card-sub-title>
+              <hr>
+              <p>on {{event.date}}</p>
+              <p>at {{event.location}}</p>
+              <p>starting at {{event.start}}</p>
+              <Timestamp :time="event.created_at"/>
+              <div slot="footer">
+                <router-link :to="{name: 'EventDetails', params: {id: event.eventID}}">
+                  <b-button variant="outline-info">Details</b-button>
+                </router-link>
+              </div>
+            </b-card>
+          </b-card-group>
+        </b-col>
       </b-row>
     </b-container>
   </b-container>
@@ -74,17 +47,15 @@
 
 <script>
 import EventsService from "@/services/EventsService";
+import InterestsService from "@/services/InterestsService";
+import EventDetails from "@/components/EventDetails";
+import Timestamp from "@/components/Timestamp";
 
 export default {
   name: "listing",
-  mounted() {
-    this.loadEvents();
-  },
-  methods: {
-    async loadEvents() {
-      const response = await EventsService.getEvents();
-      this.events = response.data;
-    }
+  components: {
+    Timestamp,
+    EventDetails
   },
   data() {
     return {
@@ -92,30 +63,31 @@ export default {
       startTime: "start 1700",
       endTime: "end 1800",
       date: "may 10, 2019",
+      selected: 0,
       fields: [],
       events: [],
-      options: [
-        { value: null, text: "Select an event type" },
-        { value: "outdoor", text: "Outdoor Sports" },
-        { value: "indoor", text: "Indoor Sports" },
-        { value: "card/board", text: "Card/Board Games" },
-        { value: "pc", text: "PC Games" },
-        { value: "mobile", text: "Mobile Games" },
-        { value: "literature", text: "Literature" },
-        { value: "music", text: "Music" },
-        { value: "dance", text: "Dance" },
-        { value: "food", text: "Food" },
-        { value: "other", text: "Other" }
-      ]
+      options: [{ value: 0, text: "Select an Event Type" }]
     };
+  },
+  mounted() {
+    this.loadEvents(), this.getEventType();
+  },
+  methods: {
+    async loadEvents() {
+      const response = await EventsService.getEvents();
+      this.events = response.data;
+    },
+    async getEventType() {
+      const response = await InterestsService.getInterests();
+      for (const option of response.data) {
+        this.options.push({ value: option.interestID, text: option.name });
+      }
+    }
   }
 };
 </script>
 
 <style>
-#title {
-  font-size: 40px;
-}
 .eventBox {
   width: 70%;
   height: 200px;
