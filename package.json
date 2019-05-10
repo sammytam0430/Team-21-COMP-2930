@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server",
     "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
-    "build" : "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "build": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "knex": "^0.16.5",

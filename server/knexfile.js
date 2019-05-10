@@ -1,4 +1,4 @@
-const settings = require("./db/settings.json");
+const settings = require("./db/settings.json") || {};
 
 module.exports = {
   development: {
