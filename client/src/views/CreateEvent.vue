@@ -1,6 +1,7 @@
 <template>
   <b-container>
- 
+
+
 
     <b-form v-on:submit.prevent="createEvent" class="pt-3">
       <b-form-row>
@@ -115,18 +116,16 @@
               </b-form-group>
             </b-container>
           </b-row>
-
           <b-button type="submit" block variant="primary">Create Event</b-button>
         </b-col>
+
       </b-form-row>
     </b-form>
 
-   
-   
-   
-
+    <b-modal v-model="alert" hide-header ok-only footerClass="border-top-0">
+      You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.
+    </b-modal>
   </b-container>
-  
 </template>
 
 <script>
@@ -139,8 +138,7 @@ export default {
 
   data() {
     return {
-      alert: true,
-      alertMessage: "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.",
+      alert: false,
       remaining: null,
       newFriend: "",
       response: null,
@@ -162,7 +160,7 @@ export default {
 
   methods: {
     addFriend() {
-      if (this.calcInvitees() > 0) {
+      if (this.newFriend != 0 && this.calcInvitees() > 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
         this.remaining--;
@@ -180,7 +178,7 @@ export default {
       let remaining = people - friends
       this.remaining = remaining;
       if (remaining <= 0) {
-        alert("You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.");
+        this.alert = true;
         this.event.numOfPeople = friends;
         this.remaining = 0;
       }
