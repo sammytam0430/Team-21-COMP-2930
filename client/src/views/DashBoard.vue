@@ -55,7 +55,6 @@
 </template>
 
 <script>
-// import {gmapApi} from 'vue2-google-maps';
 import AddFriendModal from "@/components/AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
