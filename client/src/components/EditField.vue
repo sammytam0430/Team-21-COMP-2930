@@ -5,14 +5,14 @@
       <input
         :value="value"
         @input="$emit('input', $event.target.value)"
-        @keydown.enter="editing=false"
-        @blur="editing=false"
+        @keydown.enter="editing = false"
+        @blur="editing = false"
         type="text"
         class="form-control"
         autofocus="true"
       >
     </span>
-    <img src="../assets/edits.png" class="ml-5" v-show="!editing" @click="editing=true">
+    <img src="../assets/edits.png" class="ml-5" v-show="!editing" @click="editing = true">
   </p>
 </template>
 
