@@ -9,6 +9,7 @@ import eventdetails from "@/views/eventdetails.vue";
 import DashBoard from "@/views/DashBoard.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 import LogInModal from "@/components/LogInModal.vue";
+import interestselection from './views/interestselection.vue'
 
 Vue.use(Router);
 
@@ -76,6 +77,11 @@ export default new Router({
       path: "/eventdetails",
       name: "eventdetails",
       component: eventdetails
+    },
+    {
+      path: '/interestselection',
+      name: 'interestselection',
+      component: interestselection
     },
     {
       path: "/dashboard",
