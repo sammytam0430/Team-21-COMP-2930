@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import AddFriendModal from "@/components/AddFriendModal.vue";
+import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 
