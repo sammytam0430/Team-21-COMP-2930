@@ -30,7 +30,7 @@
         >
           <b-row>
             <b-col class="col-lg-3 col-md-2 col-xs-2">
-              <b-img thumbnail v-bind:src="particularFriend.image" alt left></b-img>
+              <b-img thumbnail rounded="circle" v-bind:src="particularFriend.image" alt left></b-img>
             </b-col>
             <b-col class="friendName">{{ particularFriend.name }}</b-col>
             <b-col class="favToggleButtonDiv">
