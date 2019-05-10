@@ -4,12 +4,11 @@ import Home from "@/views/Home.vue";
 import Profile from "@/views/Profile.vue";
 import CreateEvent from "@/views/CreateEvent.vue";
 import Friends from "@/views/Friends.vue";
-import EventDetails from "@/views/EventDetails.vue";
+import EventDetails from "@/components/EventDetails.vue";
 import DashBoard from "@/views/DashBoard.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 import LogInModal from "@/components/LogInModal.vue";
 import Listing from "@/views/Listing.vue";
-import EditInterests from "./views/EditInterests.vue";
 
 Vue.use(Router);
 
@@ -54,9 +53,24 @@ export default new Router({
       component: Profile
     },
     {
-      path: "/listing",
-      name: "Listing",
-      component: Listing
+      path: "/events",
+      name: "events",
+      component: Listing,
+      meta: {
+        showDetails: false
+      },
+      children: [
+        {
+          path: ":id",
+          name: "EventDetails",
+          components: {
+            page: EventDetails
+          },
+          meta: {
+            showDetails: true
+          }
+        }
+      ]
     },
     {
       path: "/create",
@@ -64,19 +78,9 @@ export default new Router({
       component: CreateEvent
     },
     {
-      path: "/myfriend",
-      name: "myfriend",
+      path: "/friends",
+      name: "friends",
       component: Friends
-    },
-    {
-      path: "/eventdetails",
-      name: "eventdetails",
-      component: EventDetails
-    },
-    {
-      path: "/interests",
-      name: "interests",
-      component: EditInterests
     },
     {
       path: "/dashboard",
