@@ -56,7 +56,6 @@ export default {
 },
   methods: {
     openInfoWindow(location) {
-      console.log(location);
       this.selectedLocation = location;
       this.infoBoxOpen = true;
     },

@@ -1,11 +1,13 @@
 <template>
-    <div class="logInBtn">
-        <b-button v-b-modal.login variant="primary">Log In</b-button>
-    </div>
+  <div class="logInBtn">
+    <router-link :to="{name: 'LogInModal'}">
+      <b-button variant="primary">Log In</b-button>
+    </router-link>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "login"
-}
+  name: "login"
+};
 </script>

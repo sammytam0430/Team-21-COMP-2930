@@ -1,38 +1,79 @@
 <template>
-    <b-modal id="login" title="Log In" ok-title="Log In" ok-only>
-        <b-form>
-            <b-form-group id="email-group" label="School Email" label-for="login-email">
-                <b-form-input id="login-email" v-model="login.email" type="email" required placeholder="example@my.bcit.ca"></b-form-input>
-            </b-form-group>
-            <b-form-group id="password-group" label="Password" label-for="login-password">
-                <b-form-input id="login-password" v-model="login.password" type="password" required></b-form-input>
-            </b-form-group>
-            <b-form-checkbox id="login-checkbox" name="checkbox" value="true" unchecked-value="false">
-                Remember Me
-            </b-form-checkbox><br>
-            <a href="" v-on:click.prevent>Forgot Password?</a>
-        </b-form>
-        <template slot="modal-footer" slot-scope="{ ok }">
-            <span class="mr-2">Don't have an account? 
-                <a href="" v-on:click.prevent v-b-modal.signup @click="$bvModal.hide('login')">Sign Up</a>
-            </span>
-            <b-button variant="primary" @click="ok()">
-                Log In
-            </b-button>
-        </template>
-    </b-modal>
+  <b-modal id="login" v-model="show" title="Log In" @hide="close">
+    <b-alert
+      :show="showAlert"
+      :variant="response.success ? 'success' : 'danger'"
+    >{{ response.message }}</b-alert>
+    <b-form @submit.prevent="verifyUser">
+      <b-form-group id="email-group" label="Email" label-for="login-email">
+        <b-form-input
+          id="login-email"
+          v-model="login.email"
+          type="email"
+          required
+          placeholder="example@my.bcit.ca"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group id="password-group" label="Password" label-for="login-password">
+        <b-form-input id="login-password" v-model="login.password" type="password" required></b-form-input>
+      </b-form-group>
+      <b-form-checkbox
+        id="login-checkbox"
+        name="checkbox"
+        value="true"
+        unchecked-value="false"
+      >Remember Me</b-form-checkbox>
+      <b-button class="w-100 my-3" type="submit" variant="primary">Log In</b-button>
+      <a href v-on:click.prevent>Forgot Password?</a>
+    </b-form>
+    <template slot="modal-footer">
+      <span class="mr-auto">
+        Don't have an account?
+        <router-link :to="{name: 'SignUpModal'}">Sign Up</router-link>
+      </span>
+    </template>
+  </b-modal>
 </template>
 
 <script>
+import UsersService from "@/services/UsersService";
+
 export default {
-    name: 'login',
-    data() {
-        return {
-            login: {
-                email: '',
-                password: ''
-            }
-        }
+  name: "LogInModal",
+  data() {
+    return {
+      response: {
+        success: null,
+        message: {}
+      },
+      login: {
+        email: "",
+        password: ""
+      },
+      showAlert: false,
+      show: this.$route.meta.showLogIn
+    };
+  },
+  watch: {
+    "$route.meta"({ showLogIn }) {
+      this.show = showLogIn;
     }
-}
+  },
+  methods: {
+    async verifyUser() {
+      const response = await UsersService.authenticateUser(this.login);
+      this.response = response.data;
+      if (this.response.success) {
+        this.$router.push('dashboard');
+      } else {
+        this.showAlert = true;
+      }
+    },
+    close() {
+      if (this.$route.path !== "/signup") {
+        this.$router.push("/");
+      }
+    }
+  }
+};
 </script>
