@@ -20,6 +20,6 @@ app.use(cors());
 app.use(require("connect-history-api-fallback")());
 app.use("/api", api);
 
-// app.use("/", serveStatic(path.join("client/dist")));
+app.use("/", serveStatic(path.join("client/dist")));
 
 app.listen(process.env.PORT || 5000);
