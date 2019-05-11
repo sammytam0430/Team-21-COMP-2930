@@ -7,7 +7,6 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-console.log(process.env);
 export default {
   name: "App",
   components: {
