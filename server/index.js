@@ -1,11 +1,11 @@
 const express = require("express");
 const serveStatic = require("serve-static");
-const path = require('path');
+const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
-require('dotenv').config();
+require("dotenv").config();
 
 const api = require("./routes/api");
 
@@ -17,9 +17,9 @@ app.use(
   })
 );
 app.use(cors());
-app.use(require('connect-history-api-fallback')());
+app.use(require("connect-history-api-fallback")());
 app.use("/api", api);
 
-app.use("/", serveStatic ( path.join ('client/dist') ) )
+// app.use("/", serveStatic(path.join("client/dist")));
 
 app.listen(process.env.PORT || 5000);
