@@ -1,6 +1,6 @@
 <template>
   <b-navbar class="w100" toggleable="md" type="light" variant="light" sticky>
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/">
       <img src="../assets/logo.png" alt="Konnect logo">
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse" class="ml-auto"></b-navbar-toggle>

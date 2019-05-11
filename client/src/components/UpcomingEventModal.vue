@@ -6,7 +6,7 @@
         <b-list-group>
           <b-list-group-item
             style="max-width: 30rem;"
-            v-for="item in items"
+            v-for="item in events"
             :key="item.name"
           >Join {{item.name}} starts {{item.startTime}} @ {{item.location}} {{item.date}}</b-list-group-item>
         </b-list-group>
@@ -16,37 +16,25 @@
 </template>
 
 <script>
+import EventsService from "@/services/EventsService";
 export default {
   data() {
     return {
-      items: [
-        {
-          name: "Catan",
-          startTime: "10:30pm",
-          date: "Feb 12 2019",
-          location: "BCIT's Library"
-        },
-        {
-          name: "Basketball",
-          startTime: "1:30pm",
-          date: "Feb 15 2019",
-          location: "BCIT's Gym"
-        },
-        {
-          name: "Badminton",
-          startTime: "1:45pm",
-          date: "March 15 2019",
-          location: "BCIT's Gym"
-        }
-      ],
+      events: [],
       selectedUser: ""
     };
   },
-
+  mounted() {
+    this.loadEvents();
+  },
   methods: {
     showMsgBoxOne(items) {
       this.selectedUser = items;
-    }
+    },
+    async loadEvents() {
+      const response = await EventsService.getEvents();
+      this.events = response.data;
+    },
   }
 };
 </script>
