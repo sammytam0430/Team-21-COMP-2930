@@ -2,7 +2,7 @@
   <b-container>
     <EventDetails/>
     <span class="h1 mr-5">Events</span>
-    <b-button v-b-toggle.collapse variant="primary">Filter</b-button>
+    <b-button v-b-toggle.collapse variant="outline-info">Filter</b-button>
     <b-container>
       <b-row>
         <b-col sm="6" md="4">
@@ -56,6 +56,11 @@ export default {
   components: {
     Timestamp,
     EventDetails
+  },
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
   },
   data() {
     return {

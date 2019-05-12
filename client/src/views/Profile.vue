@@ -83,6 +83,11 @@ export default {
   name: "profile",
   runtimeCompiler: true,
   components: { EditField, EditInterests },
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       response: {},

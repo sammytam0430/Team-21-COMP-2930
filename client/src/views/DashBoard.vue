@@ -6,7 +6,9 @@
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4">
-              <b-button size="sm" class="float-right">Create Event</b-button>
+              <router-link :to="{path: '/create'}">
+                <b-button size="sm" class="float-right">Create Event</b-button>
+              </router-link>
             </b-col>
           </b-row>
           <b-row>
@@ -61,6 +63,11 @@ import EventsService from "@/services/EventsService";
 
 export default {
   name: "Dashboard",
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       fieldsEvent: ["event", { key: "peopleJoined", label: "People" }],
