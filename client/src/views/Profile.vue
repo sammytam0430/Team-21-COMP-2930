@@ -54,7 +54,7 @@
           </b-col>
           <b-col>
             {{selected.join(', ')}}
-            <b-img :src="require('../assets/edits.png')" v-b-modal.interestmodal/>
+            <b-img :src="require('../assets/edits.png')" v-if="currentUser" v-b-modal.interestmodal/>
             <EditInterests/>
           </b-col>
         </b-row>
@@ -92,7 +92,8 @@ export default {
     return {
       response: {},
       selected: [],
-      user: []
+      user: [],
+      currentUser: this.$session.get("currentUser") == this.$route.params.id
     };
   },
   mounted() {

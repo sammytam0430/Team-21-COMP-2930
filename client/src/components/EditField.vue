@@ -1,7 +1,7 @@
 <template>
   <p>
-    <span v-show="!editing">{{value}}</span>
-    <span v-show="editing">
+    <span v-if="!editing">{{value}}</span>
+    <span v-else>
       <input
         :value="value"
         @input="$emit('input', $event.target.value)"
@@ -12,7 +12,7 @@
         autofocus="true"
       >
     </span>
-    <img src="../assets/edits.png" class="ml-5" v-show="!editing" @click="editing = true">
+    <img src="../assets/edits.png" class="ml-5" v-if="!editing && currentUser" @click="editing = true">
   </p>
 </template>
 
@@ -22,7 +22,8 @@ export default {
   props: ["label", "value"],
   data() {
     return {
-      editing: false
+      editing: false,
+      currentUser: this.$session.get("currentUser") == this.$route.params.id
     };
   }
 };
