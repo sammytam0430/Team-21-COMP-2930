@@ -16,8 +16,14 @@ router.post("/", (req, res) => {
     .returning("*")
     .into("events")
     .then(data => {
-      res.send(data);
-    });
+      res.json({
+        status: 201,
+        success: true,
+        message: "Event created",
+        eventID: data[0].eventID
+      });
+    })
+    .catch(err => {});
 });
 
 router.patch("/:id", (req, res) => {
@@ -41,7 +47,7 @@ router.delete("/:id", (req, res) => {
 
 router.get("/:id", (req, res) => {
   db("events")
-    .join('users', {'events.organizer': 'users.userID'})
+    .join("users", { "events.organizer": "users.userID" })
     .where({ eventID: req.params.id })
     .select()
     .then(data => {
