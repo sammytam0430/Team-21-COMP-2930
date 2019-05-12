@@ -15,7 +15,7 @@
                         :zoom="16"
                     style="width: 100%; height: 550px">
               </gmap-map>-->
-              <Map/>
+              <Map v-bind:events="events"/>
             </b-col>
           </b-row>
           <b-row>

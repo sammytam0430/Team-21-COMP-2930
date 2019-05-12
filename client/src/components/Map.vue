@@ -1,44 +1,48 @@
 
 <template>
   <div>
-    <gmap-map :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
-            <gmap-marker
-                :key="index"
-                v-for="(m, index) in markers"
-                :position="m.position"
-                :clickable="true"
-                :draggable="true"
-                :label="m.label"
-                @click="openWindow"
-
-            />
-            <gmap-info-window 
-                @closeclick="window_open=false" 
-                :opened="window_open" 
-                :position="infowindow"
-
-            >
-                Hello world!
-            </gmap-info-window> 
-    </gmap-map>
+    <GmapMap :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
+      <GmapMarker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="false"
+        :label="m.label"
+        @click="toggleInfoWindow(m,index)"
+      >
+        <GmapInfoWindow 
+          :position="infoWindowPos"
+          :opened="infoWinOpen" 
+          @closeclick="infoWinOpen=false" >
+            <div v-html="infoContent" ></div>
+        </GmapInfoWindow>
+      </GmapMarker>
+    </GmapMap>
   </div>
 </template>
 
 
 <script>
-import { gmapApi } from "vue2-google-maps";
+// import { gmapApi } from "vue2-google-maps";
 
 export default {
+  props: ['events'],
   data() {
     return {
       name: "map",
-      map: null,
-      mapLoaded: false,
+      infoContent: "",
+      infoWinOpen : false,
+      infoWindowPos: null,
       center: { lat: 49.2500589, lng: -123.0012234 },
-
-      computed: {
-        google: gmapApi
+      mounted (){
+        this.$refs.mapRef.$mapPromise.then((map)=>{
+          map.panTo({lat: 49.2500589, lng: -123.0012234})
+        })
       },
+      // computed: {
+      //   google: gmapApi
+      // },
       markers: [
         {
           label: "1",
@@ -50,11 +54,11 @@ export default {
         },
         {
           label: "3",
-          position: { lat: 49.2488319, lng: -123.0011311, }
+          position: { lat: 49.2488319, lng: -123.0011311 }
         },
         {
           label: "4",
-          position: { lat: 49.2500933, lng: -123.002827, }
+          position: { lat: 49.2500933, lng: -123.002827 }
         }
       ],
       place: null,
@@ -85,6 +89,29 @@ export default {
         });
         this.place = null;
       }
+    },
+    toggleInfoWindow(marker, idx){
+      this.infoWindowPos = marker.position;
+      this.infoContent = this.getInfoWindowContent(marker);
+
+      if(this.currentMidx == idx){
+        this.infoWinOpen = !this.infoWinOpen;
+      }else{
+        this.infoWinOpen = true;
+        this.currentMidx = idx;
+      }
+    },
+    getInfoWindowContent(marker){
+      let eventName = this.$props.events[0].name;
+      let events = this.$props.events;
+      let i = 0;
+      for(i = 0; i < events.length; i++){
+        if(marker.label == events[i].eventID){
+          eventName = events[i].name;
+        }
+
+      }
+      return (eventName)
     }
   }
 };
