@@ -1,7 +1,15 @@
 
 <template>
   <div>
+    <!-- <b-button v-on: setPlaceText('BCIT')>Set BCIT GYM </b-button> -->
     <GmapMap :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
+        <GmapInfoWindow 
+          :position="infoWindowPos"
+          :opened="infoWinOpen" 
+          :options= "infoOptions"
+          @closeclick="infoWinOpen=false" >
+            <div v-html="infoContent" ></div>
+        </GmapInfoWindow>
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
@@ -11,12 +19,6 @@
         :label="m.label"
         @click="toggleInfoWindow(m,index)"
       >
-        <GmapInfoWindow 
-          :position="infoWindowPos"
-          :opened="infoWinOpen" 
-          @closeclick="infoWinOpen=false" >
-            <div v-html="infoContent" ></div>
-        </GmapInfoWindow>
       </GmapMarker>
     </GmapMap>
   </div>
@@ -34,6 +36,12 @@ export default {
       infoContent: "",
       infoWinOpen : false,
       infoWindowPos: null,
+      infoOptions: {
+        pixelOffset: {
+          width: 0,
+          height: -60
+        }
+      },
       center: { lat: 49.2500589, lng: -123.0012234 },
       mounted (){
         this.$refs.mapRef.$mapPromise.then((map)=>{
