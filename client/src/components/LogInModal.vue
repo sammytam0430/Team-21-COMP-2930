@@ -64,6 +64,8 @@ export default {
       const response = await UsersService.authenticateUser(this.login);
       this.response = response.data;
       if (this.response.success) {
+        this.$session.start();
+        this.$session.set("currentUser", this.response.userID);
         this.$router.push("dashboard");
       } else {
         this.showAlert = true;

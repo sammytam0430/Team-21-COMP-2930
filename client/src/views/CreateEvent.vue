@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <b-form v-on:submit.prevent="createEvent" class="pt-3">
+    <b-form @submit.prevent="createEvent" class="pt-3">
       <b-form-row>
         <b-col class="px-3">
           <b-form-row>
@@ -126,7 +126,11 @@ import EventsService from "@/services/EventsService";
 export default {
   name: "createEvent",
   components: {},
-
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       remaining: null,
@@ -137,7 +141,7 @@ export default {
       event: {
         name: "",
         description: "",
-        organizer: 0,
+        organizer: this.$session.get("currentUser"),
         type: null,
         date: new Date().toISOString().slice(0, 10),
         start: "",
@@ -165,10 +169,12 @@ export default {
     calcInvitees() {
       let people = this.event.numOfPeople;
       let friends = this.invitees.length;
-      let remaining = people - friends
+      let remaining = people - friends;
       this.remaining = remaining;
       if (remaining <= 0) {
-        alert("You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.");
+        alert(
+          "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list."
+        );
         this.event.numOfPeople = friends;
         this.remaining = 0;
       }
@@ -192,6 +198,9 @@ export default {
       }
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
+      if (this.response.success) {
+        this.$router.push("events/" + this.response.eventID);
+      }
     },
 
     async getEventType() {
