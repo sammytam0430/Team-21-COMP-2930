@@ -1,14 +1,12 @@
 <template>
   <b-container>
-
-
-
     <b-form v-on:submit.prevent="createEvent" class="pt-3">
+
       <b-form-row>
         <b-col md="6" class="px-3">
           <b-form-row>
             <b-col>
-              <b-form-group id="nameGroup" label="Event Name" label-for="name">
+              <b-form-group id="nameGroup" label="Event Name *" label-for="name">
                 <b-form-input id="name" v-model="event.name" type="text" required></b-form-input>
               </b-form-group>
             </b-col>
@@ -16,7 +14,7 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="locationGroup" label="Location" label-for="location" class="pr-2">
+              <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
                 <b-form-input id="location" v-model="event.location" type="text" required></b-form-input>
               </b-form-group>
             </b-col>
@@ -24,13 +22,13 @@
 
           <b-form-row>
             <b-col cols="7">
-              <b-form-group id="typeGroup" label="Event Type" label-for="type">
+              <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
 
             <b-col cols="5">
-              <b-form-group id="numberGroup" label="People Needed" label-for="number">
+              <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
                   v-model="event.numOfPeople"
@@ -59,19 +57,19 @@
           <b-form-row id="time">
 
             <b-col lg="4">
-              <b-form-group id="dateGroup" label="Date" label-for="date">
+              <b-form-group id="dateGroup" label="Date *" label-for="date">
                 <b-form-input id="date" v-model="event.date" type="date" required></b-form-input>
               </b-form-group>
             </b-col>
 
             <b-col col="6" sm="6" lg="4">
-              <b-form-group id="startGroup" label="Start Time">
+              <b-form-group id="startGroup" label="Start Time *">
                 <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
 
             <b-col col="6" sm="6" lg="4">
-              <b-form-group id="endGroup" label="End Time">
+              <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
@@ -101,7 +99,7 @@
           <b-row>
             <b-container>
               Invitees (spots remaining: {{remaining}})
-              <b-form-group id="typeGroup">
+              <b-form-group id="listGroup">
                 <ol>
                   <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}}
@@ -116,9 +114,17 @@
               </b-form-group>
             </b-container>
           </b-row>
-          <b-button type="submit" block variant="primary">Create Event</b-button>
-        </b-col>
 
+          <b-form-row>
+            <b-col>
+              <b-button type="reset" block variant="danger">Reset</b-button>
+            </b-col>
+            <b-col>
+              <b-button type="submit" block variant="primary">Create Event</b-button>
+            </b-col>
+          </b-form-row>
+
+        </b-col>
       </b-form-row>
     </b-form>
 
@@ -149,8 +155,8 @@ export default {
         description: "",
         organizer: 0,
         type: null,
-        date: new Date().toISOString().slice(0, 10),
-        start: "",
+        date: this.parseDate(),
+        start: new Date().toTimeString().substring(0,5),
         end: "",
         location: "",
         numOfPeople: null
@@ -209,6 +215,15 @@ export default {
       for (const option of response.data) {
         this.options.push({ value: option.interestID, text: option.name });
       }
+    },
+
+    parseDate(){
+      var d = new Date();
+      var m = d.getMonth() + 1;
+      if (m < 10){
+        m = "0" + m;
+      }
+      return d.getFullYear() + "-" + m + "-" + d.getDate();
     }
   },
 
