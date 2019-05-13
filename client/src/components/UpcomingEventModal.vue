@@ -3,7 +3,6 @@
     <div class="mb-2">
       <a herf id="popover-upcoming" @click.prevent="showMsgBoxOne(events)">
         <font-awesome-icon id="notification" class="mx-2" size="2x" icon="bell"/>
-        <b-tooltip target="notification" title="Notification" placement="bottom"></b-tooltip>
       </a>
       <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft">
         <b-list-group>

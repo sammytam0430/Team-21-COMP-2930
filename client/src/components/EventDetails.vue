@@ -5,7 +5,9 @@
         <b-col id="joinMe" cols="7" class="main">{{event.name}}</b-col>
         <b-col id="by" class="float-right text-right">
           By:
-          <a @click.prevent href>{{event.fname}} {{event.lname.substring(0, 1)}}</a>
+          <router-link :to="'/user/' + event.userID">
+            {{event.fname}} {{event.lname.substring(0, 1)}}
+          </router-link>
         </b-col>
       </b-row>
       <hr>
@@ -96,7 +98,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   font-weight: bolder;
   font-size: 23px;

@@ -25,7 +25,7 @@
         </b-col>
         <b-col sm="6" md="8">
           <b-card-group class="mt-2" columns>
-            <b-card :key="event.eventID" v-for="event in events" :title="event.name">
+            <b-card border-variant="info" :key="event.eventID" v-for="event in events" :title="event.name">
               <b-card-sub-title>{{ event.description }}</b-card-sub-title>
               <hr>
               <p>on {{event.date}}</p>

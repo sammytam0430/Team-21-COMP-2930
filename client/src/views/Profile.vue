@@ -8,8 +8,7 @@
             <img class="pic" src="../assets/blop.png">
           </div>
         </b-col>
-        <b-col cols="1"></b-col>
-        <b-col>
+        <b-col offset="1">
           <b-row>
             <b-col cols="3">
               <span>First Name:</span>
@@ -18,7 +17,6 @@
               <EditField label="First Name:" v-model="user.fname"></EditField>
             </b-col>
           </b-row>
-
           <b-row>
             <b-col cols="3">
               <span>Last Name:</span>
@@ -27,7 +25,6 @@
               <EditField label="Last Name:" v-model="user.lname"></EditField>
             </b-col>
           </b-row>
-
           <b-row class="mb-3">
             <b-col cols="3">
               <span>Email:</span>
@@ -45,24 +42,23 @@
           </b-row>
         </b-col>
       </b-row>
-
-      <div>
-        <b-row>
-          <b-col cols="1"></b-col>
-          <b-col cols="3" class="mb-3">
-            <span>Interests:</span>
-          </b-col>
-          <b-col>
-            {{selected.join(', ')}}
-            <b-img :src="require('../assets/edits.png')" v-if="currentUser" v-b-modal.interestmodal/>
-            <EditInterests/>
-          </b-col>
-        </b-row>
-      </div>
-
-      <b-row>
-        <b-col cols="1"></b-col>
-        <b-col cols="3" class="mb-5">
+      <b-row class="mr-5">
+        <b-col offset="1" cols="3" class="mb-3">
+          <span>Interests:</span>
+        </b-col>
+        <b-col>
+          {{selected.join(', ')}}
+          <b-img
+            class="ml-5"
+            :src="require('../assets/edits.png')"
+            v-if="currentUser"
+            v-b-modal.interestmodal
+          />
+          <EditInterests/>
+        </b-col>
+      </b-row>
+      <b-row class="mr-5">
+        <b-col offset="1" cols="3" class="mb-5">
           <span>Blurb:</span>
         </b-col>
         <b-col class="mb-5">
@@ -119,7 +115,10 @@ export default {
       this.user = response.data[0];
     },
     async updateUser() {
-      const response = await UsersService.updateUser(this.user.userID,this.user);
+      const response = await UsersService.updateUser(
+        this.user.userID,
+        this.user
+      );
       this.response = response.data;
     },
     debouncer() {
