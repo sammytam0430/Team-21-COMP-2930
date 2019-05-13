@@ -33,7 +33,7 @@
                   id="number"
                   v-model="event.numOfPeople"
                   type="number"
-                  v-on:change="calcInvitees"
+                  v-on:change="calcPeopleNeeded"
                   min="1"
                   max="999"
                   required
@@ -98,8 +98,7 @@
 
           <b-row>
             <b-container>
-              Invitees (spots remaining: {{remaining}})
-              <b-form-group id="listGroup">
+              <b-form-group id="listGroup" label="Invitees">
                 <ol>
                   <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}}
@@ -117,7 +116,7 @@
 
           <b-form-row>
             <b-col>
-              <b-button @click="reset()" block variant="danger">Reset</b-button>
+              <b-button @click="confirmReset()" block variant="danger">Reset</b-button>
             </b-col>
             <b-col>
               <b-button type="submit" block variant="primary">Create Event</b-button>
@@ -128,8 +127,12 @@
       </b-form-row>
     </b-form>
 
-    <b-modal v-model="alert" hide-header ok-only footerClass="border-top-0">
-      You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list.
+    <b-modal v-model="resetModal" hide-header footerClass="border-top-0">
+      Are you sure you want to reset this form? All data will be lost.
+      <template slot="modal-footer" slot-scope="{cancel}">
+        <b-button @click="cancel()">CANCEL</b-button>
+        <b-button @click="reset()" variant="danger">RESET</b-button>
+      </template>
     </b-modal>
   </b-container>
 </template>
@@ -144,8 +147,7 @@ export default {
 
   data() {
     return {
-      alert: false,
-      remaining: 1,
+      resetModal: false,
       newFriend: "",
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
@@ -166,7 +168,7 @@ export default {
 
   methods: {
     addFriend() {
-      if (this.newFriend != 0 && this.calcInvitees() > 0) {
+      if (this.newFriend != 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
         this.remaining--;
@@ -175,25 +177,6 @@ export default {
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
-      this.calcInvitees();
-    },
-
-    calcInvitees() {
-      let people = this.event.numOfPeople;
-      let friends = this.invitees.length;
-      let remaining = people - friends
-      this.remaining = remaining;
-      if (remaining <= 0) {
-        this.alert = true;
-        this.event.numOfPeople = friends;
-        this.remaining = 0;
-      }
-      return remaining;
-    },
-
-    spotsRemaining() {
-      let num = this.calcInvitees();
-      this.remaining = num;
     },
 
     async createEvent() {
@@ -232,18 +215,23 @@ export default {
       return date.getFullYear() + "-" + m + "-" + d;
     },
 
+    confirmReset(){
+      this.resetModal = true;
+    },
+
     reset(){
-      this.event.name = event.name;
-      this.event.description = event.description;
-      this.event.type = event.type;
+      this.event.name = "";
+      this.event.description = "";
+      this.event.type = null;
       this.event.date = this.parseDate();
       this.event.start = new Date().toTimeString().substring(0,5);
-      this.event.end = event.end;
-      this.event.location = event.location;
+      this.event.end = "";
+      this.event.location = "";
       this.event.numOfPeople = 1;
       this.newFriend = "";
       this.remaining = 1;
       this.invitees = [];
+      this.resetModal = false;
     }
   },
 
