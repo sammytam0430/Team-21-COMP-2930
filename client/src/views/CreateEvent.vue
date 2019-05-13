@@ -15,7 +15,7 @@
           <b-form-row>
             <b-col>
               <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
-                <b-form-input id="location" v-model="event.location" type="text" required></b-form-input>
+                <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -150,7 +150,7 @@ export default {
       resetModal: false,
       newFriend: "",
       response: null,
-      options: [{ value: null, text: "Please select an event type" }],
+      options: [{value: null, text: "Please select an event type"}],
       invitees: [],
       event: {
         name: "",
