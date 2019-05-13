@@ -3,7 +3,7 @@
     <b-navbar-brand to="/">
       <img src="../assets/logo.png" alt="Konnect logo">
     </b-navbar-brand>
-    <b-navbar-nav>
+    <b-navbar-nav v-if="show">
       <UpcomingEventModal/>
     </b-navbar-nav>
     <b-navbar-toggle target="nav-collapse" class="ml-auto"></b-navbar-toggle>
