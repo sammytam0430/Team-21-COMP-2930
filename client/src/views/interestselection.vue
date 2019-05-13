@@ -5,65 +5,26 @@
                 <b-container>
                     <b-row>
                         <b-col cols="6" class="px-0">
-                            <input type="checkbox" name="checkbox1" id="checkbox1">
-                                <label for="checkbox1">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Outdoor Sports</span>
+                            
+                                <label v-bind:key="interesto" v-for="interesto in interestsColumn">
+                                    <input type="checkbox">
+                                    <span class="styleCheckbox">&nbsp; {{ interesto.name }} </span>
                                 </label>
-                            <br>
-                            <input type="checkbox" name="checkbox2" id="checkbox2">
-                                <label for="checkbox2">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Indoor Sports</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox3" id="checkbox3">
-                                <label for="checkbox3">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Card/Board Games</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox4" id="checkbox4">
-                                <label for="checkbox4">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;PC Games</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox5" id="checkbox5">
-                                <label for="checkbox5">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Mobile Games</span>
-                                </label>
-                            <br>
                         </b-col>
                         
                         <b-col class="px-0 mx-0">
                         </b-col>
                         
                         <b-col cols="4" class="px-0 float-right">
-                            <input type="checkbox" name="checkbox6" id="checkbox6">
-                                <label for="checkbox6">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Literature</span>
+                
+                                <label for="checkbox6" v-bind:key="interest" v-for="interest in interestsSecondColumn">
+                                    <input type="checkbox">
+                                    <span class="styleCheckbox">&nbsp; {{ interest.name }} </span>
                                 </label>
-                            <br>
-                            <input type="checkbox" name="checkbox7" id="checkbox7">
-                                <label for="checkbox7">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Music</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox8" id="checkbox8">
-                                <label for="checkbox8">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Dancing</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox9" id="checkbox9">
-                                <label for="checkbox9">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Food</span>
-                                </label>
-                            <br>
-                            <input type="checkbox" name="checkbox10" id="checkbox10">
-                                <label for="checkbox10">
-                                    <span class="styleCheckbox">&nbsp;&nbsp;Others</span>
-                                </label>
-                            <br>
                         </b-col>
                     </b-row>
                 </b-container>
+                
                     <template slot="modal-footer" slot-scope="{ ok, cancel }">
                         <b-button size="sm" variant="danger" @click="cancel()">
                             Cancel
@@ -79,6 +40,46 @@
 <script>
 export default {
     name: "interestselection",
+    data() {
+        return {
+            interestsColumn: [
+                {
+                    name: 'Outdoor Sports',
+                },
+                {
+                    name: 'Indoor Sports',
+                },
+                {
+                    name: 'Card/Board Games',
+                },
+                {
+                    name: 'PC Games',
+                },
+                {
+                    name: 'Mobile Games',
+                },
+            ],
+
+            interestsSecondColumn: [
+                {
+                    name: 'Literature',
+                },
+                {
+                    name: 'Music',
+                },
+                {
+                    name: 'Dancing',
+                },
+                {
+                    name: 'Food',
+                },
+                {
+                    name: 'Others',
+                },
+            ]
+
+        }
+    }
 }
 </script>
 
