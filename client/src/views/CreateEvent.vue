@@ -117,7 +117,7 @@
 
           <b-form-row>
             <b-col>
-              <b-button type="reset" block variant="danger">Reset</b-button>
+              <b-button @click="reset()" block variant="danger">Reset</b-button>
             </b-col>
             <b-col>
               <b-button type="submit" block variant="primary">Create Event</b-button>
@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       alert: false,
-      remaining: null,
+      remaining: 1,
       newFriend: "",
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
@@ -159,7 +159,7 @@ export default {
         start: new Date().toTimeString().substring(0,5),
         end: "",
         location: "",
-        numOfPeople: null
+        numOfPeople: 1
       }
     };
   },
@@ -218,12 +218,32 @@ export default {
     },
 
     parseDate(){
-      var d = new Date();
-      var m = d.getMonth() + 1;
+      var date = new Date();
+      var m = date.getMonth() + 1;
+      var d = date.getDate();
+
       if (m < 10){
         m = "0" + m;
       }
-      return d.getFullYear() + "-" + m + "-" + d.getDate();
+
+      if (d < 10){
+        d = "0" + d;
+      }
+      return date.getFullYear() + "-" + m + "-" + d;
+    },
+
+    reset(){
+      this.event.name = event.name;
+      this.event.description = event.description;
+      this.event.type = event.type;
+      this.event.date = this.parseDate();
+      this.event.start = new Date().toTimeString().substring(0,5);
+      this.event.end = event.end;
+      this.event.location = event.location;
+      this.event.numOfPeople = 1;
+      this.newFriend = "";
+      this.remaining = 1;
+      this.invitees = [];
     }
   },
 
