@@ -11,7 +11,8 @@ import {
   faColumns,
   faUserFriends,
   faThList,
-  faPlus
+  faPlus,
+  faAngleDoubleDown
 } from "@fortawesome/free-solid-svg-icons";
 // import { faUserBrand } from "@fortawesome/free-brands-svg-icons";
 // import { faUserRegular } from "@fortawesome/free-regular-svg-icons";
@@ -28,7 +29,8 @@ library.add(
   faColumns,
   faUserFriends,
   faThList,
-  faPlus
+  faPlus,
+  faAngleDoubleDown
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
