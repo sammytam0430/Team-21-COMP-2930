@@ -4,8 +4,7 @@
             <b-modal id="interestmodal" title="Select your interests">
                 <b-container>
                     <b-row>
-                        <b-col cols="6" class="px-0">
-                            
+                        <b-col cols="6" class="px-0">    
                                 <label v-bind:key="interesto" v-for="interesto in interestsColumn">
                                     <input type="checkbox">
                                     <span class="styleCheckbox">&nbsp; {{ interesto.name }} </span>
@@ -16,7 +15,6 @@
                         </b-col>
                         
                         <b-col cols="4" class="px-0 float-right">
-                
                                 <label for="checkbox6" v-bind:key="interest" v-for="interest in interestsSecondColumn">
                                     <input type="checkbox">
                                     <span class="styleCheckbox">&nbsp; {{ interest.name }} </span>
