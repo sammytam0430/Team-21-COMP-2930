@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       events: [],
-      selectedUser: ""
     };
   },
   mounted() {
@@ -34,9 +33,6 @@ export default {
       const response = await EventsService.getEvents();
       this.events = response.data;
     },
-    showMsgBoxOne(items) {
-      this.selectedUser = items;
-    }
   }
 };
 </script>
