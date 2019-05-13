@@ -2,7 +2,7 @@
   <b-container>
     <EventDetails/>
     <span class="h1 mr-5">Events</span>
-    <b-button v-b-toggle.collapse variant="primary">Filter</b-button>
+    <b-button v-b-toggle.collapse variant="outline-info">Filter</b-button>
     <b-container>
       <b-row>
         <b-col sm="6" md="4">
@@ -25,7 +25,7 @@
         </b-col>
         <b-col sm="6" md="8">
           <b-card-group class="mt-2" columns>
-            <b-card :key="event.eventID" v-for="event in events" :title="event.name">
+            <b-card border-variant="info" :key="event.eventID" v-for="event in events" :title="event.name">
               <b-card-sub-title>{{ event.description }}</b-card-sub-title>
               <hr>
               <p>on {{event.date}}</p>
@@ -56,6 +56,11 @@ export default {
   components: {
     Timestamp,
     EventDetails
+  },
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
   },
   data() {
     return {

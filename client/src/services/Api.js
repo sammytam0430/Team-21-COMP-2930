@@ -2,6 +2,6 @@ import axios from "axios";
 
 export default () => {
   return axios.create({
-    baseURL: `http://localhost:5000/api`
+    baseURL: process.env.VUE_APP_DB_URL + '/api'
   });
 };

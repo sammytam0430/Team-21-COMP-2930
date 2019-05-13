@@ -24,6 +24,7 @@
           id="email"
           v-model="signup.email"
           type="email"
+          pattern="\w+@my\.bcit\.ca"
           required
           placeholder="example@my.bcit.ca"
         ></b-form-input>

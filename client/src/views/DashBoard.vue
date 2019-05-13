@@ -56,14 +56,18 @@
 </template>
 
 <script>
-// import {gmapApi} from 'vue2-google-maps';
-import AddFriendModal from "@/components/AddFriendModal";
+import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 import ParticipantsService from "@/services/ParticipantsService";
 
 export default {
   name: "Dashboard",
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       fieldsEvent: ["ID", "event", { key: "peopleJoined", label: "People Needed" }],
