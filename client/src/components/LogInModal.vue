@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="login" v-model="show" title="Log In" @hide="close">
+  <b-modal id="login" v-model="show" title="Log in" @hide="close">
     <b-alert
       :show="showAlert"
       :variant="response.success ? 'success' : 'danger'"
@@ -23,7 +23,7 @@
         value="true"
         unchecked-value="false"
       >Remember Me</b-form-checkbox>
-      <b-button class="w-100 my-3" type="submit" variant="primary">Log In</b-button>
+      <b-button class="w-100 my-3" type="submit" variant="primary">Log in</b-button>
       <a href v-on:click.prevent>Forgot Password?</a>
     </b-form>
     <template slot="modal-footer">
