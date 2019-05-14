@@ -14,7 +14,13 @@
           <b-form-row>
             <b-col>
               <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
-                <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required></b-form-input>
+
+                <gmap-autocomplete :default-place="place" @place_changed="setPlace" >hi</gmap-autocomplete>
+                
+                <!-- <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required>
+
+
+                </b-form-input> -->
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -53,7 +59,6 @@
           </b-form-row>
 
           <b-form-row id="time">
-
             <b-col lg="4">
               <b-form-group id="dateGroup" label="Date *" label-for="date">
                 <b-form-input id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
@@ -76,7 +81,6 @@
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
-
           </b-form-row>
         </b-col>
 
@@ -94,7 +98,7 @@
               </b-col>
 
               <b-col>
-                <b-button class="button" hover: block @click="addFriend()">Add</b-button>
+                <b-button class="button" block @click="addFriend()">Add</b-button>
               </b-col>
             </b-form-row>
           </b-form-group>
@@ -139,14 +143,21 @@
     </b-modal>
   </b-container>
 </template>
-
+ 
 <script>
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
+import {gmapApi} from "vue2-google-maps";
 
 export default {
   name: "createEvent",
   components: {},
+  computed:{
+    google: gmapApi,
+    rows() {
+      return this.invitees.length;
+    }
+  },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");
@@ -160,6 +171,7 @@ export default {
       response: null,
       options: [{value: null, text: "Please select an event type"}],
       invitees: [],
+      place: null,
       event: {
         name: "",
         description: "",
@@ -168,7 +180,9 @@ export default {
         date: this.parseDate(),
         start: new Date().toTimeString().substring(0,5),
         end: "",
-        location: "",
+        location: this.parsePlace(),
+        // lat: this.place.geometry.lat(),
+        // lng: this.place.geometry.lng(),
         numOfPeople: 1
       }
     };
@@ -179,34 +193,25 @@ export default {
       if (this.newFriend != 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
-        this.remaining--;
       }
     },
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
-      this.calcInvitees();
     },
 
-    calcInvitees() {
-      let people = this.event.numOfPeople;
-      let friends = this.invitees.length;
-      let remaining = people - friends;
-      this.remaining = remaining;
-      if (remaining <= 0) {
-        alert(
-          "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list."
-        );
-        this.event.numOfPeople = friends;
-        this.remaining = 0;
+    async setPlace(place) {
+      this.place = await place;
+      
+    },
+    parsePlace() {
+      let p = "";
+      if(this.place == null){
+        return p;
       }
-      return remaining;
-    },
-
-    spotsRemaining() {
-      let num = this.calcInvitees();
-      this.remaining = num;
-    },
+      return this.place.name;
+    }
+    ,
 
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
@@ -214,6 +219,7 @@ export default {
       if (this.response.success) {
         this.$router.push("events/" + this.response.eventID);
       }
+      console.log(this.event);
     },
 
     barrelRoll() {
@@ -264,7 +270,6 @@ export default {
       this.event.location = "";
       this.event.numOfPeople = 1;
       this.newFriend = "";
-      this.remaining = 1;
       this.invitees = [];
       this.resetModal = false;
     }
@@ -272,12 +277,6 @@ export default {
 
   mounted() {
     this.getEventType();
-  },
-
-  computed: {
-    rows() {
-      return this.invitees.length;
-    }
   }
 };
 </script>
