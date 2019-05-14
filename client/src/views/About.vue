@@ -1,5 +1,6 @@
 <template>
-    <b-container>
+    
+    <b-container class="main">
         <b-container class="mv-5">
             <b-row class="m-5">
                 <span class="title"> before konnect... </span>
@@ -165,6 +166,10 @@ export default {
 
 <style>
 
+.main {
+    background-color: rgb(233, 241, 247);
+}
+
 .title {
     font-size: 40px;
 }
@@ -177,10 +182,12 @@ export default {
     width: 100px;
     height: 120px;
     margin: 20px;
+    border-radius: 20%;
 }
 
 #team {
-    width: 80%;
+    width: 100%;
+    border-radius: 5%;
 }
 
 .bioBox {

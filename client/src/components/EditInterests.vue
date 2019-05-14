@@ -56,7 +56,7 @@
             <br>
             <input type="checkbox" name="checkbox10" id="checkbox10">
             <label for="checkbox10">
-              <span class="styleCheckbox">&nbsp;&nbsp;Others</span>
+              <span class="styleCheckbox">&nbsp;&nbsp;Other</span>
             </label>
             <br>
           </b-col>

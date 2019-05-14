@@ -140,7 +140,7 @@ p {
 .boo {
   background: rgb(221, 241, 250);
 
-  border: 1px solid rgb(207, 199, 206);
+  border: 1px solid rgb(223, 217, 222);
   border-radius: 3%;
 }
 .boop {
@@ -149,7 +149,7 @@ p {
 .pic {
   width: 100%;
   outline: 10px solid rgb(221, 241, 250);
-  outline-offset: -10px;
+  outline-offset: -11px;
   border: 5px solid rgb(119, 171, 196);
   border-radius: 20%;
   
