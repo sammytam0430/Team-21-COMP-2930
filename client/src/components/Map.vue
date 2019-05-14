@@ -33,15 +33,8 @@ export default {
   data() {
     return {
       name: "map",
-      infoContent: "",
       infoWinOpen : false,
       infoWindowPos: null,
-      infoOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -60
-        }
-      },
       center: { lat: 49.2500589, lng: -123.0012234 },
       mounted (){
         this.$refs.mapRef.$mapPromise.then((map)=>{
