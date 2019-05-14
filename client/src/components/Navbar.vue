@@ -11,43 +11,43 @@
       <b-navbar-nav v-if="show" class="ml-auto">
         <b-nav-item>
           <router-link :to="{path: '/dashboard'}">
-            <font-awesome-icon id="dashboard" class="mx-2" size="2x" icon="columns"/>
-            <span v-if="expanded">Dashboard</span>
+            <font-awesome-icon id="dashboard" size="lg" fixed-width icon="columns"/>
+            <span v-if="expanded" class="ml-2">Dashboard</span>
             <b-tooltip v-else target="dashboard" title="Dashboard" placement="bottom"></b-tooltip>
           </router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link :to="{path: '/events'}">
-            <font-awesome-icon id="events" class="mx-2" size="2x" icon="th-list"/>
-            <span v-if="expanded">Events</span>
+            <font-awesome-icon id="events" size="lg" fixed-width icon="th-list"/>
+            <span v-if="expanded" class="ml-2">Events</span>
             <b-tooltip v-else target="events" title="Events" placement="bottom"></b-tooltip>
           </router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link :to="{path: '/create'}">
-            <font-awesome-icon id="create" class="mx-2" size="2x" icon="plus"/>
-            <span v-if="expanded">Create Event</span>
+            <font-awesome-icon id="create" size="lg" fixed-width icon="plus"/>
+            <span v-if="expanded" class="ml-2">Create Event</span>
             <b-tooltip v-else target="create" title="Create Event" placement="bottom"></b-tooltip>
           </router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link :to="{path: '/friends'}">
-            <font-awesome-icon id="friends" class="mx-2" size="2x" icon="user-friends"/>
-            <span v-if="expanded">Friends</span>
+            <font-awesome-icon id="friends" size="lg" fixed-width icon="user-friends"/>
+            <span v-if="expanded" class="ml-2">Friends</span>
             <b-tooltip v-else target="friends" title="Friends" placement="bottom"></b-tooltip>
           </router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link :to="{path: '/user/' + this.$session.get('currentUser')}">
-            <font-awesome-icon id="profile" class="mx-2" size="2x" icon="user-graduate"/>
-            <span v-if="expanded">Profile</span>
+            <font-awesome-icon id="profile" size="lg" fixed-width icon="user-graduate"/>
+            <span v-if="expanded" class="ml-2">Profile</span>
             <b-tooltip v-else target="profile" title="Profile" placement="bottom"></b-tooltip>
           </router-link>
         </b-nav-item>
         <b-nav-item>
           <a href @click.prevent="logout">
-            <font-awesome-icon id="logout" class="mx-2" size="2x" icon="sign-out-alt"/>
-            <span v-if="expanded">Logout</span>
+            <font-awesome-icon id="logout" size="lg" fixed-width icon="sign-out-alt"/>
+            <span v-if="expanded" class="ml-2">Logout</span>
             <b-tooltip v-else target="logout" title="Logout" placement="bottom"></b-tooltip>
           </a>
         </b-nav-item>
@@ -98,6 +98,6 @@ export default {
 
 <style scoped>
 img {
-  height: 40px;
+  height: 35px;
 }
 </style>
