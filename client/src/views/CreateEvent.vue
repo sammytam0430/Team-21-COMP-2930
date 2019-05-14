@@ -155,7 +155,7 @@ export default {
       resetModal: false,
       newFriend: "",
       response: null,
-      options: [{value: null, text: "Ple ase select an event type"}],
+      options: [{value: null, text: "Please select an event type"}],
       invitees: [],
       event: {
         name: "",
