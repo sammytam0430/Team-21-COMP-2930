@@ -53,7 +53,7 @@
             <span>Interests:</span>
           </b-col>
           <b-col>
-            {{selected.join(', ')}}
+            {{selected.join(', ')}}hi
             <b-img :src="require('../assets/edits.png')" v-b-modal.interestmodal/>
 
             <EditInterests/>

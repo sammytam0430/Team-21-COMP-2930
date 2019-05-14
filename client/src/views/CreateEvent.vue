@@ -95,7 +95,7 @@
               </b-col>
 
               <b-col>
-                <b-button block variant="secondary" @click="addFriend()">Add</b-button>
+                <b-button class="button" hover: block @click="addFriend()">Add</b-button>
               </b-col>
             </b-form-row>
           </b-form-group>
@@ -120,10 +120,10 @@
 
           <b-form-row>
             <b-col>
-              <b-button @click="confirmReset()" block variant="danger">Reset</b-button>
+              <b-button @click="confirmReset()" block class="button">Reset</b-button>
             </b-col>
             <b-col>
-              <b-button type="submit" block variant="primary">Create Event</b-button>
+              <b-button type="submit" block class="button">Create Event</b-button>
             </b-col>
           </b-form-row>
 
@@ -134,8 +134,8 @@
     <b-modal v-model="resetModal" hide-header footerClass="border-top-0">
       Are you sure you want to reset this form? All data will be lost.
       <template slot="modal-footer" slot-scope="{cancel}">
-        <b-button @click="cancel()">CANCEL</b-button>
-        <b-button @click="reset()" variant="danger">RESET</b-button>
+        <b-button @click="cancel()" class="cancelButton" variant="secondary">CANCEL</b-button>
+        <b-button @click="reset()" class="button">RESET</b-button>
       </template>
     </b-modal>
   </b-container>
@@ -266,6 +266,26 @@ ol {
 li {
   padding: 2px;
   border-bottom: 1px solid lightgray;
+}
+
+.button {
+  background-color: #63A6C1;
+}
+
+.button:hover {
+  background-color: #3A7395;
+}
+
+.cancelButton {
+  background-color: #6F6668;
+}
+
+.cancelButton:hover {
+  background-color: #6C757D;
+}
+
+.button:active, .cancelButton:active {
+  background-color: #252C3A !important;
 }
 
 </style>
