@@ -13,13 +13,8 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
-                <gmap-autocomplete @place_changed="setPlace">hi</gmap-autocomplete>
-
-                <!-- <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required>
-
-
-                </b-form-input>-->
+              <b-form-group id="locationGroup" label="Location *" label-for="location">
+                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -47,11 +42,7 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group
-                id="descriptionGroup"
-                label="Description (optional)"
-                label-for="description"
-              >
+              <b-form-group id="descriptionGroup" label="Description (optional)" label-for="description">
                 <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
               </b-form-group>
             </b-col>
@@ -216,18 +207,13 @@ export default {
 
     async setPlace(place) {
       this.place = await place;
-      // return place.name;
       this.event.location = this.place.name;
       this.event.lat = this.place.geometry.location.lat();
       this.event.lng = this.place.geometry.location.lng();
-      console.log(this.place);
     },
+
     parsePlace() {
-      let p = "";
-      if (this.place == null) {
-        return p;
-      }
-      return this.place.name;
+      return (this.place == null) ? "" : this.place.name;
     },
 
     async createEvent() {
@@ -236,7 +222,6 @@ export default {
       if (this.response.success) {
         this.$router.push("events/" + this.response.eventID);
       }
-      console.log(this.event);
     },
 
     barrelRoll() {
@@ -299,39 +284,60 @@ export default {
 </script>
 
 <style scoped>
-ol {
-  list-style-type: none;
-  overflow: auto;
-  min-height: 237px;
-  max-height: 237px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 0px;
-}
+  ol {
+    list-style-type: none;
+    overflow: auto;
+    min-height: 237px;
+    max-height: 237px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0px;
+  }
 
-li {
-  padding: 2px;
-  border-bottom: 1px solid lightgray;
-}
+  li {
+    padding: 2px;
+    border-bottom: 1px solid lightgray;
+  }
 
-.button {
-  background-color: #63a6c1;
-}
+  .button {
+    background-color: #63a6c1;
+  }
 
-.button:hover {
-  background-color: #3a7395;
-}
+  .button:hover {
+    background-color: #3a7395;
+  }
 
-.cancelButton {
-  background-color: #6f6668;
-}
+  .cancelButton {
+    background-color: #6f6668;
+  }
 
-.cancelButton:hover {
-  background-color: #6c757d;
-}
+  .cancelButton:hover {
+    background-color: #6c757d;
+  }
 
-.button:active,
-.cancelButton:active {
-  background-color: rgb(0, 42, 83) !important;
-}
+  .button:active,
+  .cancelButton:active {
+    background-color: rgb(0, 42, 83) !important;
+  }
+
+  #location {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+
+  #location:focus {
+    box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb, -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
+    outline-width: 0px;
+    transition: all 0.15s ease-in-out;
+  }
 </style>
