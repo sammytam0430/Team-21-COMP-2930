@@ -14,13 +14,12 @@
           <b-form-row>
             <b-col>
               <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
+                <gmap-autocomplete @place_changed="setPlace">hi</gmap-autocomplete>
 
-                <gmap-autocomplete :default-place="place" @place_changed="setPlace" >hi</gmap-autocomplete>
-                
                 <!-- <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required>
 
 
-                </b-form-input> -->
+                </b-form-input>-->
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -61,14 +60,27 @@
           <b-form-row id="time">
             <b-col lg="4">
               <b-form-group id="dateGroup" label="Date *" label-for="date">
-                <b-form-input id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
+                <b-form-input
+                  id="date"
+                  v-model="event.date"
+                  type="date"
+                  :min="parseDate()"
+                  max="2930-05-21"
+                  required
+                ></b-form-input>
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" sm="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
-                  <b-form-input id="start" v-model="event.start" type="time" :min="this.time" required></b-form-input>
+                  <b-form-input
+                    id="start"
+                    v-model="event.start"
+                    type="time"
+                    :min="this.time"
+                    required
+                  ></b-form-input>
                 </template>
                 <template v-else>
                   <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
@@ -76,7 +88,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" sm="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
@@ -129,14 +141,16 @@
               <b-button type="submit" @click="barrelRoll" block class="button">Create Event</b-button>
             </b-col>
           </b-form-row>
-
         </b-col>
       </b-form-row>
     </b-form>
 
     <b-modal v-model="resetModal" hide-header footerClass="border-top-0">
       Are you sure you want to reset this form? All data will be lost.
-      <template slot="modal-footer" slot-scope="{cancel}">
+      <template
+        slot="modal-footer"
+        slot-scope="{cancel}"
+      >
         <b-button @click="cancel()" class="cancelButton" variant="secondary">CANCEL</b-button>
         <b-button @click="reset()" class="button">RESET</b-button>
       </template>
@@ -147,12 +161,12 @@
 <script>
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
-import {gmapApi} from "vue2-google-maps";
+import { gmapApi } from "vue2-google-maps";
 
 export default {
   name: "createEvent",
   components: {},
-  computed:{
+  computed: {
     google: gmapApi,
     rows() {
       return this.invitees.length;
@@ -165,11 +179,11 @@ export default {
   },
   data() {
     return {
-      time: new Date().toTimeString().substring(0,5),
+      time: new Date().toTimeString().substring(0, 5),
       resetModal: false,
       newFriend: "",
       response: null,
-      options: [{value: null, text: "Please select an event type"}],
+      options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
       place: null,
       event: {
@@ -178,11 +192,11 @@ export default {
         organizer: this.$session.get("currentUser"),
         type: null,
         date: this.parseDate(),
-        start: new Date().toTimeString().substring(0,5),
+        start: new Date().toTimeString().substring(0, 5),
         end: "",
         location: this.parsePlace(),
-        // lat: this.place.geometry.lat(),
-        // lng: this.place.geometry.lng(),
+        lat: 0,
+        lng: 0,
         numOfPeople: 1
       }
     };
@@ -202,16 +216,19 @@ export default {
 
     async setPlace(place) {
       this.place = await place;
-      
+      // return place.name;
+      this.event.location = this.place.name;
+      this.event.lat = this.place.geometry.location.lat();
+      this.event.lng = this.place.geometry.location.lng();
+      console.log(this.place);
     },
     parsePlace() {
       let p = "";
-      if(this.place == null){
+      if (this.place == null) {
         return p;
       }
       return this.place.name;
-    }
-    ,
+    },
 
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
@@ -241,31 +258,31 @@ export default {
       }
     },
 
-    parseDate(){
+    parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
       var d = date.getDate();
 
-      if (m < 10){
+      if (m < 10) {
         m = "0" + m;
       }
 
-      if (d < 10){
+      if (d < 10) {
         d = "0" + d;
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
 
-    confirmReset(){
+    confirmReset() {
       this.resetModal = true;
     },
 
-    reset(){
+    reset() {
       this.event.name = "";
       this.event.description = "";
       this.event.type = null;
       this.event.date = this.parseDate();
-      this.event.start = new Date().toTimeString().substring(0,5);
+      this.event.start = new Date().toTimeString().substring(0, 5);
       this.event.end = "";
       this.event.location = "";
       this.event.numOfPeople = 1;
@@ -298,22 +315,23 @@ li {
 }
 
 .button {
-  background-color: #63A6C1;
+  background-color: #63a6c1;
 }
 
 .button:hover {
-  background-color: #3A7395;
+  background-color: #3a7395;
 }
 
 .cancelButton {
-  background-color: #6F6668;
+  background-color: #6f6668;
 }
 
 .cancelButton:hover {
-  background-color: #6C757D;
+  background-color: #6c757d;
 }
 
-.button:active, .cancelButton:active {
+.button:active,
+.cancelButton:active {
   background-color: rgb(0, 42, 83) !important;
 }
 </style>

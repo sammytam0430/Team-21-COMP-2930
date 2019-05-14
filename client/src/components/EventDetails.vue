@@ -66,7 +66,7 @@
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <a @click.prevent href>View on map</a>
+            <a target="_blank" :href="`https://www.google.com/maps/search/?api=1&query=${event.location}`">View on map</a>
           </b-col>
         </b-row>
       </b-container>
