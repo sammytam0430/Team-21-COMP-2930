@@ -6,8 +6,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.post("/", (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
   db("users")
     .where("email", req.body.email)
     .orWhere("prefEmail", req.body.email)
@@ -24,7 +22,8 @@ router.post("/", (req, res) => {
         res.send({
           status: 200,
           success: true,
-          message: "OK"
+          message: "OK",
+          userID: data[0].userID
         });
       } else {
         res.send({

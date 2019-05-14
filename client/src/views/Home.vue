@@ -8,7 +8,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Jumbotron from "@/components/Jumbotron.vue";
 import RecentListing from "@/components/RecentListing.vue";
 import SignUpModal from "@/components/SignUpModal.vue";

@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="mb-2">
-      <img id="popover-upcoming" src="../assets/notification.png" >
-      <b-popover target="popover-upcoming" title="Upcoming Event" triggers="hover focus" placement="bottomleft">
+      <a herf id="popover-upcoming">
+        <font-awesome-icon id="notification" class="mx-2" size="2x" icon="bell"/>
+      </a>
+      <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft">
         <b-list-group>
           <b-list-group-item
             style="max-width: 30rem;"
-            v-for="item in events"
-            :key="item.name"
-          >Join {{item.name}} starts {{item.startTime}} @ {{item.location}} {{item.date}}</b-list-group-item>
+            v-for="event in events"
+            :key="event.name"
+          >Join {{event.name}} starts {{event.start}} @ {{event.location}} {{event.date}}</b-list-group-item>
         </b-list-group>
       </b-popover>
     </div>
@@ -21,7 +23,6 @@ export default {
   data() {
     return {
       events: [],
-
     };
   },
   mounted() {

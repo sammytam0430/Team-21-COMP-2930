@@ -31,11 +31,12 @@
               <router-link to="/events">Search</router-link>
             </b-col>
           </b-row>
-          <b-table bordered :fields="fieldsEvent" :items="events" fixed="fixed">
+          <b-table bordered :fields="fieldsEvent" :items="events" :fixed = false>
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">{{data.item.name}}</template>
             <template slot="peopleJoined" slot-scope="data"> {{data.item.numOfPeople}}</template>
           </b-table>
+          
           <div>
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
@@ -43,7 +44,7 @@
                 <AddFriendModal/>
               </b-col>
             </b-row>
-            <b-table :items="items" :fields="fields" :bordered="true" fixed="fixed">
+            <b-table :items="items" :fields="fields" :bordered="true" >
               <template slot="online" slot-scope="row">
                 <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
@@ -56,19 +57,24 @@
 </template>
 
 <script>
-// import {gmapApi} from 'vue2-google-maps';
-import AddFriendModal from "@/components/AddFriendModal";
+import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 import ParticipantsService from "@/services/ParticipantsService";
 
 export default {
   name: "Dashboard",
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       fieldsEvent: ["ID", "event", { key: "peopleJoined", label: "People Needed" }],
       events: [],
       participants: [],
+      // fixed: true,
       fields: ["friend", "online"],
       items: [
         { friend: "Dickerson", online: true },

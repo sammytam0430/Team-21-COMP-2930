@@ -1,12 +1,12 @@
 
 <template>
   <div>
-    <gmap-autocomplete :default-place="place" @place_changed="setPlace"></gmap-autocomplete>
-    <button @click="initMap">Add</button>
+    <!-- <gmap-autocomplete :default-place="place" @place_changed="setPlace"></gmap-autocomplete>
+    <button @click="initMap">Add</button> -->
     <!-- <br/>
     {{this.place.geometry.viewport.na.j}},
     {{this.place.geometry.viewport.ia.j}}-->
-    <GmapMap :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
+    <GmapMap id ="mapOne" :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
       <GmapInfoWindow
         :position="infoWindowPos"
         :opened="infoWinOpen"
@@ -86,8 +86,8 @@ export default {
   },
 
   methods: {
-    async initMap() {
-      let bcit = new this.google.maps.LatLng(49.2500589, -123.0012234);
+   async initMap() {
+      // let bcit = await new this.google.maps.LatLng(49.2500589, -123.0012234);
       let events = this.events;
 
       // let mapOne = new this.google.maps.Map(
@@ -99,20 +99,23 @@ export default {
         };
 
         let service = new this.google.maps.places.PlacesService(
-          document.createElement("div")
+          document.getElementById("div")
         );
-
+        let co = new this.google.maps.places;
+        console.log(co);
         let locaiontArr = [];
 
-        await service.findPlaceFromQuery(request, function(results, status) {
-          // if (status === this.google.maps.places.PlacesServiceStatus.OK) {
-            const response = results;
-            locaiontArr[0] = response[0].geometry.location.lat();
-            locaiontArr[1] = response[0].geometry.location.lng();
-          // }
+       service.findPlaceFromQuery(request, function(results, status) {
+         console.log(status === this.google.maps.places.PlacesServiceStatus.OK);
+          if (status === this.google.maps.places.PlacesServiceStatus.OK) {
+
+            locaiontArr[0] = results[0].geometry.location.lat();
+            locaiontArr[1] = results[0].geometry.location.lng();
+            console.log(results[0]);
+            console.log(results);
+          }
         });
 
-        console.log(locaiontArr[0]);
         this.markers.push({
           label: events[i].eventID.toString(),
           position: {
@@ -120,7 +123,6 @@ export default {
             lng: locaiontArr[1]
           }
         });
-        console.log(this.markers);
       }
     },
     setPlace(place) {
