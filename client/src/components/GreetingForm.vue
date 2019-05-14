@@ -61,7 +61,7 @@ export default {
   name: "greetingForm",
   data() {
     return {
-      now: true,
+      now: false,
       form: {
         date: "",
         end: "",
