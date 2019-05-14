@@ -16,6 +16,8 @@ exports.seed = function(knex, Promise) {
             start: "12:00",
             end: "14:00",
             location: "BCIT Gym",
+            lat: 49.2500933,
+            lng: -123.002827,
             numOfPeople: 4
           },
           {
@@ -28,6 +30,8 @@ exports.seed = function(knex, Promise) {
             start: "12:00",
             end: "14:00",
             location: "BCIT Outdoor Basketball Court",
+            lat: 49.2500933,
+            lng: -123.002827,
             numOfPeople: 6
           },
           {
@@ -40,6 +44,8 @@ exports.seed = function(knex, Promise) {
             start: "17:50",
             end: "20:00",
             location: "EhPod",
+            lat: 49.2500933,
+            lng: -123.002827,
             numOfPeople: 4
           }
         ])
