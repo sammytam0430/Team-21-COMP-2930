@@ -122,7 +122,7 @@
               <b-button @click="confirmReset()" block class="button">Reset</b-button>
             </b-col>
             <b-col>
-              <b-button type="submit" block class="button">Create Event</b-button>
+              <b-button type="submit" @click="barrelRoll" block class="button">Create Event</b-button>
             </b-col>
           </b-form-row>
 
@@ -209,6 +209,14 @@ export default {
     },
 
     async createEvent() {
+      const response = await EventsService.createEvent(this.event);
+      this.response = response.data;
+      if (this.response.success) {
+        this.$router.push("events/" + this.response.eventID);
+      }
+    },
+
+    barrelRoll() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
         document.body.animate(
           [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
@@ -217,11 +225,6 @@ export default {
             easing: "ease-in-out"
           }
         );
-      }
-      const response = await EventsService.createEvent(this.event);
-      this.response = response.data;
-      if (this.response.success) {
-        this.$router.push("events/" + this.response.eventID);
       }
     },
 
@@ -314,5 +317,4 @@ li {
 .button:active, .cancelButton:active {
   background-color: rgb(0, 42, 83) !important;
 }
-
 </style>
