@@ -132,20 +132,27 @@ export default {
 #heading {
   font-size: 30px;
   font-weight: bold;
+  color: rgb(98, 154, 180);
 }
 p {
-  background: rgb(206, 230, 240);
+  background: rgb(221, 241, 250);
 }
 .boo {
-  background: rgb(206, 230, 240);
+  background: rgb(221, 241, 250);
 
-  border: 3px solid black;
+  border: 1px solid rgb(207, 199, 206);
+  border-radius: 3%;
 }
 .boop {
   background: #252c3a;
 }
 .pic {
   width: 100%;
+  outline: 10px solid rgb(221, 241, 250);
+  outline-offset: -10px;
+  border: 5px solid rgb(119, 171, 196);
+  border-radius: 20%;
+  
 }
 .pah {
   padding: 20px;

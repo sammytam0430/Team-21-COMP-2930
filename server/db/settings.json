@@ -1,0 +1,8 @@
+{
+    "user": "development",
+    "password": "development",
+    "database": "konnect_db",
+    "hostname": "localhost",
+    "port": 5432,
+    "ssl": false
+ }
