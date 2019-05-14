@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="mb-2">
-      <b-button id="popover-upcoming" @click="showMsgBoxOne(items)">upcoming</b-button>
+      <a herf id="popover-upcoming" @click.prevent="showMsgBoxOne(events)">
+        <font-awesome-icon id="notification" class="mx-2" size="2x" icon="bell"/>
+      </a>
       <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft">
         <b-list-group>
           <b-list-group-item
             style="max-width: 30rem;"
-            v-for="item in items"
-            :key="item.name"
-          >Join {{item.name}} starts {{item.startTime}} @ {{item.location}} {{item.date}}</b-list-group-item>
+            v-for="event in events"
+            :key="event.name"
+          >Join {{event.name}} starts {{event.start}} @ {{event.location}} {{event.date}}</b-list-group-item>
         </b-list-group>
       </b-popover>
     </div>
@@ -16,37 +18,21 @@
 </template>
 
 <script>
+import EventsService from "@/services/EventsService";
 export default {
   data() {
     return {
-      items: [
-        {
-          name: "Catan",
-          startTime: "10:30pm",
-          date: "Feb 12 2019",
-          location: "BCIT's Library"
-        },
-        {
-          name: "Basketball",
-          startTime: "1:30pm",
-          date: "Feb 15 2019",
-          location: "BCIT's Gym"
-        },
-        {
-          name: "Badminton",
-          startTime: "1:45pm",
-          date: "March 15 2019",
-          location: "BCIT's Gym"
-        }
-      ],
-      selectedUser: ""
+      events: [],
     };
   },
-
+  mounted() {
+    this.loadEvents();
+  },
   methods: {
-    showMsgBoxOne(items) {
-      this.selectedUser = items;
-    }
+    async loadEvents() {
+      const response = await EventsService.getEvents();
+      this.events = response.data;
+    },
   }
 };
 </script>

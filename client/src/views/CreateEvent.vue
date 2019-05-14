@@ -1,7 +1,6 @@
 <template>
   <b-container>
-    <b-form v-on:submit.prevent="createEvent" class="pt-3">
-
+    <b-form @submit.prevent="createEvent" class="pt-3">
       <b-form-row>
         <b-col md="6" class="px-3">
           <b-form-row>
@@ -148,7 +147,11 @@ import EventsService from "@/services/EventsService";
 export default {
   name: "createEvent",
   components: {},
-
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       time: new Date().toTimeString().substring(0,5),
@@ -160,7 +163,7 @@ export default {
       event: {
         name: "",
         description: "",
-        organizer: 0,
+        organizer: this.$session.get("currentUser"),
         type: null,
         date: this.parseDate(),
         start: new Date().toTimeString().substring(0,5),
@@ -182,6 +185,27 @@ export default {
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
+      this.calcInvitees();
+    },
+
+    calcInvitees() {
+      let people = this.event.numOfPeople;
+      let friends = this.invitees.length;
+      let remaining = people - friends;
+      this.remaining = remaining;
+      if (remaining <= 0) {
+        alert(
+          "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list."
+        );
+        this.event.numOfPeople = friends;
+        this.remaining = 0;
+      }
+      return remaining;
+    },
+
+    spotsRemaining() {
+      let num = this.calcInvitees();
+      this.remaining = num;
     },
 
     async createEvent() {
@@ -196,6 +220,9 @@ export default {
       }
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
+      if (this.response.success) {
+        this.$router.push("events/" + this.response.eventID);
+      }
     },
 
     async getEventType() {
@@ -285,7 +312,7 @@ li {
 }
 
 .button:active, .cancelButton:active {
-  background-color: #252C3A !important;
+  background-color: rgb(0, 42, 83) !important;
 }
 
 </style>

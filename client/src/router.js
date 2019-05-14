@@ -13,6 +13,7 @@ import Listing from "@/views/Listing.vue";
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: "/",
@@ -48,8 +49,8 @@ export default new Router({
       ]
     },
     {
-      path: "/profile",
-      name: "Profile",
+      path: "/user/:id",
+      name: "user",
       component: Profile
     },
     {

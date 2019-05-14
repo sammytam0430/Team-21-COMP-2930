@@ -1,12 +1,12 @@
 <template>
   <b-form v-on:submit.prevent>
-    <b-form-group id="what-group" label="I'm looking for people to" label-for="what">
+    <b-form-group id="what-group" label-for="what">
       <b-form-input id="what" v-model="form.name" type="text" required placeholder="Anything"></b-form-input>
     </b-form-group>
-    <b-form-group id="where-group" label="Where" label-for="where">
+    <b-form-group id="where-group" label-for="where">
       <b-form-input id="where" v-model="form.location" type="text" required placeholder="Anywhere"></b-form-input>
     </b-form-group>
-    <b-form-group id="when-group" label="When" label-for="when">
+    <b-form-group id="when-group" label-for="when">
       <b-container class="px-0">
         <b-form-row>
           <b-col>
@@ -16,7 +16,6 @@
               type="date"
               :disabled="now === 'true'"
               required
-              placeholder="mm-dd-yyyy"
             ></b-form-input>
           </b-col>
           <b-col cols="3">
@@ -62,7 +61,7 @@ export default {
   name: "greetingForm",
   data() {
     return {
-      now: false,
+      now: true,
       form: {
         date: "",
         end: "",
@@ -79,8 +78,8 @@ export default {
       let month =
         now.getMonth() > 8 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);
       let date =
-        now.getDate() > 8 ? now.getDate() + 1 : "0" + (now.getDate() + 1);
-      let hour = now.getHours() > 10 ? now.getHours() : "0" + now.getDate();
+        now.getDate() > 8 ? now.getDate() : "0" + (now.getDate() + 1);
+      let hour = now.getHours() > 9 ? now.getHours() : "0" + now.getHours();
       let minute =
         now.getMinutes() > 9 ? now.getMinutes() : "0" + now.getDate();
       this.form.date = year + "-" + month + "-" + date;

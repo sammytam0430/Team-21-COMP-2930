@@ -1,6 +1,9 @@
 <template>
-  <div class="signUpBtn">
-    <router-link :to="{name: 'SignUpModal'}">Sign Up
+  <div>
+    <router-link class="text-white" :to="{name: 'SignUpModal'}">
+      <b-button variant="primary">
+        Sign Up
+      </b-button>
     </router-link>
   </div>
 </template>

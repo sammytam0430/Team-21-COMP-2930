@@ -8,31 +8,28 @@
             <img class="pic" src="../assets/blop.png">
           </div>
         </b-col>
-        <b-col cols="1"></b-col>
-        <b-col>
+        <b-col offset="1">
           <b-row>
             <b-col cols="3">
               <span>First Name:</span>
             </b-col>
             <b-col>
-              <EditField label="First Name:" v-model="firstName"></EditField>
+              <EditField label="First Name:" v-model="user.fname"></EditField>
             </b-col>
           </b-row>
-
           <b-row>
             <b-col cols="3">
               <span>Last Name:</span>
             </b-col>
             <b-col>
-              <EditField label="Last Name:" v-model="lastName"></EditField>
+              <EditField label="Last Name:" v-model="user.lname"></EditField>
             </b-col>
           </b-row>
-
           <b-row class="mb-3">
             <b-col cols="3">
               <span>Email:</span>
             </b-col>
-            <b-col>{{email}}</b-col>
+            <b-col>{{user.email}}</b-col>
           </b-row>
 
           <b-row>
@@ -40,34 +37,32 @@
               <span>Preferred Email:</span>
             </b-col>
             <b-col>
-              <EditField label="Preferred Email:" v-model="prefEmail"></EditField>
+              <EditField label="Preferred Email:" v-model="user.prefEmail"></EditField>
             </b-col>
           </b-row>
         </b-col>
       </b-row>
-
-      <div>
-        <b-row>
-          <b-col cols="1"></b-col>
-          <b-col cols="3" class="mb-3">
-            <span>Interests:</span>
-          </b-col>
-          <b-col>
-            {{selected.join(', ')}}hi
-            <b-img :src="require('../assets/edits.png')" v-b-modal.interestmodal/>
-
-            <EditInterests/>
-          </b-col>
-        </b-row>
-      </div>
-
-      <b-row>
-        <b-col cols="1"></b-col>
-        <b-col cols="3" class="mb-5">
+      <b-row class="mr-5">
+        <b-col offset="1" cols="3" class="mb-3">
+          <span>Interests:</span>
+        </b-col>
+        <b-col>
+          {{selected.join(', ')}}
+          <b-img
+            class="ml-5"
+            :src="require('../assets/edits.png')"
+            v-if="currentUser"
+            v-b-modal.interestmodal
+          />
+          <EditInterests/>
+        </b-col>
+      </b-row>
+      <b-row class="mr-5">
+        <b-col offset="1" cols="3" class="mb-5">
           <span>Blurb:</span>
         </b-col>
         <b-col class="mb-5">
-          <EditField label="Blurb:" v-model="blurb"></EditField>
+          <EditField label="Blurb:" v-model="user.randBlurb"></EditField>
         </b-col>
       </b-row>
     </div>
@@ -77,36 +72,58 @@
 <script>
 import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
-// import UsersService from "@/services/UsersService";
+import UsersService from "@/services/UsersService";
+import _ from "lodash";
 
 export default {
   name: "profile",
   runtimeCompiler: true,
   components: { EditField, EditInterests },
+  beforeCreate() {
+    if (!this.$session.exists()) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
-      firstName: "Cookie",
-      lastName: "Monster",
-      email: "cmonster27@my.bcit.com",
-      prefEmail: "cmooshie@gmail.com",
-
-      interests: "blip, blop and bloop",
-      blurb:
-        "something nothing whatever - likes random days of nothingness and sitting in silence; the end is near",
+      response: {},
       selected: [],
-      options: [
-        { text: "Outdoor Sports", value: "Outdoor Sports" },
-        { text: "Indoor Sports", value: "Indoor Sports" },
-        { text: "Card/Board games", value: "Card/Board Games" },
-        { text: "PC Games", value: "PC Games" },
-        { text: "Mobile Games", value: "Mobile Games" },
-        { text: "Literature", value: "Literature" },
-        { text: "Music", value: "Music" },
-        { text: "Dance", value: "Dance" },
-        { text: "Food", value: "Food" },
-        { text: "Other", value: "Other" }
-      ]
+      user: [],
+      currentUser: this.$session.get("currentUser") == this.$route.params.id
     };
+  },
+  mounted() {
+    this.getUser();
+  },
+  watch: {
+    "$route.params.id"() {
+      this.getUser();
+    },
+    user: {
+      deep: true,
+      handler() {
+        this.debouncer.call(this);
+      }
+    }
+  },
+  created() {
+    this.debouncer = _.debounce(this.debouncer, 1000);
+  },
+  methods: {
+    async getUser() {
+      const response = await UsersService.getUser(this.$route.params.id);
+      this.user = response.data[0];
+    },
+    async updateUser() {
+      const response = await UsersService.updateUser(
+        this.user.userID,
+        this.user
+      );
+      this.response = response.data;
+    },
+    debouncer() {
+      this.updateUser();
+    }
   }
 };
 </script>
