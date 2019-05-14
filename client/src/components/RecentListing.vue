@@ -1,15 +1,14 @@
 <template>
-  <div class="pb-5 px-5">
+  <b-container class="pb-5 px-5 mt-n5 bg-white rounded">
     <h1 class="text-center py-5">Recent Events</h1>
     <b-card-group columns>
       <b-card :key="event.eventID" v-for="event in events" :title="event.name">
         <b-card-text>{{ event.description }}</b-card-text>
-        <div slot="footer">
-          <Timestamp :time="event.created_at"/>
-        </div>
+        <hr>
+        <Timestamp :time="event.created_at"/>
       </b-card>
     </b-card-group>
-  </div>
+  </b-container>
 </template>
 
 <script>

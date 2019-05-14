@@ -61,7 +61,7 @@
     <template slot="modal-footer">
       <span class="mr-auto">
         Already have an account?
-        <router-link :to="{name: 'LogInModal'}">Log In</router-link>
+        <router-link :to="{name: 'LogInModal'}">Log in</router-link>
       </span>
     </template>
   </b-modal>

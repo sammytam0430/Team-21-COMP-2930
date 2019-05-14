@@ -1,6 +1,11 @@
 <template>
-  <b-jumbotron header lead>
-    <FormCard class="ml-5"/>
+  <b-jumbotron fluid class="mb-0">
+    <FormCard/>
+    <b-row>
+      <b-col offset="6">
+        <font-awesome-icon class="mt-5 text-light" size="2x" icon="angle-double-down" pulse/>
+      </b-col>
+    </b-row>
   </b-jumbotron>
 </template>
 
