@@ -142,7 +142,8 @@ export default {
       this.participants = response.data;
       for (let participant of this.participants) {
         participant.initial =
-          participant.fname.substring(0, 1) + participant.lname.substring(0, 1);
+          participant.fname.substring(0, 1).toUpperCase() +
+          participant.lname.substring(0, 1).toUpperCase();
         participant.fullname = participant.fname + " " + participant.lname;
       }
     },
@@ -150,7 +151,8 @@ export default {
       const response = await EventsService.getEvent(this.$route.params.id);
       this.event = response.data[0];
       this.initial =
-        this.event.fname.substring(0, 1) + this.event.lname.substring(0, 1);
+        this.event.fname.substring(0, 1).toUpperCase() +
+        this.event.lname.substring(0, 1).toUpperCase();
       this.fullname = this.event.fname + " " + this.event.lname;
     },
     async deleteEvent() {
@@ -178,7 +180,10 @@ export default {
     async quitEvent() {
       const eventID = this.event.eventID;
       const userID = this.$session.get("currentUser");
-      const response = await ParticipantsService.deleteParticipants(eventID, userID);
+      const response = await ParticipantsService.deleteParticipants(
+        eventID,
+        userID
+      );
       this.response = response.data;
       if (this.response.success) {
         this.$router.go();
