@@ -39,27 +39,18 @@ import { gmapApi } from "vue2-google-maps";
 
 export default {
   props: ["events"],
+  mounted() {
+    this.initMap();
+  },
+  computed: {
+    google: gmapApi
+  },
   data() {
     return {
       name: "map",
-      infoContent: "",
       infoWinOpen: false,
       infoWindowPos: null,
-      infoOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -60
-        }
-      },
       center: { lat: 49.2500589, lng: -123.0012234 },
-      beforeMount: {
-        initMap(){
-          
-        }
-      },
-      computed: {
-        google: gmapApi
-      },
       markers: [
         // {
         //   label: "1",
@@ -95,65 +86,57 @@ export default {
   },
 
   methods: {
-    initMap() {
-      let bcit = new google.maps.LatLng(49.2500589, -123.0012234);
-      let events = this.$props.events;
+    async initMap() {
+      let bcit = new this.google.maps.LatLng(49.2500589, -123.0012234);
+      let events = this.events;
 
-      // let mapOne = new google.maps.Map(
+      // let mapOne = new this.google.maps.Map(
       //     document.getElementById('mapID'), {center: bcit, zoom: 15});
       for (var i = 0; i < events.length; i++) {
         let request = {
-          query: events[i].location,
+          query: "Burnaby Campus Library",
           fields: ["name", "geometry"]
         };
 
-        let service = new google.maps.places.PlacesService(
+        let service = new this.google.maps.places.PlacesService(
           document.createElement("div")
         );
 
         let locaiontArr = [];
 
-        service.findPlaceFromQuery(request, function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
+        await service.findPlaceFromQuery(request, function(results, status) {
+          // if (status === this.google.maps.places.PlacesServiceStatus.OK) {
             const response = results;
-            const a = response[0].geometry.location.lat();
-            const b = response[0].geometry.location.lng();
-            locaiontArr.push({
-              label: "",
-              position: {
-                lat: locaiontArr[0],
-                lng: locaiontArr[1]
-              }
-            });
-          }
-          console.log(locaiontArr[0]);
-          // console.log(locaiontArr[1]);
+            locaiontArr[0] = response[0].geometry.location.lat();
+            locaiontArr[1] = response[0].geometry.location.lng();
+          // }
         });
 
-        console.log(locaiontArr);
-        // console.log(locaiontArr[0]);
-        // console.log(locaiontArr[1]);
-
-        // console.log(typeof events[i].eventID);
-      }
-      this.markers = locationArr;
+        console.log(locaiontArr[0]);
+        this.markers.push({
+          label: events[i].eventID.toString(),
+          position: {
+            lat: locaiontArr[0],
+            lng: locaiontArr[1]
+          }
+        });
         console.log(this.markers);
+      }
     },
-    makeMarker(arr) {},
     setPlace(place) {
       this.place = place;
     },
     usePlace() {
       if (this.place) {
         this.markers.push({
-          label: events[0].eventID.toString(),
+          label: this.$props.events[0].eventID.toString(),
           position: {
             lat: this.place.geometry.location.lat(),
             lng: this.place.geometry.location.lng()
           }
         });
         // console.log(this.place);
-        // var seachbox = new google.maps.places();
+        // var seachbox = new this.google.maps.places();
         // console.log(seachbox);
         // console.log(seachbox);
 

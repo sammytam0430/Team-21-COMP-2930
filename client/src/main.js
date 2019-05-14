@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import BootstrapVue from "bootstrap-vue";
-import * as VueGoogleMaps from "vue2-google-maps";
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -12,7 +12,7 @@ Vue.use(BootstrapVue);
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyBhO9vs6RsFtyozrmkaQkazFZ_JNL3syRQ",
+    key: "api",
     libraries: "places"
   }
 });
