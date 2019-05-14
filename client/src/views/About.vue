@@ -1,151 +1,87 @@
 <template>
     
     <b-container class="main">
-        <b-container class="mv-5">
+        <b-container class="mid">
             <b-row class="m-5">
                 <span class="title"> before konnect... </span>
             </b-row>
             <b-row>
-                <b-col cols="8">
-                    "The story:  "Blah blah blah.... we sat around and bored.  Blah blah blah.
+                <b-col class="story" md="7" cols="12">
+                    "Blah blah blah.... we sat around and bored.  Blah blah blah.
                     We wanted to do stuff but didn't have enough peeps.
                     Blah blah blah.  Blah blah blah.  
                     Wouldn't it be neat if we could find others to play with.
                     Lonely sad time between classes now gone...
                     Blah blah blah.... hoorah!"
                 </b-col>
-                <b-col cols="4">
+                <b-col md="5" cols="12">
                     <img id="team" src="../assets/team.jpg"/>
                 </b-col>
             </b-row>
         </b-container>
         <hr/>
-        <b-row>
+        <b-row  class="mid">
             <h1> Meet the Team  </h1>
         </b-row>
   
+
+
+
         <b-container class="bioBox">
-        <b-row>
-            <b-col class="m-1" cols="4">
-                Sam
-            </b-col>
-
-        </b-row>
-
-        <b-row>
-            <b-col cols="3">
-            
-            <img class="bio" src="../assets/sam.png"/>
-            
-            </b-col>
-            <b-col class="mt-3" cols="9">
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-            </b-col>
-        </b-row>
+        
         </b-container>
+
+
         <b-container class="bioBox">
-        <b-row>
-            <b-col class="m-1" cols="4">
-                Jam
-            </b-col>
-
-        </b-row>
-
-        <b-row>
-            <b-col cols="3">
-            
-            <img class="bio" src="../assets/jam.png"/>
-            
-            </b-col>
-            <b-col class="mt-3" cols="9">
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-            </b-col>
-        </b-row>
+            <b-row>
+                <b-col class="nameBlock" cols="3" lg="3">
+                    <span class="name"> Sam </span>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" lg="3">
+                    <b-img center class="bioPic" :src="require('../assets/sam.png')"/>
+                </b-col>
+                <b-col class="blurb" lg="9" cols="12">
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                </b-col>
+            </b-row>
         </b-container>
 
-                <b-container class="bioBox">
-        <b-row>
-            <b-col class="m-1" cols="4">
-                Ani
-            </b-col>
-
-        </b-row>
-
-        <b-row>
-            <b-col cols="3">
-            
-            <img class="bio" src="../assets/ani.png"/>
-            
-            </b-col>
-            <b-col class="mt-3" cols="9">
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-            </b-col>
-        </b-row>
+        <b-container class="bioBox">
+        
         </b-container>
 
-                <b-container class="bioBox">
-        <b-row>
-            <b-col class="m-1" cols="4">
-                Cha
-            </b-col>
 
-        </b-row>
-
-        <b-row>
-            <b-col cols="3">
-            
-            <img class="bio" src="../assets/cha.png"/>
-            
-            </b-col>
-            <b-col class="mt-3" cols="9">
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-            </b-col>
-        </b-row>
-        </b-container>
-
-                <b-container class="bioBox">
-        <b-row>
-            <b-col class="m-1" cols="4">
-                Jes
-            </b-col>
-
-        </b-row>
-
-        <b-row>
-            <b-col cols="3">
-            
-            <img class="bio" src="../assets/jes.png"/>
-            
-            </b-col>
-            <b-col class="mt-3" cols="9">
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-                some crazy long ass blurb about how awesome team member is.
-            </b-col>
-        </b-row>
+        <b-container class="bioBox">
+            <b-row>
+                <b-col class="nameBlock" cols="3" lg="3">
+                    <span class="name"> Jam </span>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" lg="3">
+                    <b-img center class="bioPic" :src="require('../assets/jam.png')"/>
+                </b-col>
+                <b-col class="blurb" lg="9" cols="12">
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                </b-col>
+            </b-row>
         </b-container>
 
 
 
 
+
+        <b-img center  :src="require('../assets/blip.png')"/>
 
     </b-container>
 
@@ -158,16 +94,26 @@
 <script>
 export default {
   name: "about",
-  components: {
-    
+  components: {},
+  data() {
+    return {
+        
+    };
   }
-};
-</script>
+}
+</script>   
 
 <style>
 
 .main {
-    background-color: rgb(233, 241, 247);
+
+    
+}
+.story {
+    font-size: x-large
+}
+.mid {
+    padding: 30px;
 }
 
 .title {
@@ -178,22 +124,44 @@ export default {
     width: 100px;
     height: 100px;
 }
-.bio {
-    width: 100px;
-    height: 120px;
+
+.bioPic {
+    width: 200px;
+    height: 240px;
     margin: 20px;
     border-radius: 20%;
+
+
 }
 
+.blurb {
+    font-size: x-large;
+    padding: 20px;
+    margin: 0px;
+}
+
+.nameBlock {
+    display: block;
+}
+.name {
+    font-family: cursive;
+    font-size: 200%;
+    text-align: center; 
+    
+
+}
 #team {
-    width: 100%;
+    width: 90%;
     border-radius: 5%;
+    margin: 10px;
+    
 }
 
 .bioBox {
-    border: 1px solid rgb(221, 216, 235);
+    border: 1px solid rgb(238, 234, 248);
     border-radius: 2%;
-    background-color: rgb(221, 241, 250);
-    margin: 25px;
+    background-color: rgb(226, 235, 240);
+    margin: 30px;
+    padding: 20px; 
 }
 </style>
