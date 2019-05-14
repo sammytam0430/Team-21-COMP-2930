@@ -77,6 +77,81 @@
             </b-row>
         </b-container>
 
+        <b-container class="bioBox">
+        
+        </b-container>
+
+
+        <b-container class="bioBox">
+            <b-row>
+                <b-col class="nameBlock" cols="3" lg="3">
+                    <span class="name"> Ani </span>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" lg="3">
+                    <b-img center class="bioPic" :src="require('../assets/ani.png')"/>
+                </b-col>
+                <b-col class="blurb" lg="9" cols="12">
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                </b-col>
+            </b-row>
+        </b-container>
+
+        <b-container class="bioBox">
+        
+        </b-container>
+
+
+        <b-container class="bioBox">
+            <b-row>
+                <b-col class="nameBlock" cols="3" lg="3">
+                    <span class="name"> Cha </span>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" lg="3">
+                    <b-img center class="bioPic" :src="require('../assets/cha.png')"/>
+                </b-col>
+                <b-col class="blurb" lg="9" cols="12">
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                </b-col>
+            </b-row>
+        </b-container>
+
+
+        <b-container class="bioBox">
+        
+        </b-container>
+
+
+        <b-container class="bioBox">
+            <b-row>
+                <b-col class="nameBlock" cols="3" lg="3">
+                    <span class="name"> Jes </span>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" lg="3">
+                    <b-img center class="bioPic" :src="require('../assets/jes.png')"/>
+                </b-col>
+                <b-col class="blurb" lg="9" cols="12">
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                    some crazy long ass blurb about how awesome team member is.
+                </b-col>
+            </b-row>
+        </b-container>
 
 
 
