@@ -14,6 +14,8 @@ exports.up = function(knex, Promise) {
       table.string("end").notNullable();
       table.timestamp("created_at", { useTz: true }).defaultTo(knex.fn.now());
       table.string("location").notNullable();
+      table.decimal("lat", null).notNullable();
+      table.decimal("lng", null).notNullable();
       table.integer("numOfPeople").notNullable();
       table
         .foreign("organizer")
