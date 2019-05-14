@@ -7,7 +7,7 @@ export default {
   addParticipants(data) {
     return Api().post("/participants", data);
   },
-  deleteEvent(id) {
-    return Api().delete("/participants/" + id);
+  deleteParticipants(eventID, userID) {
+    return Api().delete(`/participants/${eventID}/${userID}`);
   }
 };
