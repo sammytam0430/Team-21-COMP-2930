@@ -33,7 +33,6 @@
                   id="number"
                   v-model="event.numOfPeople"
                   type="number"
-                  v-on:change="calcPeopleNeeded"
                   min="1"
                   max="999"
                   required
@@ -58,13 +57,18 @@
 
             <b-col lg="4">
               <b-form-group id="dateGroup" label="Date *" label-for="date">
-                <b-form-input id="date" v-model="event.date" type="date" required></b-form-input>
+                <b-form-input id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
               </b-form-group>
             </b-col>
 
             <b-col col="6" sm="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
-                <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
+                <template v-if="this.event.date === this.parseDate()">
+                  <b-form-input id="start" v-model="event.start" type="time" :min="this.time" required></b-form-input>
+                </template>
+                <template v-else>
+                  <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
+                </template>
               </b-form-group>
             </b-col>
 
@@ -147,6 +151,7 @@ export default {
 
   data() {
     return {
+      time: new Date().toTimeString().substring(0,5),
       resetModal: false,
       newFriend: "",
       response: null,
