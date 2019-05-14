@@ -12,7 +12,10 @@ import {
   faUserFriends,
   faThList,
   faPlus,
-  faAngleDoubleDown
+  faAngleDoubleDown,
+  faMapMarkerAlt,
+  faClock,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 // import { faUserBrand } from "@fortawesome/free-brands-svg-icons";
 // import { faUserRegular } from "@fortawesome/free-regular-svg-icons";
@@ -30,7 +33,10 @@ library.add(
   faUserFriends,
   faThList,
   faPlus,
-  faAngleDoubleDown
+  faAngleDoubleDown,
+  faMapMarkerAlt,
+  faClock,
+  faTimes
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

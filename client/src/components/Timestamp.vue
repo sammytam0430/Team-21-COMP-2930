@@ -5,18 +5,16 @@
 <script>
 export default {
   props: ["time"],
-  data() {
-    return {
-      fromNow: ""
-    };
-  },
-  mounted() {
-    this.fromNow = this.convertTime();
+  computed: {
+    fromNow() {
+      return this.convertTime()
+    } 
   },
   methods: {
     convertTime() {
       let seconds = Math.floor((new Date() - Date.parse(this.time)) / 1000);
       let interval = Math.floor(seconds / 31536000);
+
       if (interval > 1) {
         return interval + " years";
       }
