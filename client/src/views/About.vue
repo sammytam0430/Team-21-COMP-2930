@@ -27,9 +27,6 @@
 
 
 
-        <b-container class="bioBox">
-        
-        </b-container>
 
 
         <b-container class="bioBox">
@@ -153,11 +150,9 @@
             </b-row>
         </b-container>
 
-
-
-
-        <b-img center  :src="require('../assets/blip.png')"/>
-
+            <b-img  class="comic" :src="require('../assets/blip.png')"/>
+          
+        
     </b-container>
 
 
@@ -180,12 +175,16 @@ export default {
 
 <style>
 
+.comic {
+    width: 100%;
+}
+
 .main {
 
     
 }
 .story {
-    font-size: x-large
+    font-size: x-large;
 }
 .mid {
     padding: 30px;
