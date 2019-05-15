@@ -55,7 +55,7 @@
             <span class="ml-2">{{event.start}} to {{event.end}}</span>
           </b-col>
           <b-col class="text-right">
-            <a @click.prevent href>Add to Calendar</a>
+            <a target="_blank" :href="`https://www.google.com/calendar/r/eventedit?text=${event.name}&details=${event.description}&location=${event.location}&dates=${event.date.replace(/-/g, '')}T${event.start.replace(':', '')}00%2F${event.date.replace(/-/g, '')}T${event.end.replace(/:/g, '')}00&ctz=America/Vancouver`">Add to Calendar</a>
           </b-col>
         </b-row>
         <b-row>
@@ -66,7 +66,7 @@
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <a @click.prevent href>View on map</a>
+            <a target="_blank" :href="`https://www.google.com/maps/search/?api=1&query=${event.location}`">View on map</a>
           </b-col>
         </b-row>
       </b-container>

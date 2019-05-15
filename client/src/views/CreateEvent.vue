@@ -13,8 +13,8 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
-                <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required></b-form-input>
+              <b-form-group id="locationGroup" label="Location *" label-for="location">
+                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -42,28 +42,36 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group
-                id="descriptionGroup"
-                label="Description (optional)"
-                label-for="description"
-              >
+              <b-form-group id="descriptionGroup" label="Description (optional)" label-for="description">
                 <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-form-row>
 
           <b-form-row id="time">
-
             <b-col lg="4">
               <b-form-group id="dateGroup" label="Date *" label-for="date">
-                <b-form-input id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
+                <b-form-input
+                  id="date"
+                  v-model="event.date"
+                  type="date"
+                  :min="parseDate()"
+                  max="2930-05-21"
+                  required
+                ></b-form-input>
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" sm="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
-                  <b-form-input id="start" v-model="event.start" type="time" :min="this.time" required></b-form-input>
+                  <b-form-input
+                    id="start"
+                    v-model="event.start"
+                    type="time"
+                    :min="this.time"
+                    required
+                  ></b-form-input>
                 </template>
                 <template v-else>
                   <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
@@ -71,12 +79,11 @@
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" sm="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
-
           </b-form-row>
         </b-col>
 
@@ -94,7 +101,7 @@
               </b-col>
 
               <b-col>
-                <b-button class="button" hover: block @click="addFriend()">Add</b-button>
+                <b-button class="button" block @click="addFriend()">Add</b-button>
               </b-col>
             </b-form-row>
           </b-form-group>
@@ -125,28 +132,37 @@
               <b-button type="submit" @click="barrelRoll" block class="button">Create Event</b-button>
             </b-col>
           </b-form-row>
-
         </b-col>
       </b-form-row>
     </b-form>
 
     <b-modal v-model="resetModal" hide-header footerClass="border-top-0">
       Are you sure you want to reset this form? All data will be lost.
-      <template slot="modal-footer" slot-scope="{cancel}">
+      <template
+        slot="modal-footer"
+        slot-scope="{cancel}"
+      >
         <b-button @click="cancel()" class="cancelButton" variant="secondary">CANCEL</b-button>
         <b-button @click="reset()" class="button">RESET</b-button>
       </template>
     </b-modal>
   </b-container>
 </template>
-
+ 
 <script>
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
+import { gmapApi } from "vue2-google-maps";
 
 export default {
   name: "createEvent",
   components: {},
+  computed: {
+    google: gmapApi,
+    rows() {
+      return this.invitees.length;
+    }
+  },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");
@@ -154,21 +170,24 @@ export default {
   },
   data() {
     return {
-      time: new Date().toTimeString().substring(0,5),
+      time: new Date().toTimeString().substring(0, 5),
       resetModal: false,
       newFriend: "",
       response: null,
-      options: [{value: null, text: "Please select an event type"}],
+      options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
+      place: null,
       event: {
         name: "",
         description: "",
         organizer: this.$session.get("currentUser"),
         type: null,
         date: this.parseDate(),
-        start: new Date().toTimeString().substring(0,5),
+        start: new Date().toTimeString().substring(0, 5),
         end: "",
-        location: "",
+        location: this.parsePlace(),
+        lat: 0,
+        lng: 0,
         numOfPeople: 1
       }
     };
@@ -179,33 +198,22 @@ export default {
       if (this.newFriend != 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
-        this.remaining--;
       }
     },
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
-      this.calcInvitees();
     },
 
-    calcInvitees() {
-      let people = this.event.numOfPeople;
-      let friends = this.invitees.length;
-      let remaining = people - friends;
-      this.remaining = remaining;
-      if (remaining <= 0) {
-        alert(
-          "You have reached the maximum capacity for your event, please check your 'People Needed' slot or remove invitations from your invitees list."
-        );
-        this.event.numOfPeople = friends;
-        this.remaining = 0;
-      }
-      return remaining;
+    async setPlace(place) {
+      this.place = await place;
+      this.event.location = this.place.name;
+      this.event.lat = this.place.geometry.location.lat();
+      this.event.lng = this.place.geometry.location.lng();
     },
 
-    spotsRemaining() {
-      let num = this.calcInvitees();
-      this.remaining = num;
+    parsePlace() {
+      return (this.place == null) ? "" : this.place.name;
     },
 
     async createEvent() {
@@ -235,36 +243,35 @@ export default {
       }
     },
 
-    parseDate(){
+    parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
       var d = date.getDate();
 
-      if (m < 10){
+      if (m < 10) {
         m = "0" + m;
       }
 
-      if (d < 10){
+      if (d < 10) {
         d = "0" + d;
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
 
-    confirmReset(){
+    confirmReset() {
       this.resetModal = true;
     },
 
-    reset(){
+    reset() {
       this.event.name = "";
       this.event.description = "";
       this.event.type = null;
       this.event.date = this.parseDate();
-      this.event.start = new Date().toTimeString().substring(0,5);
+      this.event.start = new Date().toTimeString().substring(0, 5);
       this.event.end = "";
       this.event.location = "";
       this.event.numOfPeople = 1;
       this.newFriend = "";
-      this.remaining = 1;
       this.invitees = [];
       this.resetModal = false;
     }
@@ -272,49 +279,65 @@ export default {
 
   mounted() {
     this.getEventType();
-  },
-
-  computed: {
-    rows() {
-      return this.invitees.length;
-    }
   }
 };
 </script>
 
 <style scoped>
-ol {
-  list-style-type: none;
-  overflow: auto;
-  min-height: 237px;
-  max-height: 237px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 0px;
-}
+  ol {
+    list-style-type: none;
+    overflow: auto;
+    min-height: 237px;
+    max-height: 237px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0px;
+  }
 
-li {
-  padding: 2px;
-  border-bottom: 1px solid lightgray;
-}
+  li {
+    padding: 2px;
+    border-bottom: 1px solid lightgray;
+  }
 
-.button {
-  background-color: #63A6C1;
-}
+  .button {
+    background-color: #63a6c1;
+  }
 
-.button:hover {
-  background-color: #3A7395;
-}
+  .button:hover {
+    background-color: #3a7395;
+  }
 
-.cancelButton {
-  background-color: #6F6668;
-}
+  .cancelButton {
+    background-color: #6f6668;
+  }
 
-.cancelButton:hover {
-  background-color: #6C757D;
-}
+  .cancelButton:hover {
+    background-color: #6c757d;
+  }
 
-.button:active, .cancelButton:active {
-  background-color: rgb(0, 42, 83) !important;
-}
+  .button:active,
+  .cancelButton:active {
+    background-color: rgb(0, 42, 83) !important;
+  }
+
+  #location {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+
+  #location:focus {
+    box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb, -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
+    outline-width: 0px;
+    transition: all 0.15s ease-in-out;
+  }
 </style>
