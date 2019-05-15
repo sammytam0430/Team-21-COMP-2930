@@ -1,8 +1,8 @@
 <template>
   <b-container>
     <EventDetails/>
-    <span class="h1 mr-5">Events</span>
-    <b-button v-b-toggle.collapse class="mt-n3" variant="outline-info">Filter</b-button>
+    <span id="heading" class="mx-3">Events</span>
+    <b-button v-b-toggle.collapse class="float-right mt-0 pt-1 mx-3" variant="outline-info">Filters</b-button>
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
@@ -34,7 +34,7 @@
         </b-row>
       </b-collapse>
       <b-row class="mt-2">
-        <b-card-group class="mt-2" columns>
+        <b-card-group class="mt-2 w-100" columns>
           <b-card
             border-variant="white"
             :key="event.eventID"
@@ -53,12 +53,12 @@
             </p>
             <hr>
             <b-row>
-              <b-col md="8">
+              <b-col md="8" id="created">
                 <Timestamp :time="event.created_at"/>
               </b-col>
               <b-col md="4">
                 <router-link :to="{name: 'EventDetails', params: {id: event.eventID}}">
-                  <b-button size="sm" variant="outline-info">Details</b-button>
+                  <b-button size="sm" variant="outline-info" id="detailButton" class="px-1">Details</b-button>
                 </router-link>
               </b-col>
             </b-row>
@@ -138,5 +138,30 @@ export default {
 .desc {
   padding: 15px;
   font-size: 150%;
+}
+
+#heading{
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 50px;
+}
+
+@media only screen and (max-width: 426px){
+  #detailButton{
+    font-size: 11px;
+    margin-top: 0.25rem;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px){
+  #detailButton{
+    font-size: 11px;
+    margin-top: 0.25rem;
+  }
+
+  #created{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 </style>
