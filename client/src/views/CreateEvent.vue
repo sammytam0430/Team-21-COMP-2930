@@ -5,30 +5,31 @@
         <b-col md="6" class="px-3">
           <b-form-row>
             <b-col>
-              <b-form-group id="nameGroup" label="Event Name *" label-for="name">
-                <b-form-input id="name" v-model="event.name" type="text" required></b-form-input>
+              <b-form-group class="myContent" id="nameGroup" label="Event Name *" label-for="name">
+                <b-form-input class="myContent" id="name" v-model="event.name" type="text" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
 
           <b-form-row>
             <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location" class="pr-2">
-                <b-form-input id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required></b-form-input>
+              <b-form-group id="locationGroup" label="Location *" label-for="location" class="myContent pr-2">
+                <b-form-input class="myContent" id="location" v-model="event.location" type="text" placeholder="Building and Room Number" v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
 
           <b-form-row>
             <b-col cols="7">
-              <b-form-group id="typeGroup" label="Event Type *" label-for="type">
-                <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
+              <b-form-group class="myContent" id="typeGroup" label="Event Type *" label-for="type">
+                <b-form-select class="myContent" id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
 
             <b-col cols="5">
-              <b-form-group id="numberGroup" label="People Needed *" label-for="number">
+              <b-form-group class="myContent" id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
+                  class="myContent"
                   id="number"
                   v-model="event.numOfPeople"
                   type="number"
@@ -43,37 +44,38 @@
           <b-form-row>
             <b-col>
               <b-form-group
+                class="myContent"
                 id="descriptionGroup"
                 label="Description (optional)"
                 label-for="description"
               >
-                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
+                <b-form-textarea class="myContent" id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-form-row>
 
-          <b-form-row id="time">
+          <b-form-row class="myContent" id="time">
 
             <b-col lg="4">
-              <b-form-group id="dateGroup" label="Date *" label-for="date">
-                <b-form-input id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
+              <b-form-group class="myContent" id="dateGroup" label="Date *" label-for="date">
+                <b-form-input class="myContent" id="date" v-model="event.date" type="date" :min="parseDate()" max="2930-05-21" required></b-form-input>
               </b-form-group>
             </b-col>
 
             <b-col col="6" sm="6" lg="4">
-              <b-form-group id="startGroup" label="Start Time *">
+              <b-form-group class="myContent" id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
-                  <b-form-input id="start" v-model="event.start" type="time" :min="this.time" required></b-form-input>
+                  <b-form-input class="myContent" id="start" v-model="event.start" type="time" :min="this.time" required></b-form-input>
                 </template>
                 <template v-else>
-                  <b-form-input id="start" v-model="event.start" type="time" required></b-form-input>
+                  <b-form-input class="myContent" id="start" v-model="event.start" type="time" required></b-form-input>
                 </template>
               </b-form-group>
             </b-col>
 
             <b-col col="6" sm="6" lg="4">
-              <b-form-group id="endGroup" label="End Time *">
-                <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
+              <b-form-group class="myContent" id="endGroup" label="End Time *">
+                <b-form-input class="myContent" id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
             </b-col>
 
@@ -81,10 +83,11 @@
         </b-col>
 
         <b-col md="6" class="px-3">
-          <b-form-group id="inviteGroup" label="Invite Friends (optional)">
+          <b-form-group class="myContent" id="inviteGroup" label="Invite Friends (optional)">
             <b-form-row>
               <b-col cols="9">
                 <b-form-input
+                  class="myContent"
                   id="invite"
                   v-model="newFriend"
                   type="text"
@@ -101,8 +104,8 @@
 
           <b-row>
             <b-container>
-              <b-form-group id="listGroup" label="Invitees">
-                <ol>
+              <b-form-group class="myContent" id="listGroup" label="Invitees">
+                <ol class="my-0">
                   <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}}
                     <b-badge
@@ -316,5 +319,17 @@ li {
 
 .button:active, .cancelButton:active {
   background-color: rgb(0, 42, 83) !important;
+}
+
+@media only screen and (max-width: 425px){
+  .myContent, .button{
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 320px){
+  .myContent, .button{
+    font-size: 13px;
+  }
 }
 </style>
