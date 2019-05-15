@@ -2,8 +2,8 @@
   <b-container>
     <EventDetails/>
     <span id="heading" class="mx-3">Events</span>
-    <b-button v-b-toggle.collapse class="float-right mt-0 pt-1 mx-3" variant="outline-info">Filters</b-button>
-    <b-container fluid>
+    <b-button v-b-toggle.collapse id="filterButton" class="float-right mt-0 pt-1 mx-3" variant="outline-info">Filters</b-button>
+    <b-container class="content" fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
           <b-col md="3">
@@ -41,16 +41,24 @@
             :title="event.name"
             v-for="event in events"
           >
-            <b-card-sub-title>{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
+            <b-card-sub-title id="date">{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
             <hr>
-            <p>
+            <b-row class="mb-2">
+              <b-col cols="1">
               <font-awesome-icon fixed-width icon="clock"/>
-              <span class="ml-2">{{event.start}} to {{event.end}}</span>
-            </p>
-            <p>
-              <font-awesome-icon fixed-width icon="map-marker-alt"/>
-              <span class="ml-2">{{event.location}}</span>
-            </p>
+              </b-col>
+              <b-col class="float-left text-left">
+                <span>{{event.start}} to {{event.end}}</span>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="1">
+                <font-awesome-icon fixed-width icon="map-marker-alt"/>
+              </b-col>
+              <b-col class="float-left text-left">
+              <span>{{event.location}}</span>
+              </b-col>
+            </b-row>
             <hr>
             <b-row>
               <b-col md="8" id="created">
@@ -150,6 +158,19 @@ export default {
   #detailButton{
     font-size: 11px;
     margin-top: 0.25rem;
+  }
+
+  #heading{
+    font-size: 22px;
+  }
+
+  #filterButton{
+    font-size: 14px;
+    padding: 4px;
+  }
+
+  #type, #date, #start, .content{
+    font-size: 14px;
   }
 }
 
