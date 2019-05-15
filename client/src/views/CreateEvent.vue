@@ -11,15 +11,7 @@
             </b-col>
           </b-form-row>
 
-          <b-form-row>
-            <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location">
-                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-
-          <b-form-row>
+           <b-form-row>
             <b-col cols="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
@@ -42,8 +34,16 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="descriptionGroup" label="Description (optional)" label-for="description">
-                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
+              <b-form-group id="locationGroup" label="Location *" label-for="location">
+                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+
+          <b-form-row>
+            <b-col>
+              <b-form-group id="descriptionGroup" label="Description / Additional Location Details (optional)" label-for="description">
+                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50" v-b-popover.focus.top="'Please add addional details about your location such as room number and if you are in a large room, then a brief description of your area (ie: back of the room by the windows)'"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -81,7 +81,7 @@
 
             <b-col cols="6" sm="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
-                <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
+                <b-form-input id="end" v-model="event.end" type="time" @change="checkEndTime()" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -146,6 +146,16 @@
         <b-button @click="reset()" class="button">RESET</b-button>
       </template>
     </b-modal>
+
+    <b-toast
+      id="alert"
+      title="Event will end tomorrow"
+      variant="warning"
+      toaster="b-toaster-bottom-center"
+      :visible="this.alert"
+    >
+     Please note that your end time is earlier than start time.
+    </b-toast>
   </b-container>
 </template>
  
@@ -170,6 +180,7 @@ export default {
   },
   data() {
     return {
+      alert: false,
       time: new Date().toTimeString().substring(0, 5),
       resetModal: false,
       newFriend: "",
@@ -194,15 +205,11 @@ export default {
   },
 
   methods: {
-    addFriend() {
-      if (this.newFriend != 0) {
-        this.invitees.push({ invitees: this.newFriend });
-        this.newFriend = "";
+    async getEventType() {
+      const response = await InterestsService.getInterests();
+      for (const option of response.data) {
+        this.options.push({ value: option.interestID, text: option.name });
       }
-    },
-
-    removeFriend(friend) {
-      this.invitees.splice(this.invitees.indexOf(friend), 1);
     },
 
     async setPlace(place) {
@@ -214,6 +221,58 @@ export default {
 
     parsePlace() {
       return (this.place == null) ? "" : this.place.name;
+    },
+
+    parseDate() {
+      var date = new Date();
+      var m = date.getMonth() + 1;
+      var d = date.getDate();
+
+      if (m < 10) {
+        m = "0" + m;
+      }
+
+      if (d < 10) {
+        d = "0" + d;
+      }
+      return date.getFullYear() + "-" + m + "-" + d;
+    },
+
+    checkEndTime() {
+      let start = parseInt(this.event.start.replace(":",""));
+      let end = parseInt(this.event.end.replace(":",""));
+      console.log(start);
+      console.log(end);
+      this.alert = (end < start) ? true : false;
+    },
+
+    addFriend() {
+      if (this.newFriend != 0) {
+        this.invitees.push({ invitees: this.newFriend });
+        this.newFriend = "";
+      }
+    },
+
+    removeFriend(friend) {
+      this.invitees.splice(this.invitees.indexOf(friend), 1);
+    },
+
+    confirmReset() {
+      this.resetModal = true;
+    },
+
+    reset() {
+      this.event.name = "";
+      this.event.description = "";
+      this.event.type = null;
+      this.event.date = this.parseDate();
+      this.event.start = new Date().toTimeString().substring(0, 5);
+      this.event.end = "";
+      this.event.location = "";
+      this.event.numOfPeople = 1;
+      this.newFriend = "";
+      this.invitees = [];
+      this.resetModal = false;
     },
 
     async createEvent() {
@@ -234,46 +293,6 @@ export default {
           }
         );
       }
-    },
-
-    async getEventType() {
-      const response = await InterestsService.getInterests();
-      for (const option of response.data) {
-        this.options.push({ value: option.interestID, text: option.name });
-      }
-    },
-
-    parseDate() {
-      var date = new Date();
-      var m = date.getMonth() + 1;
-      var d = date.getDate();
-
-      if (m < 10) {
-        m = "0" + m;
-      }
-
-      if (d < 10) {
-        d = "0" + d;
-      }
-      return date.getFullYear() + "-" + m + "-" + d;
-    },
-
-    confirmReset() {
-      this.resetModal = true;
-    },
-
-    reset() {
-      this.event.name = "";
-      this.event.description = "";
-      this.event.type = null;
-      this.event.date = this.parseDate();
-      this.event.start = new Date().toTimeString().substring(0, 5);
-      this.event.end = "";
-      this.event.location = "";
-      this.event.numOfPeople = 1;
-      this.newFriend = "";
-      this.invitees = [];
-      this.resetModal = false;
     }
   },
 
