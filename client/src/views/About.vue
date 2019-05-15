@@ -19,16 +19,13 @@
                 </b-col>
             </b-row>
         </b-container>
+
+
         <hr/>
         <b-row  class="mid">
             <h1> Meet the Team  </h1>
         </b-row>
   
-
-
-
-
-
         <b-container class="bioBox">
             <b-row>
                 <b-col class="nameBlock" cols="3" lg="3">
@@ -40,11 +37,13 @@
                     <b-img center class="bioPic" :src="require('../assets/sam.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
+                    Born to race down the winding mountain passes, this sleek dude 
+                    can plow through the forests' narrow paths with phenomenal speed 
+                    and accuracy.  The thrill is in the adventure, and the prize is 
+                    beyond the single Bergmite that can be acquired after the multi-hour 
+                    hase.   Unknownst to those around him, Sammy has powerful skills that 
+                    surpasses all; these skills so intense that his peers cannot even 
+                    fathom the possibility of their existence.
                 </b-col>
             </b-row>
         </b-container>
@@ -65,11 +64,11 @@
                     <b-img center class="bioPic" :src="require('../assets/jam.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
+                    On the surface, a seemingly completely clueless, dazed and frazzled guy... 
+                    often looking like he's unsure if he has his shirt on forwards
+                    or backwards.   Wynaut, always a good sport, and always supportive, even
+                    when you just can't figure out how to hold your chopsticks correctly
+                    to feed yourself some popcorn.  
                 </b-col>
             </b-row>
         </b-container>
@@ -90,11 +89,14 @@
                     <b-img center class="bioPic" :src="require('../assets/ani.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
+                    One's existence is nothing but a figment of imagination and will, 
+                    where the fine lines that lay between truth, fabrication, and 
+                    fantasy are blurred as we saunter on the edge of sanity...   
+                    [~ C. Enga]
+                    With a weakness for steak and prime rib done right, life
+                    is not full of rainbows and unicorns.  Favourite activities 
+                    include meandering about
+                    without any real purpose.
                 </b-col>
             </b-row>
         </b-container>
@@ -115,11 +117,13 @@
                     <b-img center class="bioPic" :src="require('../assets/cha.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
+                    A Huntail fluffiness that seems to have issues with being conscious 
+                    in the morning hours. Punctuality may be a problem, but the 
+                    dedication and devotion to the
+                    challenges of life are unparalleled.  With massive overdosing on 
+                    caffeine and 
+                    monosaccharides on a daily basis, it is astonishing that the coccyx
+                    has not exploded into oblivion. 
                 </b-col>
             </b-row>
         </b-container>
@@ -141,11 +145,12 @@
                     <b-img center class="bioPic" :src="require('../assets/jes.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
-                    some crazy long ass blurb about how awesome team member is.
+                    Always punctual, bordering on being excessively early for any
+                    meeting or occassion.  Great positive attitude, no matter how 
+                    grim or destitute the present situation may seem.  Reliable to 
+                    be present through any weather or calamity like a Finneon, ready
+                    to battle whatever task that needs to be taken.
+                    
                 </b-col>
             </b-row>
         </b-container>
