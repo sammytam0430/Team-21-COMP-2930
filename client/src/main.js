@@ -16,7 +16,8 @@ import {
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "bootstrap/dist/css/bootstrap.css";
@@ -33,7 +34,8 @@ library.add(
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

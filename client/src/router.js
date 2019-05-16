@@ -9,6 +9,7 @@ import DashBoard from "@/views/DashBoard.vue";
 import SignUpModal from "@/components/SignUpModal.vue";
 import LogInModal from "@/components/LogInModal.vue";
 import Listing from "@/views/Listing.vue";
+import About from "@/views/About.vue";
 
 Vue.use(Router);
 
@@ -82,6 +83,11 @@ export default new Router({
       path: "/friends",
       name: "friends",
       component: Friends
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: About
     },
     {
       path: "/dashboard",
