@@ -1,11 +1,6 @@
 
 <template>
   <div>
-    <!-- <gmap-autocomplete :default-place="place" @place_changed="setPlace"></gmap-autocomplete>
-    <button @click="initMap">Add</button>-->
-    <!-- <br/>
-    {{this.place.geometry.viewport.na.j}},
-    {{this.place.geometry.viewport.ia.j}}-->
     <GmapMap id="mapOne" :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
       <GmapInfoWindow
         :position="infoWindowPos"
@@ -87,19 +82,15 @@ export default {
 
   methods: {
     initMap() {
-      // let bcit = await new this.google.maps.LatLng(49.2500589, -123.0012234);
-      let events = this.events;
-
-      // let mapOne = new this.google.maps.Map(
-      //     document.getElementById('mapID'), {center: bcit, zoom: 15});
       let latNew;
       let lngNew;
-      for (var i = 0; i < events.length; i++) {
-        latNew = Number(events[i].lat);
-        lngNew = Number(events[i].lng);
-        console.log(latNew);
+      let i;
+      for (i = 0; i < this.events.length; i++) {
+        latNew = Number(this.events[i].lat);
+        lngNew = Number(this.events[i].lng);
+
         this.markers.push({
-          label: events[i].eventID,
+          label: this.events[i].eventID,
           position: {
             lat: latNew,
             lng: lngNew

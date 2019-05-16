@@ -2,7 +2,7 @@
   <div class="DashBoard">
     <b-container>
       <b-row>
-        <b-col md="8" lg="9">
+        <b-col md="8" lg="8">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4">
@@ -24,7 +24,7 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col md="4" lg="3">
+        <b-col md="4" lg="4">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4">
@@ -39,8 +39,8 @@
           
           <div>
             <b-row class="p-2">
-              <b-col font-size="1rem">Friend Konnect</b-col>
-              <b-col cols="5.5" class="float-right">
+              <b-col cols="8" font-size="1rem">Friend Konnect</b-col>
+              <b-col class="float-right">
                 <AddFriendModal/>
               </b-col>
             </b-row>
