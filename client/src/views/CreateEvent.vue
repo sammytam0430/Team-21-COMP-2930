@@ -13,20 +13,32 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location">
-                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
+              <b-form-group
+                id="locationGroup"
+                label="Location *"
+                label-for="location"
+                class="myContent pr-2"
+              >
+                <b-form-input
+                  id="location"
+                  v-model="event.location"
+                  type="text"
+                  placeholder="Building and Room Number"
+                  v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'"
+                  required
+                ></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
 
           <b-form-row>
-            <b-col cols="7">
+            <b-col cols="6" sm="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
 
-            <b-col cols="5">
+            <b-col cols="6" sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
@@ -66,7 +78,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col cols="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
                   <b-form-input
@@ -83,7 +95,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col cols="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
@@ -114,7 +126,7 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol>
-                  <li id="list" v-for="friend in invitees" :key="friend.id" class="p-2">
+                  <li id="list" v-for="friend in invitees" :key="friend.id" class="p-2 border-bottom">
                     {{friend.invitees}}
                     <font-awesome-icon
                       fixed-width

@@ -15,7 +15,8 @@ import {
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import * as VueGoogleMaps from "vue2-google-maps";
@@ -34,7 +35,8 @@ library.add(
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

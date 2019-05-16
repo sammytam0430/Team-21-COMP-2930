@@ -1,8 +1,8 @@
 <template>
   <b-container>
     <EventDetails/>
-    <span class="h1 mr-5">Events</span>
-    <b-button v-b-toggle.collapse class="mt-n3" variant="outline-secondary">Filter</b-button>
+    <span class="mx- h3">Events</span>
+    <b-button v-b-toggle.collapse class="float-right mt-0 pt-1 mx-3" variant="outline-secondary">Filters</b-button>
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
@@ -33,32 +33,40 @@
           </b-col>
         </b-row>
       </b-collapse>
-      <b-row class="mt-2">
-        <b-card-group class="mt-2" columns>
+      <b-row class="mt-4">
+        <b-card-group columns>
           <b-card
             border-variant="info"
             :key="event.eventID"
             :title="event.name"
             v-for="event in events"
           >
-            <b-card-sub-title>{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
+            <b-card-sub-title class="h6" >{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
             <hr>
-            <p>
+            <b-row class="mb-2">
+              <b-col cols="1">
               <font-awesome-icon fixed-width icon="clock"/>
-              <span class="ml-2">{{event.start}} to {{event.end}}</span>
-            </p>
-            <p>
-              <font-awesome-icon fixed-width icon="map-marker-alt"/>
-              <span class="ml-2">{{event.location}}</span>
-            </p>
+              </b-col>
+              <b-col class="float-left text-left">
+                <span>{{event.start}} to {{event.end}}</span>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="1">
+                <font-awesome-icon fixed-width icon="map-marker-alt"/>
+              </b-col>
+              <b-col class="float-left text-left">
+              <span>{{event.location}}</span>
+              </b-col>
+            </b-row>
             <hr>
             <b-row>
-              <b-col lg="8">
+              <b-col md="8">
                 <Timestamp :time="event.created_at"/>
               </b-col>
               <b-col lg="4">
                 <router-link :to="{name: 'EventDetails', params: {id: event.eventID}}">
-                  <b-button size="sm" variant="outline-primary">Details</b-button>
+                  <b-button size="md" variant="outline-primary" class="px-1">Details</b-button>
                 </router-link>
               </b-col>
             </b-row>
@@ -116,27 +124,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.eventBox {
-  width: 70%;
-  height: 200px;
-  border: 5px solid gray;
-  border-radius: 5%;
-  padding: 20px;
-}
-
-.markBox {
-  background: rgb(246, 241, 247);
-  padding: 20px;
-}
-
-.markBox2 {
-  background: rgb(229, 221, 240);
-}
-
-.desc {
-  padding: 15px;
-  font-size: 150%;
-}
-</style>
