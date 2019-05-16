@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid class="px-5">
     <EventDetails/>
     <span class="mx- h3">Events</span>
     <b-button v-b-toggle.collapse class="float-right mt-0 pt-1 mx-3" variant="outline-secondary">Filters</b-button>

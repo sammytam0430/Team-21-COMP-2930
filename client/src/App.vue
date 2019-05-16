@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar/>
-    <router-view class="pt-5"/>
+    <router-view/>
     <Footer/>
   </div>
 </template>
@@ -33,7 +33,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 /* Track */

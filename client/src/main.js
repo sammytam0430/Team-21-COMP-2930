@@ -20,8 +20,7 @@ import {
   faSpa
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import '@/assets/custom.scss'
 
 library.add(
   faUserGraduate,

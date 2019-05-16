@@ -118,6 +118,6 @@ img {
 
 .scrolled {
   transition: background-color 0.2s linear;
-  background-color: #EDF5E1 !important;
+  background-color: rgba(240, 240, 240, 0.95) !important;
 }
 </style>

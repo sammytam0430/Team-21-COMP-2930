@@ -24,8 +24,6 @@ export default {
 .jumbotron {
   background-image: url(../assets/background.jpg);
   background-size: cover;
-  margin-top: -8rem;
-  padding-top: 8rem;
 }
 </style>
 
