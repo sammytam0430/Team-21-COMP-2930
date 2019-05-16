@@ -1,55 +1,54 @@
 <template>
-  <b-container class="p-5">
+  <b-container class="p-2">
     <span id="heading">Profile</span>
     <div class="boo">
-      <b-row class="m-5">
-        <b-col cols="3">
-          <div>
-            <img class="pic" src="../assets/blop.png">
-          </div>
-        </b-col>
-        <b-col offset="1">
-          <b-row>
-            <b-col cols="3">
+      <b-row class="m-3">
+            <b-img center thumbnail rounded="circle" class="pic" :src="require('../assets/blop.png')"></b-img>
+      </b-row>
+
+          <b-row class="mt-2 ml-0">
+            <b-col class="col-lg-2 col-md-2 col-4 pr-0">
               <span>First Name:</span>
             </b-col>
-            <b-col>
+            <b-col class="text-left pl-0">
               <EditField label="First Name:" v-model="user.fname"></EditField>
             </b-col>
           </b-row>
-          <b-row>
-            <b-col cols="3">
+
+          <b-row class="ml-0">
+            <b-col class="col-lg-2 col-md-2 col-4 pr-0">
               <span>Last Name:</span>
             </b-col>
-            <b-col>
+            <b-col class="text-left pl-0">
               <EditField label="Last Name:" v-model="user.lname"></EditField>
             </b-col>
           </b-row>
-          <b-row class="mb-3">
-            <b-col cols="3">
+          
+          <b-row class="ml-0">
+            <b-col class="col-lg-2 col-md-2 col-4 pr-0 pb-3">
               <span>Email:</span>
             </b-col>
-            <b-col>{{user.email}}</b-col>
+            <b-col class="text-left pl-0 pb-3">{{user.email}}</b-col>
           </b-row>
 
-          <b-row>
-            <b-col cols="3">
+          <b-row class="ml-0">
+            <b-col class="col-lg-2 col-md-2 col-4 pr-0">
               <span>Preferred Email:</span>
             </b-col>
-            <b-col>
+            <b-col class="text-left pl-0">
               <EditField label="Preferred Email:" v-model="user.prefEmail"></EditField>
             </b-col>
           </b-row>
-        </b-col>
-      </b-row>
-      <b-row class="mr-5">
-        <b-col offset="1" cols="3" class="mb-3">
+      
+      <hr class="hr">
+      
+      <b-row class="ml-0">
+        <b-col class="col-lg-1 col-md-2 col-3 pr-0">
           <span>Interests:</span>
         </b-col>
-        <b-col>
+        <b-col class="mb-3">
           {{selected.join(', ')}}
           <b-img
-            class="ml-5"
             :src="require('../assets/edits.png')"
             v-if="currentUser"
             v-b-modal.interestmodal
@@ -57,13 +56,14 @@
           <EditInterests/>
         </b-col>
       </b-row>
-      <b-row class="mr-5">
-        <b-col offset="1" cols="3" class="mb-5">
-          <span>Blurb:</span>
-        </b-col>
-        <b-col class="mb-5">
-          <EditField label="Blurb:" v-model="user.randBlurb"></EditField>
-        </b-col>
+      
+      <b-row class="ml-0">
+          <b-col class="col-lg-1 col-md-1 col-2 pr-0">
+            <span>Blurb: &nbsp; &nbsp;</span>
+          </b-col>
+          <b-col>
+            <EditField label="Blurb:" v-model="user.randBlurb"></EditField>
+          </b-col>
       </b-row>
     </div>
   </b-container>
@@ -133,21 +133,68 @@ export default {
   font-size: 30px;
   font-weight: bold;
 }
+
 p {
   background: rgb(206, 230, 240);
 }
+
 .boo {
   background: rgb(206, 230, 240);
 
   border: 3px solid black;
 }
+
 .boop {
   background: #252c3a;
 }
-.pic {
-  width: 100%;
-}
+
 .pah {
   padding: 20px;
 }
+
+.hr{
+  width: 95%;
+}
+@media only screen and (min-width: 1440px){
+  .pic{
+    width: 165px;
+    height: 165px;
+  }
+}
+
+@media only screen and (max-width: 1439px){
+  .pic{
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .pic{
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media only screen and (max-width: 424px){
+  .boo{
+    font-size: 15px;
+  }
+
+  #heading{
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 320px){
+  .boo{
+    font-size: 13px;
+  }
+
+.pic {
+  width: 80px;
+  height: 80px;
+  }
+}
+
 </style>
