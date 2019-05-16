@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import VueSession from "vue-session";
 import BootstrapVue from "bootstrap-vue";
+import * as VueGoogleMaps from 'vue2-google-maps'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faUserGraduate,
@@ -19,10 +20,8 @@ import {
   faSpa
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import * as VueGoogleMaps from "vue2-google-maps";
-import '@/assets/custom.scss'
-// import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-vue/dist/bootstrap-vue.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
 library.add(
   faUserGraduate,
@@ -45,7 +44,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueSession);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyAQjKpJcIcowvDpghQAGuXKvpgvv_eWgRQ",
+    key: "AIzaSyBhO9vs6RsFtyozrmkaQkazFZ_JNL3syRQ",
     libraries: "places"
   }
 });

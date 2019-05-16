@@ -2,7 +2,7 @@
   <div class="DashBoard">
     <b-container>
       <b-row>
-        <b-col md="8" lg="9">
+        <b-col md="8" lg="8">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="5" class="text-right">
@@ -15,7 +15,7 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col md="4" lg="3">
+        <b-col md="4" lg="4">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4" class="float-right text-right">
@@ -64,6 +64,7 @@ export default {
       fieldsEvent: ["ID", "event", { key: "peopleJoined", label: "People Needed" }],
       events: [],
       participants: [],
+      // fixed: true,
       fields: ["friend", "online"],
       items: [
         { friend: "Dickerson", online: true },
