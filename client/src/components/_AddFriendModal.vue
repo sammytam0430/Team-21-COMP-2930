@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button size="sm" v-b-modal.modal-prevent-closing>Add</b-button>
+    <b-button size="sm" v-b-modal.modal-prevent-closing  variant="outline-primary">Add</b-button>
     <b-modal
       id="modal-prevent-closing"
       ref="modal"

@@ -1,7 +1,10 @@
 <template>
   <b-container class="p-2">
     <span id="heading">Profile</span>
+    <b-button variant="danger" v-if="isFriend" @click="removeFriend">Remove Friend</b-button>
+    <b-button v-else-if="!isFriend && !currentUser" @click="addFriend">Add Friend</b-button>
     <div class="boo">
+
       <b-row class="m-3">
             <b-img center thumbnail rounded="circle" class="pic" :src="require('../assets/blop.png')"></b-img>
       </b-row>
@@ -24,12 +27,12 @@
             </b-col>
           </b-row>
           
-          <b-row class="ml-0">
+          <!-- <b-row class="ml-0">
             <b-col class="col-lg-2 col-md-2 col-4 pr-0 pb-3">
               <span>Email:</span>
             </b-col>
             <b-col class="text-left pl-0 pb-3">{{user.email}}</b-col>
-          </b-row>
+          </b-row> -->
 
           <b-row class="ml-0">
             <b-col class="col-lg-2 col-md-2 col-4 pr-0">
@@ -73,6 +76,7 @@
 import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
 import UsersService from "@/services/UsersService";
+import FriendsService from "@/services/FriendsService";
 import _ from "lodash";
 
 export default {
@@ -89,15 +93,22 @@ export default {
       response: {},
       selected: [],
       user: [],
-      currentUser: this.$session.get("currentUser") == this.$route.params.id
+      currentUser: false,
+      isFriend: false
     };
   },
   mounted() {
+    this.currentUser =
+      this.$session.get("currentUser") == this.$route.params.id;
     this.getUser();
+    this.checkFriend();
   },
   watch: {
     "$route.params.id"() {
+      this.currentUser =
+        this.$session.get("currentUser") == this.$route.params.id;
       this.getUser();
+      this.checkFriend();
     },
     user: {
       deep: true,
@@ -110,6 +121,9 @@ export default {
     this.debouncer = _.debounce(this.debouncer, 1000);
   },
   methods: {
+    debouncer() {
+      this.updateUser();
+    },
     async getUser() {
       const response = await UsersService.getUser(this.$route.params.id);
       this.user = response.data[0];
@@ -121,8 +135,39 @@ export default {
       );
       this.response = response.data;
     },
-    debouncer() {
-      this.updateUser();
+    async checkFriend() {
+      const response = await FriendsService.getFriend(
+        this.$session.get("currentUser"),
+        this.$route.params.id
+      );
+      this.isFriend = response.data.length ? true : false;
+    },
+    async addFriend() {
+      const data = {
+        userID: this.$session.get("currentUser"),
+        friendID: this.$route.params.id
+      };
+      const response = await FriendsService.addFriend(data);
+      this.$bvToast.toast(response.data.message, {
+        title: "Notification",
+        toaster: 'b-toaster-bottom-right',
+        autoHideDelay: 5000,
+        appendToast: true
+      });
+      this.checkFriend();
+    },
+    async removeFriend() {
+      const response = await FriendsService.deleteFriend(
+        this.$session.get("currentUser"),
+        this.$route.params.id
+      );
+      this.$bvToast.toast(response.data.message, {
+        title: "Notification",
+        toaster: 'b-toaster-bottom-right',
+        autoHideDelay: 5000,
+        appendToast: true
+      });
+      this.checkFriend();
     }
   }
 };
@@ -132,16 +177,18 @@ export default {
 #heading {
   font-size: 30px;
   font-weight: bold;
+  color: rgb(98, 154, 180);
 }
 
 p {
-  background: rgb(206, 230, 240);
+  background: rgb(221, 241, 250);
 }
 
 .boo {
-  background: rgb(206, 230, 240);
+  background: rgb(221, 241, 250);
 
-  border: 3px solid black;
+  border: 1px solid rgb(223, 217, 222);
+  border-radius: 3%;
 }
 
 .boop {

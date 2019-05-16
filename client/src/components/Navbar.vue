@@ -1,7 +1,8 @@
 <template>
-  <b-navbar toggleable="md" type="light" variant="light" sticky>
+  <b-navbar :class="scrolled ? 'scrolled' : 'normal'" toggleable="md" type="light" variant="light" sticky>
     <b-navbar-brand to="/">
-      <img src="../assets/logo.png" alt="Konnect logo">
+      <img class="mr-n4" src="../assets/logo.png" alt="K">
+      <span class="text-primary font-weight-bolder font-italic h4">onnect</span>
     </b-navbar-brand>
     <b-navbar-nav v-if="show">
       <UpcomingEventModal/>
@@ -68,6 +69,7 @@
 import SignUpBtn from "@/components/SignUpBtn.vue";
 import LogInBtn from "@/components/LogInBtn.vue";
 import UpcomingEventModal from "@/components/UpcomingEventModal.vue";
+import UsersService from "@/services/UsersService";
 
 export default {
   name: "navbar",
@@ -84,20 +86,44 @@ export default {
   data() {
     return {
       show: this.$session.exists(),
-      expanded: false
+      expanded: false,
+      scrolled: false
     };
   },
   methods: {
+    handleScroll() {
+      this.scrolled = window.scrollY > 0;
+    },
+    async setActive() {
+      const response = await UsersService.updateUser(this.$session.get("currentUser"), {isActive: false});
+    },
     logout() {
+      this.setActive();
       this.$session.destroy();
       this.$router.push("/");
+      this.show = this.$session.exists();
     }
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
 
 <style scoped>
 img {
-  height: 35px;
+  height: 50px;
+}
+
+.normal {
+  transition: background-color 0.2s linear;
+}
+
+.scrolled {
+  transition: background-color 0.2s linear;
+  background-color: rgba(240, 240, 240, 0.95) !important;
 }
 </style>
