@@ -32,13 +32,13 @@
           </b-form-row>
 
           <b-form-row>
-            <b-col cols="6" sm="8">
+            <b-col cols="6" sm="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
 
-            <b-col cols="6" sm="4">
+            <b-col cols="6" sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
@@ -78,7 +78,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
                   <b-form-input
@@ -95,7 +95,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col col="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
               </b-form-group>
