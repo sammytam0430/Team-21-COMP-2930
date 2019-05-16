@@ -43,7 +43,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueSession);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyBhO9vs6RsFtyozrmkaQkazFZ_JNL3syRQ",
+    key: "AIzaSyAQjKpJcIcowvDpghQAGuXKvpgvv_eWgRQ",
     libraries: "places"
   }
 });
