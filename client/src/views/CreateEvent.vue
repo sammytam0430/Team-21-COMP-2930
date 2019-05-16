@@ -13,31 +13,17 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group
-                id="locationGroup"
-                label="Location *"
-                label-for="location"
-                class="myContent pr-2"
-              >
-                <b-form-input
-                  id="location"
-                  v-model="event.location"
-                  type="text"
-                  placeholder="Building and Room Number"
-                  v-b-popover.focus.top="'If you are in a large room, please also give a brief description of your area'"
-                  required
-                ></b-form-input>
+              <b-form-group id="locationGroup" label="Location *" label-for="location">
+                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
               </b-form-group>
             </b-col>
           </b-form-row>
-
           <b-form-row>
             <b-col cols="6" sm="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
-
             <b-col cols="6" sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
@@ -126,7 +112,12 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol>
-                  <li id="list" v-for="friend in invitees" :key="friend.id" class="p-2 border-bottom">
+                  <li
+                    id="list"
+                    v-for="friend in invitees"
+                    :key="friend.id"
+                    class="p-2 border-bottom"
+                  >
                     {{friend.invitees}}
                     <font-awesome-icon
                       fixed-width
@@ -217,22 +208,18 @@ export default {
         this.newFriend = "";
       }
     },
-
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
     },
-
     async setPlace(place) {
       this.place = await place;
       this.event.location = this.place.name;
       this.event.lat = this.place.geometry.location.lat();
       this.event.lng = this.place.geometry.location.lng();
     },
-
     parsePlace() {
       return this.place == null ? "" : this.place.name;
     },
-
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
@@ -240,7 +227,6 @@ export default {
         this.$router.push("events/" + this.response.eventID);
       }
     },
-
     barrelRoll() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
         document.body.animate(
@@ -252,14 +238,12 @@ export default {
         );
       }
     },
-
     async getEventType() {
       const response = await InterestsService.getInterests();
       for (const option of response.data) {
         this.options.push({ value: option.interestID, text: option.name });
       }
     },
-
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
@@ -268,17 +252,14 @@ export default {
       if (m < 10) {
         m = "0" + m;
       }
-
       if (d < 10) {
         d = "0" + d;
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
-
     confirmReset() {
       this.resetModal = true;
     },
-
     reset() {
       this.event.name = "";
       this.event.description = "";
@@ -293,7 +274,6 @@ export default {
       this.resetModal = false;
     }
   },
-
   mounted() {
     this.getEventType();
   }
