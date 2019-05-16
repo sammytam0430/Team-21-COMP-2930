@@ -1,5 +1,4 @@
 <template>
-    
     <b-container class="main">
         <b-container class="mid">
             <b-row class="m-5">
@@ -19,16 +18,13 @@
                 </b-col>
             </b-row>
         </b-container>
-
-
         <hr/>
         <b-row  class="mid">
             <h1> Meet the Team  </h1>
         </b-row>
-  
         <b-container class="bioBox">
             <b-row>
-                <b-col class="nameBlock" cols="3" lg="3">
+                <b-col cols="3" lg="3">
                     <span class="name"> Sam </span>
                 </b-col>
             </b-row>
@@ -41,19 +37,15 @@
                     can plow through the forests' narrow paths with phenomenal speed 
                     and accuracy.  The thrill is in the adventure, and the prize is 
                     beyond the single Bergmite that can be acquired after the multi-hour 
-                    chase.   Unknownst to those around him, he possesses powerful skills that 
+                    chase.   Unbeknownst to those around him, he possesses powerful skills that 
                     surpasses all; these skills so intense that his peers cannot even 
                     fathom the possibility of their existence.
                 </b-col>
             </b-row>
         </b-container>
-
-
-
-
         <b-container class="bioBox">
             <b-row>
-                <b-col class="nameBlock" cols="3" lg="3">
+                <b-col cols="3" lg="3">
                     <span class="name"> Jam </span>
                 </b-col>
             </b-row>
@@ -70,13 +62,9 @@
                 </b-col>
             </b-row>
         </b-container>
-
-
-
-
         <b-container class="bioBox">
             <b-row>
-                <b-col class="nameBlock" cols="3" lg="3">
+                <b-col cols="3" lg="3">
                     <span class="name"> Ani </span>
                 </b-col>
             </b-row>
@@ -96,12 +84,9 @@
                 </b-col>
             </b-row>
         </b-container>
-
-
-
         <b-container class="bioBox">
             <b-row>
-                <b-col class="nameBlock" cols="3" lg="3">
+                <b-col cols="3" lg="3">
                     <span class="name"> Cha </span>
                 </b-col>
             </b-row>
@@ -120,13 +105,9 @@
                 </b-col>
             </b-row>
         </b-container>
-
-
- 
-
         <b-container class="bioBox">
             <b-row>
-                <b-col class="nameBlock" cols="3" lg="3">
+                <b-col cols="3" lg="3">
                     <span class="name"> Jes </span>
                 </b-col>
             </b-row>
@@ -139,21 +120,14 @@
                     meeting or occasion.  Great positive attitude, no matter how 
                     grim or destitute the present situation may seem.  Reliable to 
                     be present through any weather or calamity like a Finneon, ready
-                    to battle whatever task that needs to be taken.
-                    
+                    to battle whatever task that needs to be taken.   
                 </b-col>
             </b-row>
         </b-container>
             <b-container class="p-5">
                 <b-img  class="comic" :src="require('../assets/blip.png')"/>
             </b-container>
-        
     </b-container>
-
-
-
-
-
 </template>
 
 <script>
@@ -161,71 +135,43 @@ export default {
   name: "about",
   components: {},
   data() {
-    return {
-        
-    };
+    return {};
   }
 }
 </script>   
 
 <style>
-
-
-
-.main {
-
-    
-}
 .story {
     font-size: x-large;
 }
 .mid {
     padding: 30px;
 }
-
 .title {
     font-size: 40px;
 }.comic {
     width: 100%;
 }
-
-.sq {
-    width: 100px;
-    height: 100px;
-}
-
 .bioPic {
     width: 200px;
     height: 240px;
     margin: 20px;
     border-radius: 20%;
-
-
 }
-
 .blurb {
     font-size: x-large;
     padding: 20px;
     margin: 0px;
 }
-
-.nameBlock {
-    display: block;
-}
 .name {
     font-family: cursive;
     font-size: 200%;
-    text-align: center; 
-    
-
 }
 #team {
     width: 90%;
     border-radius: 5%;
-    margin: 10px;
-    
+    margin: 10px;  
 }
-
 .bioBox {
     border: 1px solid rgb(238, 234, 248);
     border-radius: 2%;
