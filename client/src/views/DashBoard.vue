@@ -75,7 +75,7 @@ export default {
   },
   mounted() {
     this.loadEvents(),
-    this.loadParticipants();
+    // this.loadParticipants();
     this.getFriends();
   },
   methods: {

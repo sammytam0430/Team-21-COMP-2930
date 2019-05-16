@@ -69,6 +69,7 @@
 import SignUpBtn from "@/components/SignUpBtn.vue";
 import LogInBtn from "@/components/LogInBtn.vue";
 import UpcomingEventModal from "@/components/UpcomingEventModal.vue";
+import UsersService from "@/services/UsersService";
 
 export default {
   name: "navbar",
@@ -93,9 +94,14 @@ export default {
     handleScroll() {
       this.scrolled = window.scrollY > 0;
     },
+    async setActive() {
+      const response = await UsersService.updateUser(this.$session.get("currentUser"), {isActive: false});
+    },
     logout() {
+      this.setActive();
       this.$session.destroy();
       this.$router.push("/");
+      this.show = this.$session.exists();
     }
   },
   created() {
