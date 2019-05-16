@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="bg-light">
+  <div id="app">
     <Navbar/>
-    <router-view/>
+    <router-view class="pt-5"/>
     <Footer/>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default {
 
 
 <style>
+body {
+  margin: 0;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
