@@ -8,31 +8,21 @@
             <img class="pic" src="../assets/blop.png">
           </div>
         </b-col>
+        
         <b-col offset="1">
           <b-row>
             <b-col cols="3">
-              <span>First Name:</span>
+              <span>Name:</span>
             </b-col>
             <b-col>
               <EditField label="First Name:" v-model="user.fname"></EditField>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col cols="3">
-              <span>Last Name:</span>
-            </b-col>
-            <b-col>
               <EditField label="Last Name:" v-model="user.lname"></EditField>
             </b-col>
           </b-row>
-          <b-row class="mb-3">
-            <b-col cols="3">
-              <span>Email:</span>
-            </b-col>
-            <b-col>{{user.email}}</b-col>
-          </b-row>
+         
 
-          <b-row>
+
+          <b-row class="mv-5">
             <b-col cols="3">
               <span>Preferred Email:</span>
             </b-col>

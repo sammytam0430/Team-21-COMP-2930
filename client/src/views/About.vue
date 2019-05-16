@@ -41,16 +41,14 @@
                     can plow through the forests' narrow paths with phenomenal speed 
                     and accuracy.  The thrill is in the adventure, and the prize is 
                     beyond the single Bergmite that can be acquired after the multi-hour 
-                    hase.   Unknownst to those around him, Sammy has powerful skills that 
+                    chase.   Unknownst to those around him, he possesses powerful skills that 
                     surpasses all; these skills so intense that his peers cannot even 
                     fathom the possibility of their existence.
                 </b-col>
             </b-row>
         </b-container>
 
-        <b-container class="bioBox">
-        
-        </b-container>
+
 
 
         <b-container class="bioBox">
@@ -73,9 +71,7 @@
             </b-row>
         </b-container>
 
-        <b-container class="bioBox">
-        
-        </b-container>
+
 
 
         <b-container class="bioBox">
@@ -101,9 +97,6 @@
             </b-row>
         </b-container>
 
-        <b-container class="bioBox">
-        
-        </b-container>
 
 
         <b-container class="bioBox">
@@ -129,10 +122,7 @@
         </b-container>
 
 
-        <b-container class="bioBox">
-        
-        </b-container>
-
+ 
 
         <b-container class="bioBox">
             <b-row>
@@ -146,7 +136,7 @@
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
                     Always punctual, bordering on being excessively early for any
-                    meeting or occassion.  Great positive attitude, no matter how 
+                    meeting or occasion.  Great positive attitude, no matter how 
                     grim or destitute the present situation may seem.  Reliable to 
                     be present through any weather or calamity like a Finneon, ready
                     to battle whatever task that needs to be taken.
@@ -154,9 +144,9 @@
                 </b-col>
             </b-row>
         </b-container>
-
-            <b-img  class="comic" :src="require('../assets/blip.png')"/>
-          
+            <b-container class="p-5">
+                <b-img  class="comic" :src="require('../assets/blip.png')"/>
+            </b-container>
         
     </b-container>
 
@@ -180,9 +170,7 @@ export default {
 
 <style>
 
-.comic {
-    width: 100%;
-}
+
 
 .main {
 
@@ -197,6 +185,8 @@ export default {
 
 .title {
     font-size: 40px;
+}.comic {
+    width: 100%;
 }
 
 .sq {
