@@ -55,7 +55,7 @@
             <span class="ml-2">{{event.start}} to {{event.end}}</span>
           </b-col>
           <b-col class="text-right">
-            <a target="_blank" :href="`https://www.google.com/calendar/r/eventedit?text=${event.name}&details=${event.description}&location=${event.location}&dates=${event.date.replace(/-/g, '')}T${event.start.replace(':', '')}00%2F${event.date.replace(/-/g, '')}T${event.end.replace(/:/g, '')}00&ctz=America/Vancouver`">Add to Calendar</a>
+            <a target="_blank" :href="calender">Add to Calendar</a>
           </b-col>
         </b-row>
         <b-row>
@@ -66,7 +66,7 @@
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <a target="_blank" :href="`https://www.google.com/maps/search/?api=1&query=${event.lat},${event.lng}`">View on map</a>
+            <a target="_blank" :href="map">View on map</a>
           </b-col>
         </b-row>
       </b-container>
@@ -107,6 +107,24 @@ export default {
       return new Date(this.event.date + " " + this.event.start)
         .toString()
         .split(" ");
+    },
+    calender() {
+      return `https://www.google.com/calendar/r/eventedit?text=${
+        this.event.name
+      }&details=${this.event.description}&location=${
+        this.event.location
+      }&dates=${this.event.date.replace(/-/g, "")}T${this.event.start.replace(
+        ":",
+        ""
+      )}00%2F${this.event.date.replace(/-/g, "")}T${this.event.end.replace(
+        /:/g,
+        ""
+      )}00&ctz=America/Vancouver`;
+    },
+    map() {
+      return `https://www.google.com/maps/search/?api=1&query=${
+        this.event.lat
+      },${this.event.lng}`;
     },
     currentUser() {
       return this.$session.get("currentUser") == this.event.organizer;
@@ -159,7 +177,8 @@ export default {
       const response = await EventsService.deleteEvent(this.$route.params.id);
       this.response = response.data;
       if (this.response.success) {
-        this.$router.go(-1);
+        this.$parent.loadEvents();
+        this.$router.push("/events");
       } else {
         this.displayErrorMsg();
       }
@@ -172,7 +191,8 @@ export default {
       const response = await ParticipantsService.addParticipants(data);
       this.response = response.data;
       if (this.response.success) {
-        this.$router.go();
+        this.getEventDetail();
+        this.getParticipants();
       } else {
         this.displayErrorMsg();
       }
@@ -186,7 +206,8 @@ export default {
       );
       this.response = response.data;
       if (this.response.success) {
-        this.$router.go();
+        this.getEventDetail();
+        this.getParticipants();
       } else {
         this.displayErrorMsg();
       }
@@ -196,7 +217,8 @@ export default {
     },
     displayErrorMsg() {
       this.$bvToast.toast("Nooooo something went wrong", {
-        title: "BootstrapVue Toast",
+        title: "Notification",
+        toaster: 'b-toaster-bottom-right',
         autoHideDelay: 5000,
         appendToast: true
       });
