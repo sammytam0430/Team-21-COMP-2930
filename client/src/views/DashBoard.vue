@@ -5,45 +5,36 @@
         <b-col md="8" lg="9">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
-            <b-col cols="4">
-              <router-link to="/create" class="float-right">Create Event</router-link>
+            <b-col cols="5" class="text-right">
+              <router-link to="/create">Create Event</router-link>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <!-- <gmap-map :center="{lat: 49.2511, lng: -123.0}"
-                        :zoom="16"
-                    style="width: 100%; height: 550px">
-              </gmap-map>-->
               <Map :events="events"/>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <div id="myMap"></div>
             </b-col>
           </b-row>
         </b-col>
         <b-col md="4" lg="3">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
-            <b-col cols="4">
+            <b-col cols="4" class="float-right text-right">
               <router-link to="/events">Search</router-link>
             </b-col>
           </b-row>
-          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="true">
+          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="fixed" class="text-center">
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">{{data.item.name}}</template>
             <template slot="peopleJoined" slot-scope="data"> {{data.item.numOfPeople}}</template>
           </b-table>
-          <div>
+          <div class="mt-4">
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
-              <b-col cols="5.5" class="float-right">
+              <b-col cols="3" class="">
                 <AddFriendModal/>
               </b-col>
             </b-row>
-            <b-table :items="items" :fields="fields" :bordered="true" :fixed="true">
+            <b-table :items="items" :fields="fields" :bordered="true" :fixed="true" class="text-center">
               <template slot="online" slot-scope="row">
                 <span :class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
