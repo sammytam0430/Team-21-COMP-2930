@@ -42,7 +42,11 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group id="descriptionGroup" label="Description (optional)" label-for="description">
+              <b-form-group
+                id="descriptionGroup"
+                label="Description (optional)"
+                label-for="description"
+              >
                 <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
               </b-form-group>
             </b-col>
@@ -101,7 +105,7 @@
               </b-col>
 
               <b-col>
-                <b-button class="button" block @click="addFriend()">Add</b-button>
+                <b-button variant="primary" block @click="addFriend()">Add</b-button>
               </b-col>
             </b-form-row>
           </b-form-group>
@@ -110,14 +114,15 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol>
-                  <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
+                  <li id="list" v-for="friend in invitees" :key="friend.id" class="p-2">
                     {{friend.invitees}}
-                    <b-badge
+                    <font-awesome-icon
+                      fixed-width
                       class="float-right"
-                      variant="light"
-                      href="#"
+                      variant="white"
                       @click="removeFriend(friend)"
-                    >x</b-badge>
+                      icon="times"
+                    />
                   </li>
                 </ol>
               </b-form-group>
@@ -126,10 +131,10 @@
 
           <b-form-row>
             <b-col>
-              <b-button @click="confirmReset()" block class="button">Reset</b-button>
+              <b-button @click="confirmReset()" block variant="outline-primary">Reset</b-button>
             </b-col>
             <b-col>
-              <b-button type="submit" @click="barrelRoll" block class="button">Create Event</b-button>
+              <b-button type="submit" @click="barrelRoll" block variant="primary">Create Event</b-button>
             </b-col>
           </b-form-row>
         </b-col>
@@ -142,8 +147,8 @@
         slot="modal-footer"
         slot-scope="{cancel}"
       >
-        <b-button @click="cancel()" class="cancelButton" variant="secondary">CANCEL</b-button>
-        <b-button @click="reset()" class="button">RESET</b-button>
+        <b-button @click="cancel()" class="cancelButton" variant="outline-primary">CANCEL</b-button>
+        <b-button @click="reset()" variant="secondary">RESET</b-button>
       </template>
     </b-modal>
   </b-container>
@@ -213,7 +218,7 @@ export default {
     },
 
     parsePlace() {
-      return (this.place == null) ? "" : this.place.name;
+      return this.place == null ? "" : this.place.name;
     },
 
     async createEvent() {
@@ -284,60 +289,40 @@ export default {
 </script>
 
 <style scoped>
-  ol {
-    list-style-type: none;
-    overflow: auto;
-    min-height: 237px;
-    max-height: 237px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    padding: 0px;
-  }
+ol {
+  list-style-type: none;
+  overflow: auto;
+  min-height: 237px;
+  max-height: 237px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 0px;
+}
 
-  li {
-    padding: 2px;
-    border-bottom: 1px solid lightgray;
-  }
+li {
+  padding: 2px;
+  border-bottom: 1px solid lightgray;
+}
 
-  .button {
-    background-color: #63a6c1;
-  }
+#location {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
 
-  .button:hover {
-    background-color: #3a7395;
-  }
-
-  .cancelButton {
-    background-color: #6f6668;
-  }
-
-  .cancelButton:hover {
-    background-color: #6c757d;
-  }
-
-  .button:active,
-  .cancelButton:active {
-    background-color: rgb(0, 42, 83) !important;
-  }
-
-  #location {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-  }
-
-  #location:focus {
-    box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb, -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
-    outline-width: 0px;
-    transition: all 0.15s ease-in-out;
-  }
+#location:focus {
+  box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb,
+    -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
+  outline-width: 0px;
+  transition: all 0.15s ease-in-out;
+}
 </style>

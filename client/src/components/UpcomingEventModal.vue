@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="mb-2">
-      <a herf id="popover-upcoming" @click.prevent="showMsgBoxOne(events)">
+    <div>
+      <a herf id="popover-upcoming" class="text-primary" @click.prevent>
         <font-awesome-icon id="notification" class="mx-2" size="lg" icon="bell"/>
       </a>
       <b-popover target="popover-upcoming" title="Upcoming Event" placement="bottomleft">

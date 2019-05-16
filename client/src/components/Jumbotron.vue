@@ -3,7 +3,7 @@
     <FormCard/>
     <b-row>
       <b-col offset="6">
-        <font-awesome-icon class="mt-5 text-light" size="2x" icon="angle-double-down" pulse/>
+        <font-awesome-icon class="my-5 ml-n4 text-white" size="2x" icon="angle-double-down" pulse/>
       </b-col>
     </b-row>
   </b-jumbotron>
@@ -22,8 +22,10 @@ export default {
 
 <style scoped>
 .jumbotron {
-  background-image: url("../assets/background.jpg");
+  background-image: url(../assets/background.jpg);
   background-size: cover;
+  margin-top: -8rem;
+  padding-top: 8rem;
 }
 </style>
 

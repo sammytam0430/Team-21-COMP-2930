@@ -15,7 +15,7 @@
                         :zoom="16"
                     style="width: 100%; height: 550px">
               </gmap-map>-->
-              <Map v-bind:events="events"/>
+              <Map :events="events"/>
             </b-col>
           </b-row>
           <b-row>
@@ -31,7 +31,7 @@
               <router-link to="/events">Search</router-link>
             </b-col>
           </b-row>
-          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="fixed">
+          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="true">
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">{{data.item.name}}</template>
             <template slot="peopleJoined" slot-scope="data"> {{data.item.numOfPeople}}</template>
@@ -45,7 +45,7 @@
             </b-row>
             <b-table :items="items" :fields="fields" :bordered="true" :fixed="true">
               <template slot="online" slot-scope="row">
-                <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
+                <span :class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
             </b-table>
           </div>

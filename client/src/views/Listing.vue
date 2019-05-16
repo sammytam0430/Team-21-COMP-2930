@@ -2,7 +2,7 @@
   <b-container>
     <EventDetails/>
     <span class="h1 mr-5">Events</span>
-    <b-button v-b-toggle.collapse class="mt-n3" variant="outline-info">Filter</b-button>
+    <b-button v-b-toggle.collapse class="mt-n3" variant="outline-secondary">Filter</b-button>
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
@@ -36,7 +36,7 @@
       <b-row class="mt-2">
         <b-card-group class="mt-2" columns>
           <b-card
-            border-variant="white"
+            border-variant="info"
             :key="event.eventID"
             :title="event.name"
             v-for="event in events"
@@ -53,12 +53,12 @@
             </p>
             <hr>
             <b-row>
-              <b-col md="8">
+              <b-col lg="8">
                 <Timestamp :time="event.created_at"/>
               </b-col>
-              <b-col md="4">
+              <b-col lg="4">
                 <router-link :to="{name: 'EventDetails', params: {id: event.eventID}}">
-                  <b-button size="sm" variant="outline-info">Details</b-button>
+                  <b-button size="sm" variant="outline-primary">Details</b-button>
                 </router-link>
               </b-col>
             </b-row>
