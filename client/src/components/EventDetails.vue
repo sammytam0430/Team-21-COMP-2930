@@ -48,14 +48,14 @@
           </router-link>
         </b-col>
       </b-row>
-      <b-container class="p-2 bg-warning rounded">
+      <b-container class="p-2 bg-info rounded">
         <b-row>
           <b-col cols="7">
             <font-awesome-icon fixed-width icon="clock"/>
             <span class="ml-2">{{event.start}} to {{event.end}}</span>
           </b-col>
           <b-col class="text-right">
-            <a @click.prevent href>Add to Calendar</a>
+            <a target="_blank" :href="`https://www.google.com/calendar/r/eventedit?text=${event.name}&details=${event.description}&location=${event.location}&dates=${event.date.replace(/-/g, '')}T${event.start.replace(':', '')}00%2F${event.date.replace(/-/g, '')}T${event.end.replace(/:/g, '')}00&ctz=America/Vancouver`">Add to Calendar</a>
           </b-col>
         </b-row>
         <b-row>
@@ -66,7 +66,7 @@
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <a @click.prevent href>View on map</a>
+            <a target="_blank" :href="`https://www.google.com/maps/search/?api=1&query=${event.lat},${event.lng}`">View on map</a>
           </b-col>
         </b-row>
       </b-container>
@@ -75,7 +75,7 @@
       <Timestamp :time="event.created_at" class="mr-auto"/>
       <b-button variant="white" class="text-primary" @click="cancel()">Cancel</b-button>
       <b-button v-if="currentUser" variant="danger" @click="deleteEvent">Delete</b-button>
-      <b-button v-else-if="joined" variant="warning" @click="quitEvent">Quit Event</b-button>
+      <b-button v-else-if="joined" variant="secondary" @click="quitEvent">Quit Event</b-button>
       <b-button v-else variant="primary" @click="joinEvent">Join Event</b-button>
     </template>
   </b-modal>

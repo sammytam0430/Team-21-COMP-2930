@@ -1,7 +1,8 @@
 <template>
-  <b-navbar toggleable="md" type="light" variant="light" sticky>
+  <b-navbar :class="scrolled ? 'scrolled' : 'normal'" toggleable="md" type="light" variant="light" sticky>
     <b-navbar-brand to="/">
-      <img src="../assets/logo.png" alt="Konnect logo">
+      <img class="mr-n4" src="../assets/logo.png" alt="K">
+      <span class="text-primary font-weight-bolder font-italic h4">onnect</span>
     </b-navbar-brand>
     <b-navbar-nav v-if="show">
       <UpcomingEventModal/>
@@ -84,20 +85,39 @@ export default {
   data() {
     return {
       show: this.$session.exists(),
-      expanded: false
+      expanded: false,
+      scrolled: false
     };
   },
   methods: {
+    handleScroll() {
+      this.scrolled = window.scrollY > 0;
+    },
     logout() {
       this.$session.destroy();
       this.$router.push("/");
     }
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
 
 <style scoped>
 img {
-  height: 35px;
+  height: 50px;
+}
+
+.normal {
+  transition: background-color 0.2s linear;
+}
+
+.scrolled {
+  transition: background-color 0.2s linear;
+  background-color: #EDF5E1 !important;
 }
 </style>

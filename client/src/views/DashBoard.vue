@@ -15,7 +15,7 @@
                         :zoom="16"
                     style="width: 100%; height: 550px">
               </gmap-map>-->
-              <Map v-bind:events="events"/>
+              <Map :events="events"/>
             </b-col>
           </b-row>
           <b-row>
@@ -46,7 +46,7 @@
             </b-row>
             <b-table :items="items" :fields="fields" :bordered="true" >
               <template slot="online" slot-scope="row">
-                <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
+                <span :class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
             </b-table>
           </div>

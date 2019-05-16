@@ -18,8 +18,6 @@ import {
   faClock,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
-// import { faUserBrand } from "@fortawesome/free-brands-svg-icons";
-// import { faUserRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
