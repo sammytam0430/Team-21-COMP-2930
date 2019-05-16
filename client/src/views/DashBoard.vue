@@ -2,7 +2,7 @@
   <div class="DashBoard">
     <b-container>
       <b-row>
-        <b-col md="9">
+        <b-col md="8" lg="9">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4">
@@ -24,7 +24,7 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col md="3">
+        <b-col md="4" lg="3">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
             <b-col cols="4">

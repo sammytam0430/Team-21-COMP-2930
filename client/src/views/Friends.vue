@@ -21,7 +21,7 @@
         >
       </div>
     </b-container>
-    <b-container class="friendList mt-3">
+    <b-container class="friendList bg-light">
       <b-container>
         <b-card
           v-bind:key="particularFriend.name"
@@ -29,18 +29,18 @@
           class="mt-3"
         >
           <b-row>
-            <b-col class="col-lg-3 col-md-2 col-xs-2">
-              <b-img thumbnail rounded="circle" v-bind:src="particularFriend.image" alt left></b-img>
+            <b-col>
+              <b-img class="profileImage" thumbnail rounded="circle" v-bind:src="particularFriend.image" left></b-img>
             </b-col>
-            <b-col class="friendName">{{ particularFriend.name }}</b-col>
+            <b-col class="col-lg-8 col-md-8 col-5 float-left friendName">{{ particularFriend.name }}</b-col>
             <b-col class="favToggleButtonDiv">
               <b-button
                 class="favToggleButton"
                 size="sm"
                 variant="outline-primary"
                 :pressed.sync="particularFriend.isFav"
-              >{{particularFriend.isFav ? "Favourite" : "Add to favourites"}}</b-button>
-            </b-col>
+              >{{particularFriend.isFav ? "UnFavourite" : "Favourite"}}</b-button>
+            </b-col> 
           </b-row>
         </b-card>
       </b-container>
@@ -137,20 +137,6 @@ export default {
       ]
     };
   },
-  // methods: {
-  //     toggleFav: function(isFav){
-  //         this.isFav = !this.isFav;
-  //         console.log(this.isFav);
-
-  //         if(isFav){
-  //             this.favFriend = "unFavourites"
-  //         }
-  //         if(isFav==false){
-  //             this.favFriend = "Favourites"
-  //         }
-
-  //     }
-  // },
 
   computed: {
     filteredFriends() {
@@ -169,41 +155,15 @@ export default {
 
 
 <style scoped>
-img {
-  margin: 5px;
-  border-radius: 7px;
-}
 
-.friendList {
-  cursor: pointer;
-  background-color: whitesmoke;
-}
-
-td {
-  background-color: white;
-}
-
-.pictd {
-  width: 99px;
-}
-
-table {
-  width: 100%;
-  border: 1px solid cyan;
-}
-
-.spacing {
-  margin-bottom: 3px;
-  height: 1rem;
+.profileImage{
+  height: 110px;
+  width: 110px;
 }
 
 .input-group.md-form input {
   border: 1px solid #bdbdbd;
-  border-radius: 0.25rem;
-}
-
-#ulList {
-  list-style: none;
+  border-top-right-radius: 0.25rem;
 }
 
 .friendName {
@@ -218,13 +178,87 @@ table {
   align-items: center;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .friendName {
-    font-size: 25px;
+    font-size: 17px;
   }
 
   .favToggleButton {
-    font-size: 22px;
+    font-size: 11px;
+  }
+
+  .profileImage{
+    height: 73px;
+    width: 73px;
   }
 }
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+  .friendName {
+    font-size: 17px;
+    padding-left: 0;
+  }
+
+  .favToggleButton {
+    font-size: 11px;
+  }
+
+  .profileImage{
+    height: 62px;
+    width: 62px;
+  }
+
+  .form-control{
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 424px){
+  .friendName {
+    font-size: 15px;
+    padding-left: 0;
+  }
+
+  .favToggleButton {
+    font-size: 9px;
+  }
+
+  .profileImage{
+  height: 58px;
+  width: 58px;
+  }
+
+  .favToggleButtonDiv{
+    padding-left: 0;
+  }
+
+  .form-control{
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 374px){
+  .friendName {
+    font-size: 15px;
+    padding-left: 0;
+  }
+
+  .favToggleButton {
+    font-size: 8px;
+  }
+
+  .profileImage{
+  height: 50px;
+  width: 50px;
+  }
+
+  .favToggleButtonDiv{
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .form-control{
+    font-size: 13px;
+  }
+} 
 </style>

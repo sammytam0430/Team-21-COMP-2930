@@ -21,7 +21,7 @@
         :position="m.position"
         :clickable="true"
         :draggable="false"
-        :label="m.label"
+        :label="''+m.label"
         @click="toggleInfoWindow(m,index)"
       ></GmapMarker>
       <!-- <GmapMarker v-for="(marker, index) in markers"
@@ -39,7 +39,7 @@ import { gmapApi } from "vue2-google-maps";
 
 export default {
   props: ["events"],
-  mounted() {
+  beforeMount() {
     this.initMap();
   },
   computed: {
@@ -86,41 +86,22 @@ export default {
   },
 
   methods: {
-   async initMap() {
+   initMap() {
       // let bcit = await new this.google.maps.LatLng(49.2500589, -123.0012234);
       let events = this.events;
 
       // let mapOne = new this.google.maps.Map(
       //     document.getElementById('mapID'), {center: bcit, zoom: 15});
+      let lat;
+      let lng;
       for (var i = 0; i < events.length; i++) {
-        let request = {
-          query: "Burnaby Campus Library",
-          fields: ["name", "geometry"]
-        };
 
-        let service = new this.google.maps.places.PlacesService(
-          document.getElementById("div")
-        );
-        let co = new this.google.maps.places;
-        console.log(co);
-        let locaiontArr = [];
-
-       service.findPlaceFromQuery(request, function(results, status) {
-         console.log(status === this.google.maps.places.PlacesServiceStatus.OK);
-          if (status === this.google.maps.places.PlacesServiceStatus.OK) {
-
-            locaiontArr[0] = results[0].geometry.location.lat();
-            locaiontArr[1] = results[0].geometry.location.lng();
-            console.log(results[0]);
-            console.log(results);
-          }
-        });
-
+        console.log(Number(events[i].lat));
         this.markers.push({
-          label: events[i].eventID.toString(),
+          label: events[i].eventID,
           position: {
-            lat: locaiontArr[0],
-            lng: locaiontArr[1]
+            lat: Number(events[i].lat),
+            lng: Number(events[i].lng)
           }
         });
       }

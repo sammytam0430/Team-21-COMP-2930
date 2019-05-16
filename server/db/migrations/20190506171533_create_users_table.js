@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       table.string("fname").notNullable();
       table.string("lname").notNullable();
       table.string("email").notNullable().unique();
-      table.string("prefEmail");
+      table.string("prefEmail").unique();
       // TODO add notNullable();
       table.string("password");
       table.text("randBlurb");
