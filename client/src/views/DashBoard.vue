@@ -31,12 +31,25 @@
               <router-link to="/events">Search</router-link>
             </b-col>
           </b-row>
-          <b-table bordered :fields="fieldsEvent" :items="events" :fixed = false>
+          <b-table
+            bordered
+            :fields="fieldsEvent"
+            :items="events"
+            :fixed="false"
+            :per-page="perPage"
+            :current-page="currentPage"
+          >
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">{{data.item.name}}</template>
-            <template slot="peopleJoined" slot-scope="data"> {{data.item.numOfPeople}}</template>
+            <template slot="peopleJoined" slot-scope="data">{{data.item.numOfPeople}}</template>
+            <b-pagination
+              v-model="currentPage"
+              :total-rows=1
+              :per-page=5
+              class="my-0"
+            ></b-pagination>
           </b-table>
-          
+
           <div>
             <b-row class="p-2">
               <b-col cols="8" font-size="1rem">Friend Konnect</b-col>
@@ -44,7 +57,7 @@
                 <AddFriendModal/>
               </b-col>
             </b-row>
-            <b-table :items="items" :fields="fields" :bordered="true" >
+            <b-table :items="items" :fields="fields" :bordered="true">
               <template slot="online" slot-scope="row">
                 <span :class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
@@ -71,7 +84,12 @@ export default {
   },
   data() {
     return {
-      fieldsEvent: ["ID", "event", { key: "peopleJoined", label: "People Needed" }],
+      currentPage: 1,
+      fieldsEvent: [
+        "ID",
+        "event",
+        { key: "peopleJoined", label: "People Needed" }
+      ],
       events: [],
       participants: [],
       // fixed: true,
@@ -88,8 +106,7 @@ export default {
     };
   },
   mounted() {
-    this.loadEvents(),
-    this.loadParticipants();
+    this.loadEvents(), this.loadParticipants();
   },
   methods: {
     async loadEvents() {
@@ -109,7 +126,7 @@ export default {
 </script>
 
 <style>
-.idCol{
+.idCol {
   max-width: 5px;
 }
 .offlineStyle {
