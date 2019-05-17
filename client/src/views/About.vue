@@ -22,6 +22,55 @@
         <b-row  class="mid">
             <h1> Meet the Team  </h1>
         </b-row>
+        <b-container>
+            <b-row>
+                <b-col cols="4"> </b-col>
+                <b-col cols="4">
+
+                    <b-carousel
+                    id="carousel-1"
+                    v-model="slide"
+                    :interval="3000"
+                    controls
+                    indicators
+                    background="#ababab"
+
+                    style="text-shadow: 1px 1px 2px #333;"
+                    @sliding-start="onSlideStart"
+                    @sliding-end="onSlideEnd"
+                    fade="true"
+                    >
+                
+                    <b-carousel-slide
+                        caption="Sam"
+                        text=""
+                        :img-src="require('../assets/sam.png')"
+                    ></b-carousel-slide>
+                    <b-carousel-slide
+                        caption="Jam"
+                        text=""
+                        :img-src="require('../assets/jam.png')"
+                    ></b-carousel-slide>
+                    <b-carousel-slide
+                        caption="Ani"
+                        text=""
+                        :img-src="require('../assets/ani.png')"
+                    ></b-carousel-slide>
+                            <b-carousel-slide
+                        caption="Cha"
+                        text=""
+                        :img-src="require('../assets/cha.png')"
+                    ></b-carousel-slide>
+                    <b-carousel-slide
+                        caption="Jes"
+                        text=""
+                        :img-src="require('../assets/jes.png')"
+                    ></b-carousel-slide>
+                    </b-carousel>
+    </b-col>
+            </b-row>
+            </b-container>
+
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
@@ -135,8 +184,10 @@ export default {
   name: "about",
   components: {},
   data() {
-    return {};
-  }
+    return {       
+    };
+  },
+  
 }
 </script>   
 
@@ -179,4 +230,5 @@ export default {
     margin: 30px;
     padding: 20px; 
 }
+
 </style>
