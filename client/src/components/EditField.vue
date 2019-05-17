@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <div class="d-inline">
     <span v-if="!editing">{{value}}</span>
     <span v-else>
       <input
@@ -13,8 +13,8 @@
         autofocus="true"
       >
     </span>
-    <img src="../assets/edits.png" class="ml-2" v-if="!editing && currentUser" @click="clicked">
-  </p>
+    <img src="../assets/edits.png" style="width: 15px; height: 15px" class="ml-2" v-if="!editing && currentUser" @click="clicked">
+  </div>
 </template>
 
 <script>
