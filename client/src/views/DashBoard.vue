@@ -11,7 +11,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <Map :events="events"/>
+              <Map :events="events" :selected="selected"/>
             </b-col>
           </b-row>
         </b-col>
@@ -31,9 +31,12 @@
             :fixed="false"
             :per-page="perPage"
             :current-page="currentPageEvents"
+            :tbody-tr-class="rowClass"
           >
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
-            <template slot="event" slot-scope="data">{{data.item.name}}</template>
+            <template slot="event" slot-scope="data">
+              <span @click="eventClick(data.item.eventID)">{{data.item.name}}</span>
+            </template>
             <template slot="peopleJoined" slot-scope="data">{{data.item.numOfPeople}}</template>
           </b-table>
           <b-pagination
@@ -105,9 +108,10 @@ export default {
       ],
       events: [],
       participants: [],
-      // fixed: true,
       fields: ["friend", "isActive"],
-      friends: []
+      friends: [],
+      selected: "",
+      initalFirst: true
     };
   },
   mounted() {
@@ -127,6 +131,19 @@ export default {
         this.$session.get("currentUser")
       );
       this.friends = response.data;
+    },
+    eventClick(data) {
+      this.selected = data;
+    },
+    rowClass(item) {
+      if (this.initalFirst) {
+        this.initalFirst = false;
+        return "selectTableRow";
+      }
+      if (this.selected != item.eventID) {
+        return "";
+      }
+      return "selectTableRow";
     }
   },
   components: {
@@ -161,5 +178,11 @@ export default {
   background-color: rgb(41, 248, 0);
   border-radius: 50%;
   display: inline-block;
+}
+.selectTableRow {
+  box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb,
+    -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
+  outline-width: 0px;
+  transition: all 0.15s ease-in-out;
 }
 </style>

@@ -19,12 +19,7 @@
         :label="''+m.label"
         @click="toggleInfoWindow(m,index)"
       ></GmapMarker>
-      <!-- <GmapMarker v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-      />-->
     </GmapMap>
-    <!-- <div id="mapID" style="height:300px;"></div> -->
   </div>
 </template>
 
@@ -33,12 +28,26 @@
 import { gmapApi } from "vue2-google-maps";
 
 export default {
-  props: ["events"],
-  created() {
-    this.initMap();
+  props: ["events", "selected"],
+  watch: {
+    selected() {
+      this.markers = this.filteredEvents;
+    },
+    events: {
+      deep: true,
+      handler() {
+        this.initMap();
+      }
+    }
   },
   computed: {
-    google: gmapApi
+    google: gmapApi,
+    filteredEvents() {
+      let filteredList = this.allMarkers.filter(marker => {
+        return marker.label == this.selected;
+      });
+      return filteredList;
+    }
   },
   data() {
     return {
@@ -46,24 +55,8 @@ export default {
       infoWinOpen: false,
       infoWindowPos: null,
       center: { lat: 49.2500589, lng: -123.0012234 },
-      markers: [
-        // {
-        //   label: "1",
-        //   position: { lat: 49.2485319, lng: -123.0024311 }
-        // },
-        // {
-        //   label: "2",
-        //   position: { lat: 49.2493943, lng: -123.0009953 }
-        // },
-        // {
-        //   label: "3",
-        //   position: { lat: 49.2488319, lng: -123.0011311 }
-        // },
-        // {
-        //   label: "4",
-        //   position: { lat: 49.2500933, lng: -123.002827 }
-        // }
-      ],
+      allMarkers: [],
+      markers: [],
       place: null,
       infoPosition: null,
       infoContent: null,
@@ -89,11 +82,19 @@ export default {
         latNew = Number(this.events[i].lat);
         lngNew = Number(this.events[i].lng);
         // console.log(typeof this.events[i].lat);
-        this.markers.push({
+        this.allMarkers.push({
           label: this.events[i].eventID,
           position: {
             lat: latNew,
             lng: lngNew
+          }
+        });
+
+        this.markers.push({
+          label: this.events[0].eventID,
+          position: {
+            lat: Number(this.events[0].lat),
+            lng: Number(this.events[0].lng)
           }
         });
       }
