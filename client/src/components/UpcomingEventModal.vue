@@ -9,7 +9,7 @@
           <b-list-group-item
             style="max-width: 30rem;"
             v-for="event in events"
-            :key="event.name"
+            :key="event.eventID"
           >Join {{event.name}} starts {{event.start}} @ {{event.location}} {{event.date}}</b-list-group-item>
         </b-list-group>
       </b-popover>

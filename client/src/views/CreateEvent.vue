@@ -6,7 +6,7 @@
           <b-form-row>
             <b-col>
               <b-form-group id="nameGroup" label="Event Name *" label-for="name">
-                <b-form-input id="name" v-model="event.name" type="text" required></b-form-input>
+                <b-form-input id="name" v-model="event.name" type="text" @change="thanos()" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -100,9 +100,18 @@
                 ></b-form-input>
               </b-col>
 
-              <b-col>
+              <b-col id="addCol">
                 <b-button class="button" block @click="addFriend()">Add</b-button>
               </b-col>
+
+              <b-col id="thanosGif">
+                <b-img :src="require('../assets/Thanos.gif')" alt="Snaps" id="gif" class="thanos" fluid rounded></b-img>
+              </b-col>
+              
+              <b-col id="thanosImg">
+                <b-img :src="require('../assets/ThanosStill.jpg')" alt="Infinity Gauntlet" id="img" class="thanos" @click="snap()" fluid rounded></b-img>
+              </b-col>
+
             </b-form-row>
           </b-form-group>
 
@@ -110,7 +119,7 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol>
-                  <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
+                  <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2 listClass">
                     {{friend.invitees}}
                     <b-badge
                       class="float-right"
@@ -149,12 +158,12 @@
 
     <b-toast
       id="alert"
-      title="Event will end tomorrow"
+      title="Event Will End Tomorrow"
       variant="warning"
       toaster="b-toaster-bottom-center"
       :visible="this.alert"
     >
-     Please note that your end time is earlier than start time.
+     Please note that your end time is earlier than your start time.
     </b-toast>
   </b-container>
 </template>
@@ -241,8 +250,6 @@ export default {
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":",""));
       let end = parseInt(this.event.end.replace(":",""));
-      console.log(start);
-      console.log(end);
       this.alert = (end < start) ? true : false;
     },
 
@@ -255,6 +262,10 @@ export default {
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
+    },
+
+    getHeight(){
+      return document.getElementById("addCol").height();
     },
 
     confirmReset() {
@@ -293,6 +304,38 @@ export default {
           }
         );
       }
+    },
+
+    thanos() {
+      if (this.event.name.trim().toLowerCase() === "thanos") {
+        document.getElementById('thanosImg').style.display = "block";
+      } else {
+        document.getElementById('thanosImg').style.display = "none";
+        document.getElementById('thanosGif').style.display = "none";
+      }
+    },
+
+    snap() {
+      document.getElementById('thanosGif').style.display = "block";
+      document.getElementById('thanosImg').style.display = "none";
+      setTimeout(function(){
+        document.getElementById('thanosGif').style.display = "none";
+        document.getElementById('thanosImg').style.display = "block";
+      },2000);
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      
+      let totalLength = this.invitees.length;
+      let currentLength = this.invitees.length;
+
+      while (currentLength > totalLength / 2) {
+        let index = getRandomInt(currentLength);
+        this.invitees.splice(index, 1);
+        currentLength = this.invitees.length;
+        console.log(currentLength + " " + totalLength);
+      }
     }
   },
 
@@ -318,20 +361,25 @@ export default {
     border-bottom: 1px solid lightgray;
   }
 
+  li.dust {
+  transition: all 0.4s ease-out;
+  opacity: 0;
+  }
+
   .button {
-    background-color: #63a6c1;
+    background-color: #7CDBD5;
   }
 
   .button:hover {
-    background-color: #3a7395;
+    background-color: #02C8A7;
   }
 
   .cancelButton {
-    background-color: #6f6668;
+    background-color: #6c757d;
   }
 
   .cancelButton:hover {
-    background-color: #6c757d;
+    background-color: #6f6668;
   }
 
   .button:active,
@@ -359,4 +407,13 @@ export default {
     outline-width: 0px;
     transition: all 0.15s ease-in-out;
   }
+
+  .thanos {
+    height: calc(1.5em + 0.75rem + 2px);
+  }
+
+  #thanosGif, #thanosImg {
+    display:none;
+  }
+
 </style>
