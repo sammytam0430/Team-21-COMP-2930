@@ -79,7 +79,7 @@
             </b-col>
 
             <b-col cols="6" lg="4">
-              <b-form-group id="endGroup" label="End Time *">
+              <b-form-group id="endGroup" :label="this.endTimeLabel">
                 <b-form-input id="end" v-model="event.end" type="time" @change="checkEndTime()" required></b-form-input>
               </b-form-group>
             </b-col>
@@ -101,14 +101,6 @@
 
               <b-col id="addCol">
                 <b-button variant="primary" block @click="addFriend()">Add</b-button>
-              </b-col>
-
-              <b-col id="thanosGif">
-                <b-img :src="require('../assets/Thanos.gif')" alt="Snaps" id="gif" class="thanos" fluid rounded></b-img>
-              </b-col>
-              
-              <b-col id="thanosImg">
-                <b-img :src="require('../assets/ThanosStill.jpg')" alt="Infinity Gauntlet" id="img" class="thanos" @click="snap()" fluid rounded></b-img>
               </b-col>
 
             </b-form-row>
@@ -137,6 +129,15 @@
             <b-col>
               <b-button @click="confirmReset()" block variant="outline-primary">Reset</b-button>
             </b-col>
+
+            <b-col id="thanosGif" cols="2">
+              <b-img :src="require('../assets/Thanos.gif')" alt="Snaps" id="gif" class="thanos" center fluid rounded></b-img>
+            </b-col>
+            
+            <b-col id="thanosImg" cols="2">
+              <b-img :src="require('../assets/ThanosStill.jpg')" alt="Infinity Gauntlet" id="img" class="thanos" @click="snap()" center fluid rounded></b-img>
+            </b-col>
+
             <b-col>
               <b-button type="submit" @click="barrelRoll" block variant="primary">Create Event</b-button>
             </b-col>
@@ -197,6 +198,7 @@ export default {
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
       soulStone: [],
+      endTimeLabel: "End Time *",
       place: null,
       event: {
         name: "",
@@ -280,6 +282,7 @@ export default {
       this.event.numOfPeople = 1;
       this.newFriend = "";
       this.invitees = [];
+      this.soulStone= [];
       this.resetModal = false;
     },
 
@@ -305,8 +308,10 @@ export default {
 
     thanos() {
       if (this.event.name.trim().toLowerCase() === "thanos") {
+        this.endTimeLabel = "End Game *";
         document.getElementById('thanosImg').style.display = "block";
       } else {
+        this.endTimeLabel = "End Time *";
         document.getElementById('thanosImg').style.display = "none";
         document.getElementById('thanosGif').style.display = "none";
       }
@@ -331,14 +336,14 @@ export default {
       function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
       }
-
       let totalLength = this.invitees.length;
       let currentLength = this.invitees.length;
 
       while (currentLength > totalLength / 2) {
         let index = getRandomInt(currentLength);
-
         let temp = this.invitees.splice(index, 1);
+        //this.invitees[index].className = "dust";
+        console.log(temp[0].className);
         this.soulStone = this.soulStone.concat(temp);
         currentLength = this.invitees.length;
       }
@@ -372,9 +377,9 @@ export default {
     border-bottom: 1px solid lightgray;
   }
 
-  li.dust {
-  transition: all 0.4s ease-out;
-  opacity: 0;
+  .dust {
+    transition: all 0.4s ease-out;
+    opacity: 0;
   }
 
   #location {
@@ -403,7 +408,7 @@ export default {
   }
 
   #thanosGif, #thanosImg {
-    display:none;
+    display: none;
   }
 
 </style>
