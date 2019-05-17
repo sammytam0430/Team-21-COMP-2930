@@ -12,13 +12,11 @@
             </b-form-group>
           </b-col>
           <b-col md="3" lg="2">
-            <b-form-group id="dateGroup" label="From:">
-              <b-form-input id="date" type="date" required></b-form-input>
-            </b-form-group>
+    
           </b-col>
           <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
+                 <b-form-group id="dateGroup" label="From:">
+              <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
           <b-col md="3" lg="2">
@@ -27,9 +25,7 @@
             </b-form-group>
           </b-col>
           <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
-            </b-form-group>
+    
           </b-col>
         </b-row>
       </b-collapse>
