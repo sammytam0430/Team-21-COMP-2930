@@ -126,9 +126,9 @@
                     where the fine lines that lay between truth, fabrication, and 
                     fantasy are blurred as we saunter on the edge of sanity...   
                     [~ C. Enga]
-                    With a weakness for steak and prime rib done right, life
-                    is not full of rainbows and unicorns.  Favourite activities 
-                    include meandering about
+                    With a weakness for a perfectly rare prime rib and Mantyke, life
+                    must be persevered.  However, a common pastime
+                    includes meandering about
                     without any real purpose.
                 </b-col>
             </b-row>
