@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable("userInterest", table => {
       table.integer("userID").unsigned();
       table.integer("interestID").unsigned();
-
+      table.primary(["userID", "interestID"]);
       table
         .foreign("interestID")
         .references("interestID")

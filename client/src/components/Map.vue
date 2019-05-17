@@ -34,7 +34,7 @@ import { gmapApi } from "vue2-google-maps";
 
 export default {
   props: ["events"],
-  beforeMount() {
+  created() {
     this.initMap();
   },
   computed: {
@@ -88,7 +88,7 @@ export default {
       for (i = 0; i < this.events.length; i++) {
         latNew = Number(this.events[i].lat);
         lngNew = Number(this.events[i].lng);
-
+        // console.log(typeof this.events[i].lat);
         this.markers.push({
           label: this.events[i].eventID,
           position: {

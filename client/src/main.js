@@ -16,11 +16,11 @@ import {
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import '@/assets/custom.scss'
 
 library.add(
   faUserGraduate,
@@ -33,7 +33,8 @@ library.add(
   faAngleDoubleDown,
   faMapMarkerAlt,
   faClock,
-  faTimes
+  faTimes,
+  faSpa
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -42,7 +43,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueSession);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyBhO9vs6RsFtyozrmkaQkazFZ_JNL3syRQ",
+    key: "AIzaSyAQjKpJcIcowvDpghQAGuXKvpgvv_eWgRQ",
     libraries: "places"
   }
 });
