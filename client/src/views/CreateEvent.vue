@@ -17,8 +17,7 @@
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
-
-            <b-col cols="5">
+            <b-col cols="6" sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
@@ -62,7 +61,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col cols="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="startGroup" label="Start Time *">
                 <template v-if="this.event.date === this.parseDate()">
                   <b-form-input
@@ -79,7 +78,7 @@
               </b-form-group>
             </b-col>
 
-            <b-col cols="6" sm="6" lg="4">
+            <b-col cols="6" lg="4">
               <b-form-group id="endGroup" label="End Time *">
                 <b-form-input id="end" v-model="event.end" type="time" @change="checkEndTime()" required></b-form-input>
               </b-form-group>
@@ -101,7 +100,7 @@
               </b-col>
 
               <b-col id="addCol">
-                <b-button class="button" block @click="addFriend()">Add</b-button>
+                <b-button variant="primary" block @click="addFriend()">Add</b-button>
               </b-col>
 
               <b-col id="thanosGif">
@@ -119,14 +118,15 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol>
-                  <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2 listClass">
+                  <li id="list" v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}}
-                    <b-badge
+                    <font-awesome-icon
+                      fixed-width
                       class="float-right"
-                      variant="light"
-                      href="#"
+                      variant="white"
                       @click="removeFriend(friend)"
-                    >x</b-badge>
+                      icon="times"
+                    />
                   </li>
                 </ol>
               </b-form-group>
@@ -135,10 +135,10 @@
 
           <b-form-row>
             <b-col>
-              <b-button @click="confirmReset()" block class="button">Reset</b-button>
+              <b-button @click="confirmReset()" block variant="outline-primary">Reset</b-button>
             </b-col>
             <b-col>
-              <b-button type="submit" @click="barrelRoll" block class="button">Create Event</b-button>
+              <b-button type="submit" @click="barrelRoll" block variant="primary">Create Event</b-button>
             </b-col>
           </b-form-row>
         </b-col>
@@ -151,8 +151,8 @@
         slot="modal-footer"
         slot-scope="{cancel}"
       >
-        <b-button @click="cancel()" class="cancelButton" variant="secondary">CANCEL</b-button>
-        <b-button @click="reset()" class="button">RESET</b-button>
+        <b-button @click="cancel()" variant="outline-primary">CANCEL</b-button>
+        <b-button @click="reset()" variant="primary">RESET</b-button>
       </template>
     </b-modal>
 
@@ -196,6 +196,7 @@ export default {
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
+      soulStone: [],
       place: null,
       event: {
         name: "",
@@ -227,11 +228,10 @@ export default {
       this.event.lat = this.place.geometry.location.lat();
       this.event.lng = this.place.geometry.location.lng();
     },
-
     parsePlace() {
-      return (this.place == null) ? "" : this.place.name;
+      return this.place == null ? "" : this.place.name;
     },
-
+    
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
@@ -240,7 +240,6 @@ export default {
       if (m < 10) {
         m = "0" + m;
       }
-
       if (d < 10) {
         d = "0" + d;
       }
@@ -250,7 +249,9 @@ export default {
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":",""));
       let end = parseInt(this.event.end.replace(":",""));
-      this.alert = (end < start) ? true : false;
+      if (end < start) {
+        this.alert = true;
+      }
     },
 
     addFriend() {
@@ -262,10 +263,6 @@ export default {
 
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
-    },
-
-    getHeight(){
-      return document.getElementById("addCol").height();
     },
 
     confirmReset() {
@@ -323,19 +320,33 @@ export default {
         document.getElementById('thanosImg').style.display = "block";
       },2000);
 
+      if (this.soulStone.length === 0) {
+        this.remove();
+      } else {
+        this.restore();
+      }
+    },
+
+    remove(){
       function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
       }
-      
+
       let totalLength = this.invitees.length;
       let currentLength = this.invitees.length;
 
       while (currentLength > totalLength / 2) {
         let index = getRandomInt(currentLength);
-        this.invitees.splice(index, 1);
+
+        let temp = this.invitees.splice(index, 1);
+        this.soulStone = this.soulStone.concat(temp);
         currentLength = this.invitees.length;
-        console.log(currentLength + " " + totalLength);
       }
+    },
+
+    restore() {
+      this.invitees = this.invitees.concat(this.soulStone);
+      this.soulStone = [];
     }
   },
 
@@ -364,27 +375,6 @@ export default {
   li.dust {
   transition: all 0.4s ease-out;
   opacity: 0;
-  }
-
-  .button {
-    background-color: #7CDBD5;
-  }
-
-  .button:hover {
-    background-color: #02C8A7;
-  }
-
-  .cancelButton {
-    background-color: #6c757d;
-  }
-
-  .cancelButton:hover {
-    background-color: #6f6668;
-  }
-
-  .button:active,
-  .cancelButton:active {
-    background-color: rgb(0, 42, 83) !important;
   }
 
   #location {

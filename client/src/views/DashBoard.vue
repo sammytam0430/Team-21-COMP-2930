@@ -1,51 +1,45 @@
 <template>
   <div class="DashBoard">
-    <b-container>
+    <b-container fluid class="px-5">
       <b-row>
-        <b-col md="8" lg="9">
+        <b-col md="7">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
-            <b-col cols="4">
-              <router-link to="/create" class="float-right">Create Event</router-link>
+            <b-col cols="5" class="text-right">
+              <router-link to="/create">Create Event</router-link>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <!-- <gmap-map :center="{lat: 49.2511, lng: -123.0}"
-                        :zoom="16"
-                    style="width: 100%; height: 550px">
-              </gmap-map>-->
-              <Map v-bind:events="events"/>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <div id="myMap"></div>
+              <Map :events="events"/>
             </b-col>
           </b-row>
         </b-col>
-        <b-col md="4" lg="3">
+        <b-col md="5">
           <b-row class="p-2">
             <b-col>Near By Events</b-col>
-            <b-col cols="4">
+            <b-col cols="4" class="float-right text-right">
               <router-link to="/events">Search</router-link>
             </b-col>
           </b-row>
-          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="fixed">
+          <b-table bordered :fields="fieldsEvent" :items="events" :fixed="true" class="text-center">
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">{{data.item.name}}</template>
             <template slot="peopleJoined" slot-scope="data"> {{data.item.numOfPeople}}</template>
           </b-table>
-          <div>
+          <div class="mt-4">
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
-              <b-col cols="5.5" class="float-right">
+              <b-col cols="2" class="text-right">
                 <AddFriendModal/>
               </b-col>
             </b-row>
-            <b-table :items="items" :fields="fields" :bordered="true" :fixed="true">
-              <template slot="online" slot-scope="row">
-                <span v-bind:class="[row.item.online ? 'onlineStyle' : 'offlineStyle']"></span>
+            <b-table :items="friends" :fields="fields" :bordered="true" :fixed="true" class="text-center">
+              <template slot="friend" slot-scope="row">
+                {{row.item.fname}} {{row.item.lname}}
+              </template>
+              <template slot="isActive" slot-scope="row">
+                <span :class="[row.item.isActive ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
             </b-table>
           </div>
@@ -60,6 +54,7 @@ import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 import ParticipantsService from "@/services/ParticipantsService";
+import FriendsService from "@/services/FriendsService";
 
 export default {
   name: "Dashboard",
@@ -73,21 +68,15 @@ export default {
       fieldsEvent: ["ID", "event", { key: "peopleJoined", label: "People Needed" }],
       events: [],
       participants: [],
-      fields: ["friend", "online"],
-      items: [
-        { friend: "Dickerson", online: true },
-        { friend: "Larsen", online: false },
-        {
-          friend: "Geneva",
-          online: false
-        },
-        { friend: "Jami", online: true }
-      ]
+      // fixed: true,
+      fields: ["friend", "isActive"],
+      friends: []
     };
   },
   mounted() {
     this.loadEvents(),
-    this.loadParticipants();
+    // this.loadParticipants();
+    this.getFriends();
   },
   methods: {
     async loadEvents() {
@@ -97,6 +86,12 @@ export default {
     async loadParticipants() {
       const response = await ParticipantsService.getParticipants();
       this.participants = response.data;
+    },
+    async getFriends() {
+      const response = await FriendsService.getFriends(
+        this.$session.get("currentUser")
+      );
+      this.friends = response.data;
     }
   },
   components: {
