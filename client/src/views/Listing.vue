@@ -1,32 +1,32 @@
 <template>
-  <b-container>
+  <b-container fluid class="px-5">
     <EventDetails/>
     <span class="mx- h3">Events</span>
-    <b-button v-b-toggle.collapse class="float-right mt-0 pt-1 mx-3" variant="outline-secondary">Filters</b-button>
+    <b-button v-b-toggle.collapse class="ml-3 mt-n2" variant="outline-secondary">Filters</b-button>
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
-          <b-col md="3">
+          <b-col lg="3">
             <b-form-group id="typeGroup" label="Event Type" label-for="type">
               <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
             </b-form-group>
           </b-col>
-          <b-col>
+          <b-col md="3" lg="2">
             <b-form-group id="dateGroup" label="From:">
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="2">
+          <b-col md="3" lg="2">
             <b-form-group>
               <b-form-input id="start" type="time" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col>
+          <b-col md="3" lg="2">
             <b-form-group id="dateGroup" label="To:">
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="2">
+          <b-col md="3" lg="2">
             <b-form-group>
               <b-form-input id="start" type="time" required></b-form-input>
             </b-form-group>

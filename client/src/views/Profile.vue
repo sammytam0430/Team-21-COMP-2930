@@ -1,6 +1,8 @@
 <template>
   <b-container class="p-5">
     <span id="heading">Profile</span>
+    <b-button variant="danger" v-if="isFriend" @click="removeFriend">Remove Friend</b-button>
+    <b-button v-else-if="!isFriend && !currentUser" @click="addFriend">Add Friend</b-button>
     <div class="boo">
       <b-row class="m-5">
         <b-col cols="3">
@@ -8,7 +10,6 @@
             <img class="pic" src="../assets/blop.png">
           </div>
         </b-col>
-        
         <b-col offset="1">
           <b-row>
             <b-col cols="3">
@@ -19,9 +20,6 @@
               <EditField label="Last Name:" v-model="user.lname"></EditField>
             </b-col>
           </b-row>
-         
-
-
           <b-row class="mv-5">
             <b-col cols="3">
               <span>Preferred Email:</span>
@@ -63,6 +61,7 @@
 import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
 import UsersService from "@/services/UsersService";
+import FriendsService from "@/services/FriendsService";
 import _ from "lodash";
 
 export default {
@@ -79,15 +78,22 @@ export default {
       response: {},
       selected: [],
       user: [],
-      currentUser: this.$session.get("currentUser") == this.$route.params.id
+      currentUser: false,
+      isFriend: false
     };
   },
   mounted() {
+    this.currentUser =
+      this.$session.get("currentUser") == this.$route.params.id;
     this.getUser();
+    this.checkFriend();
   },
   watch: {
     "$route.params.id"() {
+      this.currentUser =
+        this.$session.get("currentUser") == this.$route.params.id;
       this.getUser();
+      this.checkFriend();
     },
     user: {
       deep: true,
@@ -100,6 +106,9 @@ export default {
     this.debouncer = _.debounce(this.debouncer, 1000);
   },
   methods: {
+    debouncer() {
+      this.updateUser();
+    },
     async getUser() {
       const response = await UsersService.getUser(this.$route.params.id);
       this.user = response.data[0];
@@ -111,8 +120,39 @@ export default {
       );
       this.response = response.data;
     },
-    debouncer() {
-      this.updateUser();
+    async checkFriend() {
+      const response = await FriendsService.getFriend(
+        this.$session.get("currentUser"),
+        this.$route.params.id
+      );
+      this.isFriend = response.data.length ? true : false;
+    },
+    async addFriend() {
+      const data = {
+        userID: this.$session.get("currentUser"),
+        friendID: this.$route.params.id
+      };
+      const response = await FriendsService.addFriend(data);
+      this.$bvToast.toast(response.data.message, {
+        title: "Notification",
+        toaster: 'b-toaster-bottom-right',
+        autoHideDelay: 5000,
+        appendToast: true
+      });
+      this.checkFriend();
+    },
+    async removeFriend() {
+      const response = await FriendsService.deleteFriend(
+        this.$session.get("currentUser"),
+        this.$route.params.id
+      );
+      this.$bvToast.toast(response.data.message, {
+        title: "Notification",
+        toaster: 'b-toaster-bottom-right',
+        autoHideDelay: 5000,
+        appendToast: true
+      });
+      this.checkFriend();
     }
   }
 };
@@ -142,7 +182,6 @@ p {
   outline-offset: -11px;
   border: 5px solid rgb(119, 171, 196);
   border-radius: 20%;
-  
 }
 .pah {
   padding: 20px;
