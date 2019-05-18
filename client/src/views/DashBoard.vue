@@ -35,7 +35,7 @@
           >
             <template slot="ID" slot-scope="data" class="idCol">{{data.item.eventID}}</template>
             <template slot="event" slot-scope="data">
-              <span @click="eventClick(data.item.eventID)">{{data.item.name}}</span>
+              <span id="pointer" @click="eventClick(data.item.eventID)">{{data.item.name}}</span>
             </template>
             <template slot="peopleJoined" slot-scope="data">{{data.item.numOfPeople}}</template>
           </b-table>
@@ -111,7 +111,8 @@ export default {
       fields: ["friend", "isActive"],
       friends: [],
       selected: "",
-      initalFirst: true
+      initalFirst: true,
+      allUsers: []
     };
   },
   mounted() {
@@ -139,8 +140,7 @@ export default {
       if (this.initalFirst) {
         this.initalFirst = false;
         return "selectTableRow";
-      }
-      if (this.selected != item.eventID) {
+      }else if (this.selected != item.eventID) {
         return "";
       }
       return "selectTableRow";
@@ -184,5 +184,8 @@ export default {
     -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
   outline-width: 0px;
   transition: all 0.15s ease-in-out;
+}
+#pointer{
+  cursor: pointer;
 }
 </style>

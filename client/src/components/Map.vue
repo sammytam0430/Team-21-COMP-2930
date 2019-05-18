@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <GmapMap id="mapOne" :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
+    <GmapMap id="mapOne" :center="center" :zoom="16" ref="map" style="width: 100%; height: 550px">
       <GmapInfoWindow
         :position="infoWindowPos"
         :opened="infoWinOpen"
@@ -54,7 +54,7 @@ export default {
       name: "map",
       infoWinOpen: false,
       infoWindowPos: null,
-      center: { lat: 49.2500589, lng: -123.0012234 },
+      center: { lat: 49.2510589, lng: -123.0012234 },
       allMarkers: [],
       markers: [],
       place: null,
@@ -81,7 +81,6 @@ export default {
       for (i = 0; i < this.events.length; i++) {
         latNew = Number(this.events[i].lat);
         lngNew = Number(this.events[i].lng);
-        // console.log(typeof this.events[i].lat);
         this.allMarkers.push({
           label: this.events[i].eventID,
           position: {
@@ -111,10 +110,6 @@ export default {
             lng: this.place.geometry.location.lng()
           }
         });
-        // console.log(this.place);
-        // var seachbox = new this.google.maps.places();
-        // console.log(seachbox);
-        // console.log(seachbox);
 
         this.place = null;
       }
