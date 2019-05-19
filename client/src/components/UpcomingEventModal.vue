@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       events: [],
-      todayEvents: []
     };
   },
   mounted() {

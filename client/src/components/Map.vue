@@ -28,6 +28,7 @@
 import { gmapApi } from "vue2-google-maps";
 
 export default {
+  name: "googleMap",
   props: ["events", "selected"],
   watch: {
     selected() {

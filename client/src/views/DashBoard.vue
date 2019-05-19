@@ -50,7 +50,7 @@
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
               <b-col cols="2" class="text-right">
-                <AddFriendModal/>
+                <AddFriendModal :friends="friends" :user="user"/>
               </b-col>
             </b-row>
             <b-table
@@ -63,7 +63,11 @@
               :per-page="perPage"
               :current-page="currentPageFriends"
             >
-              <template slot="friend" slot-scope="row">{{row.item.fname}} {{row.item.lname}}</template>
+              <template slot="friend" slot-scope="row">
+                <router-link
+                  :to="`/user/${row.item.userID}`"
+                >{{ row.item.fname }} {{ row.item.lname }}</router-link>
+              </template>
               <template slot="isActive" slot-scope="row">
                 <span :class="[row.item.isActive ? 'onlineStyle' : 'offlineStyle']"></span>
               </template>
@@ -88,6 +92,7 @@ import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
 import ParticipantsService from "@/services/ParticipantsService";
 import FriendsService from "@/services/FriendsService";
+import UsersService from "@/services/UsersService";
 
 export default {
   name: "Dashboard",
@@ -112,11 +117,11 @@ export default {
       friends: [],
       selected: "",
       initalFirst: true,
-      allUsers: []
+      user: []
     };
   },
   mounted() {
-    this.loadEvents(), this.getFriends();
+    this.loadEvents(), this.getFriends(), this.getUser();
   },
   methods: {
     async loadEvents() {
@@ -126,6 +131,10 @@ export default {
     async loadParticipants() {
       const response = await ParticipantsService.getParticipants();
       this.participants = response.data;
+    },
+    async getUser() {
+      const response = await UsersService.getUser(this.$session.get("currentUser"));
+      this.user = response.data[0];
     },
     async getFriends() {
       const response = await FriendsService.getFriends(
@@ -140,7 +149,7 @@ export default {
       if (this.initalFirst) {
         this.initalFirst = false;
         return "selectTableRow";
-      }else if (this.selected != item.eventID) {
+      } else if (this.selected != item.eventID) {
         return "";
       }
       return "selectTableRow";
@@ -185,7 +194,7 @@ export default {
   outline-width: 0px;
   transition: all 0.15s ease-in-out;
 }
-#pointer{
+#pointer {
   cursor: pointer;
 }
 </style>
