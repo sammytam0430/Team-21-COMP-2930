@@ -120,6 +120,14 @@ export default {
       user: []
     };
   },
+  watch:{
+    friends:{
+      deep:true,
+      handler(){
+        this.getFriends();
+      }
+    }
+  },
   mounted() {
     this.loadEvents(), this.getFriends(), this.getUser();
   },
