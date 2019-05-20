@@ -1,59 +1,63 @@
 <template>
-  <b-container class="p-5">
-    <span id="heading">Profile</span>
-    <b-button variant="danger" v-if="isFriend" @click="removeFriend">Remove Friend</b-button>
-    <b-button v-else-if="!isFriend && !currentUser" @click="addFriend">Add Friend</b-button>
-    <div class="boo">
-      <b-row class="m-5">
-        <b-col cols="3">
-          <div>
-            <img class="pic" src="../assets/blop.png">
-          </div>
-        </b-col>
-        <b-col offset="1">
-          <b-row>
-            <b-col cols="3">
-              <span>Name:</span>
-            </b-col>
-            <b-col>
-              <EditField label="First Name:" v-model="user.fname"></EditField>
-              <EditField label="Last Name:" v-model="user.lname"></EditField>
-            </b-col>
-          </b-row>
-          <b-row class="mv-5">
-            <b-col cols="3">
-              <span>Preferred Email:</span>
-            </b-col>
-            <b-col>
-              <EditField label="Preferred Email:" v-model="user.prefEmail"></EditField>
-            </b-col>
-          </b-row>
+  <b-container class="p-4.5">
+    <span class="h3 font-weight-bold text-secondary">Profile</span>
+    <b-button
+      size="sm"
+      class="ml-2 mb-2"
+      variant="danger"
+      v-if="isFriend"
+      @click="removeFriend"
+    >Remove Friend</b-button>
+
+    <b-button
+      size="sm"
+      class="ml-2 mb-2"
+      v-else-if="!isFriend && !currentUser"
+      @click="addFriend"
+    >Add Friend</b-button>
+    
+    <b-container class="border border-secondary rounded bg-white pb-4 pt-2">
+      <b-img
+        center
+        thumbnail
+        class="w-50 rounded-circle my-3"
+        :src="require('../assets/blop.png')"
+        style="min-width: 180px; max-width: 230px;"
+      ></b-img>
+      
+      <b-row class="text-center h4 font-weight-bold justify-content-center">
+        <b-col cols="auto">
+          <EditField v-model="user.fname"/>&nbsp;
+          <EditField v-model="user.lname"/>
         </b-col>
       </b-row>
-      <b-row class="mr-5">
-        <b-col offset="1" cols="3" class="mb-3">
-          <span>Interests:</span>
+      
+      <b-row class="text-center h5 justify-content-center">
+        <b-col cols="auto">
+          <EditField v-model="user.prefEmail"></EditField>
         </b-col>
-        <b-col>
+      </b-row>
+
+      <hr>
+
+      <b-row class="ml-0">
+        <b-col cols="2" sm="2" md="2" lg="1">
+          Interests:
+        </b-col>
+        <b-col class="mb-3 ml-4">
           {{selected.join(', ')}}
-          <b-img
-            class="ml-5"
-            :src="require('../assets/edits.png')"
-            v-if="currentUser"
-            v-b-modal.interestmodal
-          />
+          <b-img :src="require('../assets/edits.png')" style="width: 15px; height: 15px;" v-if="currentUser" v-b-modal.interestmodal/>
           <EditInterests/>
         </b-col>
       </b-row>
-      <b-row class="mr-5">
-        <b-col offset="1" cols="3" class="mb-5">
-          <span>Blurb:</span>
-        </b-col>
-        <b-col class="mb-5">
-          <EditField label="Blurb:" v-model="user.randBlurb"></EditField>
-        </b-col>
+
+      <b-row class="ml-0 px-3">
+        <p>
+          Blurb:&nbsp;
+          <EditField v-model="user.randBlurb"></EditField>
+        </p>
       </b-row>
-    </div>
+    </b-container>
   </b-container>
 </template>
 
@@ -135,7 +139,7 @@ export default {
       const response = await FriendsService.addFriend(data);
       this.$bvToast.toast(response.data.message, {
         title: "Notification",
-        toaster: 'b-toaster-bottom-right',
+        toaster: "b-toaster-bottom-right",
         autoHideDelay: 5000,
         appendToast: true
       });
@@ -148,7 +152,7 @@ export default {
       );
       this.$bvToast.toast(response.data.message, {
         title: "Notification",
-        toaster: 'b-toaster-bottom-right',
+        toaster: "b-toaster-bottom-right",
         autoHideDelay: 5000,
         appendToast: true
       });
@@ -157,33 +161,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-#heading {
-  font-size: 30px;
-  font-weight: bold;
-  color: rgb(98, 154, 180);
-}
-p {
-  background: rgb(221, 241, 250);
-}
-.boo {
-  background: rgb(221, 241, 250);
-
-  border: 1px solid rgb(223, 217, 222);
-  border-radius: 3%;
-}
-.boop {
-  background: #252c3a;
-}
-.pic {
-  width: 100%;
-  outline: 10px solid rgb(221, 241, 250);
-  outline-offset: -11px;
-  border: 5px solid rgb(119, 171, 196);
-  border-radius: 20%;
-}
-.pah {
-  padding: 20px;
-}
-</style>
