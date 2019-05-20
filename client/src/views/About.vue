@@ -9,13 +9,15 @@
                     "Very often, we find ourselves with the unsatiable desire to take a break 
                     from the perpetuating grind of our seemingly neverending quest for higher 
                     education.  When the incessant drone of academia has reached its maximum 
-                    saturation into our essence, and the need to engage in a game of UNO, 
-                    monopoly, poker.... ANYTHING...  with some fellow humans, has become sheer 
-                    desperation, a hiatus is necessary.  The challenge remains in finding some 
-                    individuals in those specific brief spurts of time when it's essential, 
-                    and just for long enough to restore sanity to our existence, before 
+                    saturation into our core, and the need to engage in a game of 
+                    monopoly, poker, patty-cakes... ANYTHING...  with some fellow human beings, 
+                    has manifested into sheer 
+                    desperation, a hiatus is necessary.  The challenge remains in finding 
+                    individuals at those specific brief spurts of time when it's essential, 
+                    for a duration long enough to restore sanity to our existence, before 
                     returning to the relentless world of knowledge cultivation. Konnect handles 
-                    that challenge.... it's the solution to those awkward wasted moments."
+                    that challenge.... it is the solution, by converting those awkward wasted 
+                    moments into positive contributions towards our life balance."
                 </b-col>
                 <b-col md="5" cols="12">
                     <img class="team" src="../assets/team.jpg"/>
@@ -136,8 +138,8 @@
                     where the fine lines that lay between truth, fabrication, and 
                     fantasy are blurred as we saunter on the edge of sanity...   
                     [~ C. Enga]
-                    With a weakness for a perfectly rare prime rib and Mantyke, it is 
-                    dictate that life
+                    With a weakness for a perfectly rare prime rib and Mantyke, it has been 
+                    dictated that life
                     must persevere.  In conjunction with this Archilles heel, a common pastime
                     includes meandering about
                     without purpose.
@@ -155,7 +157,7 @@
                     <b-img center class="bioPic" :src="require('../assets/cha.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    A Shroomish fluffiness void of the ability to being conscious 
+                    A Shroomish fluffiness void of the ability of being conscious 
                     in the forenoon hours. Despite this decrepitude, the 
                     dedication and devotion to the
                     challenges of life are unparalleled deep into the twilight hours.  
