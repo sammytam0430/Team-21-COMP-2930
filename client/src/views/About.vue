@@ -6,15 +6,20 @@
             </b-row>
             <b-row>
                 <b-col class="story" md="7" cols="12">
-                    "Blah blah blah.... we sat around and bored.  Blah blah blah.
-                    We wanted to do stuff but didn't have enough peeps.
-                    Blah blah blah.  Blah blah blah.  
-                    Wouldn't it be neat if we could find others to play with.
-                    Lonely sad time between classes now gone...
-                    Blah blah blah.... hoorah!"
+                    "Very often, we find ourselves with the unsatiable desire to take a break 
+                    from the perpetuating grind of our seemingly neverending quest for higher 
+                    education.  When the incessant drone of academia has reached its maximum 
+                    saturation into our essence, and the need to engage in a game of UNO, 
+                    monopoly, poker.... ANYTHING...  with some fellow humans, has become sheer 
+                    desperation, a hiatus is necessary.  The challenge remains in finding some 
+                    individuals in those specific brief spurts of time when it's essential, 
+                    and just for long enough to restore sanity to our existence, before 
+                    returning to the relentless world of knowledge cultivation. Konnect handles 
+                    that challenge.... it's the solution to those awkward wasted moments."
                 </b-col>
                 <b-col md="5" cols="12">
-                    <img id="team" src="../assets/team.jpg"/>
+                    <img class="team" src="../assets/team.jpg"/>
+                    <img class="team" src="../assets/team3.jpg"/> 
                 </b-col>
             </b-row>
         </b-container>
@@ -30,7 +35,7 @@
                     <b-carousel
                     id="carousel-1"
                     v-model="slide"
-                    :interval="3000"
+                    :interval="2700"
                     controls
                     indicators
                     background="#ababab"
@@ -71,10 +76,13 @@
             </b-row>
             </b-container>
 
+
+
+
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Sam </span>
+                    <span class="name"> Sam  <b-img :src="require('../assets/hi.gif')" height="80%"/> </span>
                 </b-col>
             </b-row>
             <b-row>
@@ -95,7 +103,7 @@
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Jam </span>
+                    <span class="name"> Jam  <b-img :src="require('../assets/jamPok.png')"/></span>
                 </b-col>
             </b-row>
             <b-row>
@@ -105,7 +113,9 @@
                 <b-col class="blurb" lg="9" cols="12">
                     On the surface, a seemingly completely clueless, dazed and frazzled guy... 
                     often looking like he's unsure if he has his shirt on forwards
-                    or backwards.   Wynaut, always a good sport, and always supportive, even
+                    or backwards.  With an unprecedented degree of amiability and joviality,
+                    it is paradoxical to not be allured with this charm.
+                    Wynaut, always a good sport, and always supportive, even
                     when you just can't figure out how to hold your chopsticks correctly
                     to feed yourself some popcorn.  
                 </b-col>
@@ -114,7 +124,7 @@
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Ani </span>
+                    <span class="name"> Ani <b-img :src="require('../assets/aniPok.png')"/></span>
                 </b-col>
             </b-row>
             <b-row>
@@ -126,17 +136,18 @@
                     where the fine lines that lay between truth, fabrication, and 
                     fantasy are blurred as we saunter on the edge of sanity...   
                     [~ C. Enga]
-                    With a weakness for a perfectly rare prime rib and Mantyke, life
-                    must be persevered.  However, a common pastime
+                    With a weakness for a perfectly rare prime rib and Mantyke, it is 
+                    dictate that life
+                    must persevere.  In conjunction with this Archilles heel, a common pastime
                     includes meandering about
-                    without any real purpose.
+                    without purpose.
                 </b-col>
             </b-row>
         </b-container>
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Cha </span>
+                    <span class="name"> Cha <b-img :src="require('../assets/chaPok.png')"/></span>
                 </b-col>
             </b-row>
             <b-row>
@@ -144,10 +155,11 @@
                     <b-img center class="bioPic" :src="require('../assets/cha.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    A Huntail fluffiness that seems to have issues with being conscious 
-                    in the morning hours. Punctuality may be a problem, but the 
+                    A Shroomish fluffiness void of the ability to being conscious 
+                    in the forenoon hours. Despite this decrepitude, the 
                     dedication and devotion to the
-                    challenges of life are unparalleled.  With massive overdosing on 
+                    challenges of life are unparalleled deep into the twilight hours.  
+                    With massive overdosing on 
                     caffeine and 
                     monosaccharides on a daily basis, it is astonishing that the coccyx
                     has not exploded into oblivion. 
@@ -157,7 +169,7 @@
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Jes </span>
+                    <span class="name"> Jes  <b-img :src="require('../assets/jesPok.png')"/></span>
                 </b-col>
             </b-row>
             <b-row>
@@ -165,11 +177,13 @@
                     <b-img center class="bioPic" :src="require('../assets/jes.png')"/>
                 </b-col>
                 <b-col class="blurb" lg="9" cols="12">
-                    Always punctual, bordering on being excessively early for any
-                    meeting or occasion.  Great positive attitude, no matter how 
-                    grim or destitute the present situation may seem.  Reliable to 
-                    be present through any weather or calamity like a Finneon, ready
-                    to battle whatever task that needs to be taken.   
+                    A perpetually punctual individual, bordering on being excessively early for every
+                    occasion.  Considerable positive attitude, no matter how 
+                    grim or destitute the present situation may seem or be.  With astounding
+                     reliability to 
+                    be present through any weather or calamity like a Finneon; always ready
+                    to battle any task that materializes, regardless of its expanse, complexity, 
+                    or plausibility.   
                 </b-col>
             </b-row>
         </b-container>
@@ -218,7 +232,7 @@ export default {
     font-family: cursive;
     font-size: 200%;
 }
-#team {
+.team {
     width: 90%;
     border-radius: 5%;
     margin: 10px;  
