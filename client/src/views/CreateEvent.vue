@@ -6,20 +6,13 @@
           <b-form-row>
             <b-col>
               <b-form-group id="nameGroup" label="Event Name *" label-for="name">
-                <b-form-input id="name" v-model="event.name" type="text" required></b-form-input>
+                <b-form-input id="name" v-model="event.name" type="text" @change="thanos()" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
 
-          <b-form-row>
-            <b-col>
-              <b-form-group id="locationGroup" label="Location *" label-for="location">
-                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <b-form-row>
-            <b-col cols="6" sm="7">
+           <b-form-row>
+            <b-col cols="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
@@ -40,12 +33,16 @@
 
           <b-form-row>
             <b-col>
-              <b-form-group
-                id="descriptionGroup"
-                label="Description (optional)"
-                label-for="description"
-              >
-                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50"></b-form-textarea>
+              <b-form-group id="locationGroup" label="Location *" label-for="location">
+                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+
+          <b-form-row>
+            <b-col>
+              <b-form-group id="descriptionGroup" label="Description / Additional Location Details (optional)" label-for="description">
+                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50" v-b-popover.focus.top="'Please add addional details about your location such as room number and if you are in a large room, then a brief description of your area (ie: back of the room by the windows)'"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -82,8 +79,8 @@
             </b-col>
 
             <b-col cols="6" lg="4">
-              <b-form-group id="endGroup" label="End Time *">
-                <b-form-input id="end" v-model="event.end" type="time" required></b-form-input>
+              <b-form-group id="endGroup" :label="this.endTimeLabel">
+                <b-form-input id="end" v-model="event.end" type="time" @change="checkEndTime()" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -102,23 +99,19 @@
                 ></b-form-input>
               </b-col>
 
-              <b-col>
+              <b-col id="addCol">
                 <b-button variant="primary" block @click="addFriend()">Add</b-button>
               </b-col>
+
             </b-form-row>
           </b-form-group>
 
           <b-row>
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
-                <ol>
-                  <li
-                    id="list"
-                    v-for="friend in invitees"
-                    :key="friend.id"
-                    class="p-2 border-bottom"
-                  >
-                    {{friend.invitees}}
+                <ol id="listBox">
+                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
+                    {{friend.invitees}} 
                     <font-awesome-icon
                       fixed-width
                       class="float-right"
@@ -136,8 +129,17 @@
             <b-col>
               <b-button @click="confirmReset()" block variant="outline-primary">Reset</b-button>
             </b-col>
+
+            <b-col id="thanosGif" cols="2">
+              <b-img :src="require('../assets/Thanos.gif')" alt="Snaps" id="gif" class="thanos" center fluid rounded></b-img>
+            </b-col>
+            
+            <b-col id="thanosImg" cols="2">
+              <b-img :src="require('../assets/ThanosStill.jpg')" alt="Infinity Gauntlet" id="img" class="thanos" @click="snap()" center fluid rounded></b-img>
+            </b-col>
+
             <b-col>
-              <b-button type="submit" @click="barrelRoll" block variant="primary">Create Event</b-button>
+              <b-button type="submit" @click="barrelRoll()" block variant="primary">Create Event</b-button>
             </b-col>
           </b-form-row>
         </b-col>
@@ -150,10 +152,20 @@
         slot="modal-footer"
         slot-scope="{cancel}"
       >
-        <b-button @click="cancel()" class="cancelButton" variant="outline-primary">CANCEL</b-button>
-        <b-button @click="reset()" variant="secondary">RESET</b-button>
+        <b-button @click="cancel()" variant="outline-primary">CANCEL</b-button>
+        <b-button @click="reset()" variant="primary">RESET</b-button>
       </template>
     </b-modal>
+
+    <b-toast
+      id="alert"
+      title="Event Will End Tomorrow"
+      variant="warning"
+      toaster="b-toaster-bottom-center"
+      :visible="this.alert"
+    >
+     Please note that your end time is earlier than your start time.
+    </b-toast>
   </b-container>
 </template>
  
@@ -178,12 +190,15 @@ export default {
   },
   data() {
     return {
+      alert: false,
       time: new Date().toTimeString().substring(0, 5),
       resetModal: false,
       newFriend: "",
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
+      soulStone: [],
+      endTimeLabel: "End Time *",
       place: null,
       event: {
         name: "",
@@ -202,15 +217,13 @@ export default {
   },
 
   methods: {
-    addFriend() {
-      if (this.newFriend != 0) {
-        this.invitees.push({ invitees: this.newFriend });
-        this.newFriend = "";
+    async getEventType() {
+      const response = await InterestsService.getInterests();
+      for (const option of response.data) {
+        this.options.push({ value: option.interestID, text: option.name });
       }
     },
-    removeFriend(friend) {
-      this.invitees.splice(this.invitees.indexOf(friend), 1);
-    },
+
     async setPlace(place) {
       this.place = await place;
       this.event.location = this.place.name;
@@ -220,30 +233,7 @@ export default {
     parsePlace() {
       return this.place == null ? "" : this.place.name;
     },
-    async createEvent() {
-      const response = await EventsService.createEvent(this.event);
-      this.response = response.data;
-      if (this.response.success) {
-        this.$router.push("events/" + this.response.eventID);
-      }
-    },
-    barrelRoll() {
-      if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
-        document.body.animate(
-          [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
-          {
-            duration: 2000,
-            easing: "ease-in-out"
-          }
-        );
-      }
-    },
-    async getEventType() {
-      const response = await InterestsService.getInterests();
-      for (const option of response.data) {
-        this.options.push({ value: option.interestID, text: option.name });
-      }
-    },
+    
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
@@ -257,9 +247,30 @@ export default {
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
+
+    checkEndTime() {
+      let start = parseInt(this.event.start.replace(":",""));
+      let end = parseInt(this.event.end.replace(":",""));
+      if (end < start) {
+        this.alert = true;
+      }
+    },
+
+    addFriend() {
+      if (this.newFriend != 0) {
+        this.invitees.push({ invitees: this.newFriend });
+        this.newFriend = "";
+      }
+    },
+
+    removeFriend(friend) {
+      this.invitees.splice(this.invitees.indexOf(friend), 1);
+    },
+
     confirmReset() {
       this.resetModal = true;
     },
+
     reset() {
       this.event.name = "";
       this.event.description = "";
@@ -271,9 +282,105 @@ export default {
       this.event.numOfPeople = 1;
       this.newFriend = "";
       this.invitees = [];
+      this.soulStone= [];
+      document.getElementById('thanosImg').style.display = "none";
+      document.getElementById('thanosGif').style.display = "none";
       this.resetModal = false;
+    },
+
+    async createEvent() {
+      const response = await EventsService.createEvent(this.event);
+      this.response = response.data;
+      if (this.response.success) {
+        this.$router.push("events/" + this.response.eventID);
+      }
+    },
+
+    barrelRoll() {
+      if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
+        document.body.animate(
+          [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+          {
+            duration: 2000,
+            easing: "ease-in-out"
+          }
+        );
+      }
+    },
+
+    thanos() {
+      if (this.event.name.trim().toLowerCase() === "thanos") {
+        this.endTimeLabel = "End Game *";
+        document.getElementById('thanosImg').style.display = "block";
+      } else {
+        this.endTimeLabel = "End Time *";
+        document.getElementById('thanosImg').style.display = "none";
+        document.getElementById('thanosGif').style.display = "none";
+      }
+    },
+
+    snap() {
+      document.getElementById('thanosGif').style.display = "block";
+      document.getElementById('thanosImg').style.display = "none";
+      setTimeout(function(){
+        document.getElementById('thanosGif').style.display = "none";
+        document.getElementById('thanosImg').style.display = "block";
+      },2000);
+
+      if (this.soulStone.length === 0) {
+        this.remove();
+      } else {
+        this.restore();
+      }
+    },
+
+    remove(){
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      let invitees = this.invitees;
+      let soulStone = this.soulStone;   
+      let original = this.invitees.length;
+      let current = original;
+      document.getElementById("listBox").className = "";
+
+      let interval = setInterval(function(){
+          toDust();
+        }, 1000);
+
+      function toDust() {
+        let index = getRandomInt(current);
+        let temp = invitees.splice(index, 1);
+        soulStone.push(temp[0]);
+        current--;
+
+        if (current <= original / 2) {
+          clearInterval(interval);
+        }
+      }
+    },
+
+    restore() {
+      //this.invitees = this.invitees.concat(this.soulStone);
+      //this.soulStone = [];
+      let invitees = this.invitees;
+      let soulStone = this.soulStone;   
+      document.getElementById("listBox").className = "glow";
+
+      setTimeout(function(){
+        unDust();
+      }, 1100);
+
+      function unDust() {
+        let length = soulStone.length;
+        for (let i = 0; i < length; i++){
+          invitees.push(soulStone[i]);
+        }
+        soulStone.length = 0;
+      }
     }
   },
+
   mounted() {
     this.getEventType();
   }
@@ -281,40 +388,72 @@ export default {
 </script>
 
 <style scoped>
-ol {
-  list-style-type: none;
-  overflow: auto;
-  min-height: 237px;
-  max-height: 237px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 0px;
-}
+  ol {
+    list-style-type: none;
+    overflow: auto;
+    min-height: 237px;
+    max-height: 237px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0px;
+  }
 
-li {
-  padding: 2px;
-  border-bottom: 1px solid lightgray;
-}
+  li {
+    padding: 2px;
+    border-bottom: 1px solid lightgray;
+  }
 
-#location {
-  display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-}
+  .glow {
+    animation-duration: 3s;
+    animation-name: glowAnimation;
+    animation-timing-function: ease-in-out;
+  }
 
-#location:focus {
-  box-shadow: 2px 2px 1px 1px#badafb, 2px -2px 1px 1px#badafb,
-    -2px 2px 1px 1px#badafb, -2px -2px 1px 1px#badafb;
-  outline-width: 0px;
-  transition: all 0.15s ease-in-out;
-}
+  @keyframes glowAnimation {
+    0% {
+      box-shadow: none;
+    }
+
+    25% {
+      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+    }
+
+    75% {
+      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+    }
+
+    100% {
+      box-shadow: none;
+    }
+  }
+
+  #location {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+
+  #location:focus {
+    box-shadow: 2px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
+    outline-width: 0px;
+    transition: all 0.15s ease-in-out;
+  }
+
+  .thanos {
+    height: calc(1.5em + 0.75rem + 2px);
+  }
+
+  #thanosGif, #thanosImg {
+    display: none;
+  }
+
 </style>
