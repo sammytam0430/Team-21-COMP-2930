@@ -109,7 +109,7 @@
           <b-row>
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
-                <ol id="list">
+                <ol id="listBox">
                   <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}} 
                     <font-awesome-icon
@@ -259,7 +259,7 @@ export default {
     addFriend() {
       if (this.newFriend != 0) {
         this.invitees.push({ invitees: this.newFriend });
-       this.newFriend = "";
+        this.newFriend = "";
       }
     },
 
@@ -327,10 +327,6 @@ export default {
         document.getElementById('thanosImg').style.display = "block";
       },2000);
 
-      let hi = document.getElementsByTagName("ol")[0];
-      hi.length;
-      console.log(hi.length);
-
       if (this.soulStone.length === 0) {
         this.remove();
       } else {
@@ -346,6 +342,7 @@ export default {
       let soulStone = this.soulStone;   
       let original = this.invitees.length;
       let current = original;
+      document.getElementById("listBox").className = "";
 
       let interval = setInterval(function(){
           toDust();
@@ -355,7 +352,6 @@ export default {
         let index = getRandomInt(current);
         let temp = invitees.splice(index, 1);
         soulStone.push(temp[0]);
-        console.log(temp);
         current--;
 
         if (current <= original / 2) {
@@ -365,8 +361,23 @@ export default {
     },
 
     restore() {
-      this.invitees = this.invitees.concat(this.soulStone);
-      this.soulStone = [];
+      //this.invitees = this.invitees.concat(this.soulStone);
+      //this.soulStone = [];
+      let invitees = this.invitees;
+      let soulStone = this.soulStone;   
+      document.getElementById("listBox").className = "glow";
+
+      setTimeout(function(){
+        unDust();
+      }, 1100);
+
+      function unDust() {
+        let length = soulStone.length;
+        for (let i = 0; i < length; i++){
+          invitees.push(soulStone[i]);
+        }
+        soulStone.length = 0;
+      }
     }
   },
 
@@ -392,9 +403,28 @@ export default {
     border-bottom: 1px solid lightgray;
   }
 
-  .dust {
-    transition: all 0.4s ease-out;
-    opacity: 0;
+  .glow {
+    animation-duration: 3s;
+    animation-name: glowAnimation;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes glowAnimation {
+    0% {
+      box-shadow: none;
+    }
+
+    25% {
+      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+    }
+
+    75% {
+      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+    }
+
+    100% {
+      box-shadow: none;
+    }
   }
 
   #location {
