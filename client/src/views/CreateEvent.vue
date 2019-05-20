@@ -448,6 +448,9 @@ export default {
     transition: all 0.15s ease-in-out;
   }
 
+  .thanos {
+    height: calc(1.5em + 0.75rem + 2px);
+  }
 
   #thanosGif, #thanosImg {
     display: none;
