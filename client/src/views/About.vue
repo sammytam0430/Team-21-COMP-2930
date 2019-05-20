@@ -84,7 +84,7 @@
         <b-container class="bioBox">
             <b-row>
                 <b-col cols="3" lg="3">
-                    <span class="name"> Sam  <b-img :src="require('../assets/hi.gif')" height="80%"/> </span>
+                    <span class="name"> Sam  <b-img :src="require('../assets/samPok.gif')" height="80%"/> </span>
                 </b-col>
             </b-row>
             <b-row>
