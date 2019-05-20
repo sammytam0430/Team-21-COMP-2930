@@ -443,7 +443,7 @@ export default {
   }
 
   #location:focus {
-    box-shadow: 2px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
+    box-shadow: 4px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
     outline-width: 0px;
     transition: all 0.15s ease-in-out;
   }
