@@ -70,13 +70,13 @@
   </div>
 </template>
 
-<script scoped>
+<script>
 export default {
   name: "interestselection"
 };
 </script>
 
-<style>
+<style scoped>
 .styleCheckbox {
   font-size: 20px;
 }

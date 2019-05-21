@@ -27,12 +27,43 @@ export default {
   },
   mounted() {
     this.loadEvents();
+
+  },
+  watch: {
+    selected() {
+      this.todayEvents = this.filterDate;
+    }
+   },
+  
+  computed: {
+    filterDate() {
+      let filteredList = this.events.filter(event => {
+        return event.date == this.parseDate();
+      });
+      return filteredList;
+    }
   },
   methods: {
     async loadEvents() {
       const response = await EventsService.getEvents();
-      this.events = response.data;
+      this.events =  response.data.filter(event => {
+        return event.date == this.parseDate();
+      });
+      
     },
+    parseDate() {
+      let date = new Date();
+      let m = date.getMonth() + 1;
+      let d = date.getDate();
+
+      if (m < 10) {
+        m = "0" + m;
+      }
+      if (d < 10) {
+        d = "0" + d;
+      }
+      return date.getFullYear() + "-" + m + "-" + d;
+    }
   }
 };
 </script>

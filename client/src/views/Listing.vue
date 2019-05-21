@@ -6,29 +6,19 @@
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
-          <b-col lg="3">
+          <b-col md="4">
             <b-form-group id="typeGroup" label="Event Type" label-for="type">
               <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2">
+          <b-col>
             <b-form-group id="dateGroup" label="From:">
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col md="3" lg="2">
+          <b-col>
             <b-form-group id="dateGroup" label="To:">
               <b-form-input id="date" type="date" required></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
             </b-form-group>
           </b-col>
         </b-row>
@@ -41,11 +31,13 @@
             :title="event.name"
             v-for="event in events"
           >
-            <b-card-sub-title class="h6" >{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
+            <b-card-sub-title
+              class="h6"
+            >{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
             <hr>
             <b-row class="mb-2">
               <b-col cols="1">
-              <font-awesome-icon fixed-width icon="clock"/>
+                <font-awesome-icon fixed-width icon="clock"/>
               </b-col>
               <b-col class="float-left text-left">
                 <span>{{event.start}} to {{event.end}}</span>
@@ -56,7 +48,7 @@
                 <font-awesome-icon fixed-width icon="map-marker-alt"/>
               </b-col>
               <b-col class="float-left text-left">
-              <span>{{event.location}}</span>
+                <span>{{event.location}}</span>
               </b-col>
             </b-row>
             <hr>
@@ -89,17 +81,35 @@ export default {
     Timestamp,
     EventDetails
   },
+  watch: {
+    selected() {
+      this.events = this.filteredEvents;
+    }
+  },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");
+    }
+  },
+  computed: {
+    filteredEvents() {
+      if (this.selected == 0) {
+        return this.allEvents;
+      }
+      let filteredList = this.allEvents.filter(event => {
+        return event.type == this.selected;
+      });
+      return filteredList;
     }
   },
   data() {
     return {
       selected: 0,
       fields: [],
+      allEvents: [],
       events: [],
-      options: [{ value: 0, text: "Select an Event Type" }]
+      options: [{ value: 0, text: "Select an Event Type" }],
+      firstRun: true
     };
   },
   mounted() {
@@ -108,7 +118,7 @@ export default {
   methods: {
     async loadEvents() {
       const response = await EventsService.getEvents();
-      this.events = response.data;
+      this.allEvents = this.events = response.data;
       for (let event of this.events) {
         event.date = new Date(event.date + " " + event.start)
           .toString()

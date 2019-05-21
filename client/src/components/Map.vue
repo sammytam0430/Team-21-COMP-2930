@@ -1,7 +1,6 @@
-
 <template>
   <div>
-    <GmapMap id="mapOne" :center="center" :zoom="17" ref="map" style="width: 100%; height: 550px">
+    <GmapMap id="mapOne" :center="center" :zoom="16" ref="map" style="width: 100%; height: 550px">
       <GmapInfoWindow
         :position="infoWindowPos"
         :opened="infoWinOpen"
@@ -19,12 +18,7 @@
         :label="''+m.label"
         @click="toggleInfoWindow(m,index)"
       ></GmapMarker>
-      <!-- <GmapMarker v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-      />-->
     </GmapMap>
-    <!-- <div id="mapID" style="height:300px;"></div> -->
   </div>
 </template>
 
@@ -33,42 +27,42 @@
 import { gmapApi } from "vue2-google-maps";
 
 export default {
-  props: ["events"],
-  beforeMount() {
-    this.initMap();
+  name: "googleMap",
+  props: ["events", "selected"],
+  watch: {
+    selected() {
+      this.infoWinOpen = false;
+      this.markers = this.filteredEvents;
+    },
+    events: {
+      deep: true,
+      handler() {
+        this.initMap();
+      }
+    }
   },
   computed: {
-    google: gmapApi
+    google: gmapApi,
+    filteredEvents() {
+      let filteredList = this.allMarkers.filter(marker => {
+        return marker.label == this.selected;
+      });
+      return filteredList;
+    }
   },
   data() {
     return {
       name: "map",
-      infoWinOpen: false,
-      infoWindowPos: null,
-      center: { lat: 49.2500589, lng: -123.0012234 },
-      markers: [
-        // {
-        //   label: "1",
-        //   position: { lat: 49.2485319, lng: -123.0024311 }
-        // },
-        // {
-        //   label: "2",
-        //   position: { lat: 49.2493943, lng: -123.0009953 }
-        // },
-        // {
-        //   label: "3",
-        //   position: { lat: 49.2488319, lng: -123.0011311 }
-        // },
-        // {
-        //   label: "4",
-        //   position: { lat: 49.2500933, lng: -123.002827 }
-        // }
-      ],
+      center: { lat: 49.2510589, lng: -123.0012234 },
+      allMarkers: [],
+      markers: [],
       place: null,
-      infoPosition: null,
       infoContent: null,
-      infoOpened: false,
       infoCurrentKey: null,
+      infoOpened: false,
+      infoPosition: null,
+      infoWindowPos: null,
+      infoWinOpen: false,
       infoOptions: {
         pixelOffset: {
           width: 0,
@@ -79,7 +73,6 @@ export default {
       placeName: ""
     };
   },
-
   methods: {
     initMap() {
       let latNew;
@@ -88,12 +81,19 @@ export default {
       for (i = 0; i < this.events.length; i++) {
         latNew = Number(this.events[i].lat);
         lngNew = Number(this.events[i].lng);
-
-        this.markers.push({
+        this.allMarkers.push({
           label: this.events[i].eventID,
           position: {
             lat: latNew,
             lng: lngNew
+          }
+        });
+
+        this.markers.push({
+          label: this.events[0].eventID,
+          position: {
+            lat: Number(this.events[0].lat),
+            lng: Number(this.events[0].lng)
           }
         });
       }
@@ -110,10 +110,6 @@ export default {
             lng: this.place.geometry.location.lng()
           }
         });
-        // console.log(this.place);
-        // var seachbox = new this.google.maps.places();
-        // console.log(seachbox);
-        // console.log(seachbox);
 
         this.place = null;
       }
@@ -130,15 +126,8 @@ export default {
       }
     },
     getInfoWindowContent(marker) {
-      let eventName = this.$props.events[0].name;
-      let events = this.$props.events;
-      let i = 0;
-      for (i = 0; i < events.length; i++) {
-        if (marker.label == events[i].eventID) {
-          eventName = events[i].name;
-        }
-      }
-      return eventName;
+      const events = this.$props.events.filter(event => marker.label == event.eventID);
+      return events[0].name;
     }
   }
 };

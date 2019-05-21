@@ -95,7 +95,7 @@ export default {
       this.scrolled = window.scrollY > 0;
     },
     async setActive() {
-      const response = await UsersService.updateUser(this.$session.get("currentUser"), {isActive: false});
+      await UsersService.updateUser(this.$session.get("currentUser"), {isActive: false});
     },
     logout() {
       this.setActive();
