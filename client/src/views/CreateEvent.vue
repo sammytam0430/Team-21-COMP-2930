@@ -110,7 +110,7 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol id="listBox">
-                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2 list">
+                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
                     {{friend.invitees}} 
                     <font-awesome-icon
                       fixed-width
@@ -173,7 +173,6 @@
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
 import { gmapApi } from "vue2-google-maps";
-
 export default {
   name: "createEvent",
   components: {},
@@ -198,9 +197,6 @@ export default {
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
       soulStone: [],
-      isDust: false,
-      dustedArr: [],
-      notDustedArr: [],
       endTimeLabel: "End Time *",
       place: null,
       event: {
@@ -218,7 +214,6 @@ export default {
       }
     };
   },
-
   methods: {
     async getEventType() {
       const response = await InterestsService.getInterests();
@@ -226,7 +221,6 @@ export default {
         this.options.push({ value: option.interestID, text: option.name });
       }
     },
-
     async setPlace(place) {
       this.place = await place;
       this.event.location = this.place.name;
@@ -241,7 +235,6 @@ export default {
       var date = new Date();
       var m = date.getMonth() + 1;
       var d = date.getDate();
-
       if (m < 10) {
         m = "0" + m;
       }
@@ -250,7 +243,6 @@ export default {
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
-
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":",""));
       let end = parseInt(this.event.end.replace(":",""));
@@ -258,22 +250,18 @@ export default {
         this.alert = true;
       }
     },
-
     addFriend() {
-      if (this.newFriend.length != 0) {
+      if (this.newFriend != 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
       }
     },
-
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
     },
-
     confirmReset() {
       this.resetModal = true;
     },
-
     reset() {
       this.event.name = "";
       this.event.description = "";
@@ -290,7 +278,6 @@ export default {
       document.getElementById('thanosGif').style.display = "none";
       this.resetModal = false;
     },
-
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
@@ -298,7 +285,6 @@ export default {
         this.$router.push("events/" + this.response.eventID);
       }
     },
-
     barrelRoll() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
         document.body.animate(
@@ -310,7 +296,6 @@ export default {
         );
       }
     },
-
     thanos() {
       if (this.event.name.trim().toLowerCase() === "thanos") {
         this.endTimeLabel = "End Game *";
@@ -321,7 +306,6 @@ export default {
         document.getElementById('thanosGif').style.display = "none";
       }
     },
-
     snap() {
       document.getElementById('thanosGif').style.display = "block";
       document.getElementById('thanosImg').style.display = "none";
@@ -329,93 +313,52 @@ export default {
         document.getElementById('thanosGif').style.display = "none";
         document.getElementById('thanosImg').style.display = "block";
       },2000);
-
-      if (this.invitees.length !== 0 && !this.isDust) {
-        this.setID();
+      if (this.soulStone.length === 0) {
         this.remove();
-        this.isDust = true;
-      } else if (this.isDust) {
+      } else {
         this.restore();
-        this.isDust = false;
       }
     },
-
-    setID(){
-      let temp = document.getElementsByClassName("list");
-      let num = this.invitees.length;
-      for (let i = 0; i < num; i++) {
-        temp[i].id = i;
-      }
-    },
-
     remove(){
-     // let invitees = this.invitees;  
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      let invitees = this.invitees;
+      let soulStone = this.soulStone;   
       let original = this.invitees.length;
       let current = original;
-      let arr = this.dustedArr;
-      let count = 0;
-      setRandomIntArr();
-
+      document.getElementById("listBox").className = "";
       let interval = setInterval(function(){
-        toDust();
-      }, 1000);
-
-      function toDust() {
-        let elem = document.getElementById(arr[count]);
-        elem.className = elem.className + " fade";
-        display(elem);
-        count++;
-
-        if (count === arr.length) {
-          clearInterval(interval);
-          console.log("arr " + arr);
-        }
-      }
-
-      function display(elem){
-        setTimeout(function(){
-          elem.style.display = "none";
+          toDust();
         }, 1000);
-      }
-
-      function setRandomIntArr() {
-        let num = Math.floor(Math.random() * Math.floor(original));
-        arr.push(num);
+      function toDust() {
+        let index = getRandomInt(current);
+        let temp = invitees.splice(index, 1);
+        soulStone.push(temp[0]);
         current--;
-        while (current > original / 2) {
-          let gucci = false;
-          while(!gucci) {
-            num = Math.floor(Math.random() * Math.floor(original));
-            gucci = true;
-            arr.forEach(function(int) {
-              if (int === num){
-                gucci = false;
-              }
-            });
-          }
-          arr.push(num);
-          current--;
+        if (current <= original / 2) {
+          clearInterval(interval);
         }
       }
     },
-
-    restore() { 
-      let list = this.dustedArr;
+    restore() {
+      //this.invitees = this.invitees.concat(this.soulStone);
+      //this.soulStone = [];
+      let invitees = this.invitees;
+      let soulStone = this.soulStone;   
       document.getElementById("listBox").className = "glow";
-
       setTimeout(function(){
-       for (let i = 0; i < list.length; i++){
-         let item = document.getElementById(list[i])
-         item.style.display = "block";
-         item.style.opacity = "1";
-         item.className = "p-2 list";
-         console.log("item: " + item);
-         console.log("item ID: " + item[i]);
-       }
+        unDust();
       }, 1100);
+      function unDust() {
+        let length = soulStone.length;
+        for (let i = 0; i < length; i++){
+          invitees.push(soulStone[i]);
+        }
+        soulStone.length = 0;
+      }
     }
   },
-
   mounted() {
     this.getEventType();
   }
@@ -432,41 +375,29 @@ export default {
     border-radius: 5px;
     padding: 0px;
   }
-
   li {
     padding: 2px;
     border-bottom: 1px solid lightgray;
   }
-
-  .fade {
-    transition: opacity 1s ease-in-out;
-    opacity: 0;
-  }
-
   .glow {
-    animation-name: glowAnimation;
     animation-duration: 3s;
+    animation-name: glowAnimation;
     animation-timing-function: ease-in-out;
   }
-
   @keyframes glowAnimation {
     0% {
       box-shadow: none;
     }
-
     25% {
       box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
     }
-
     75% {
       box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
     }
-
     100% {
       box-shadow: none;
     }
   }
-
   #location {
     display: block;
     width: 100%;
@@ -481,19 +412,15 @@ export default {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
   }
-
   #location:focus {
     box-shadow: 2px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
     outline-width: 0px;
     transition: all 0.15s ease-in-out;
   }
-
   .thanos {
     height: calc(1.5em + 0.75rem + 2px);
   }
-
   #thanosGif, #thanosImg {
     display: none;
   }
-
 </style>
