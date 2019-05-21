@@ -110,7 +110,7 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol id="listBox">
-                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
+                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2 list">
                     {{friend.invitees}} 
                     <font-awesome-icon
                       fixed-width
@@ -198,6 +198,9 @@ export default {
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
       soulStone: [],
+      isDust: false,
+      dustedArr: [],
+      notDustedArr: [],
       endTimeLabel: "End Time *",
       place: null,
       event: {
@@ -257,7 +260,7 @@ export default {
     },
 
     addFriend() {
-      if (this.newFriend != 0) {
+      if (this.newFriend.length != 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
       }
@@ -327,57 +330,89 @@ export default {
         document.getElementById('thanosImg').style.display = "block";
       },2000);
 
-      if (this.soulStone.length === 0) {
+      if (this.invitees.length !== 0 && !this.isDust) {
+        this.setID();
         this.remove();
-      } else {
+        this.isDust = true;
+      } else if (this.isDust) {
         this.restore();
+        this.isDust = false;
+      }
+    },
+
+    setID(){
+      let temp = document.getElementsByClassName("list");
+      let num = this.invitees.length;
+      for (let i = 0; i < num; i++) {
+        temp[i].id = i;
       }
     },
 
     remove(){
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-      }
-      let invitees = this.invitees;
-      let soulStone = this.soulStone;   
+     // let invitees = this.invitees;  
       let original = this.invitees.length;
       let current = original;
-      document.getElementById("listBox").className = "";
+      let arr = this.dustedArr;
+      let count = 0;
+      setRandomIntArr();
 
       let interval = setInterval(function(){
-          toDust();
-        }, 1000);
+        toDust();
+      }, 1000);
 
       function toDust() {
-        let index = getRandomInt(current);
-        let temp = invitees.splice(index, 1);
-        soulStone.push(temp[0]);
-        current--;
+        let elem = document.getElementById(arr[count]);
+        elem.className = elem.className + " fade";
+        display(elem);
+        count++;
 
-        if (current <= original / 2) {
+        if (count === arr.length) {
           clearInterval(interval);
+          console.log("arr " + arr);
+        }
+      }
+
+      function display(elem){
+        setTimeout(function(){
+          elem.style.display = "none";
+        }, 1000);
+      }
+
+      function setRandomIntArr() {
+        let num = Math.floor(Math.random() * Math.floor(original));
+        arr.push(num);
+        current--;
+        while (current > original / 2) {
+          let gucci = false;
+          while(!gucci) {
+            num = Math.floor(Math.random() * Math.floor(original));
+            gucci = true;
+            arr.forEach(function(int) {
+              if (int === num){
+                gucci = false;
+              }
+            });
+          }
+          arr.push(num);
+          current--;
         }
       }
     },
 
-    restore() {
-      //this.invitees = this.invitees.concat(this.soulStone);
-      //this.soulStone = [];
-      let invitees = this.invitees;
-      let soulStone = this.soulStone;   
+    restore() { 
+      let list = this.dustedArr;
       document.getElementById("listBox").className = "glow";
 
       setTimeout(function(){
-        unDust();
+       for (let i = 0; i < list.length; i++){
+         let item = document.getElementById(list[i])
+         item.style.display = "block";
+         item.style.opacity = "1";
+         item.className = "p-2 list";
+         console.log("item: " + item);
+         console.log("item ID: " + item[i]);
+       }
       }, 1100);
-
-      function unDust() {
-        let length = soulStone.length;
-        for (let i = 0; i < length; i++){
-          invitees.push(soulStone[i]);
-        }
-        soulStone.length = 0;
-      }
     }
   },
 
@@ -403,9 +438,14 @@ export default {
     border-bottom: 1px solid lightgray;
   }
 
+  .fade {
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+  }
+
   .glow {
-    animation-duration: 3s;
     animation-name: glowAnimation;
+    animation-duration: 3s;
     animation-timing-function: ease-in-out;
   }
 
