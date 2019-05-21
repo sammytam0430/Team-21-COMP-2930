@@ -49,8 +49,13 @@ export default {
   methods: {
     async getUser() {
       const response = await UsersService.getUserByEmail(this.email);
-      this.response = response.data[0];
-      this.userID = this.response.userID;
+      this.response = response.data;
+      if (!response.data.length) {
+        this.statement = "User does not exist";
+        this.emailState = false;
+      } else {
+        this.userID = this.response[0].userID;
+      }
     },
     async addFriend() {
       const data = {
@@ -87,6 +92,9 @@ export default {
     resetModal() {
       this.email = "";
       this.emailState = null;
+      this.userID = 0;
+      this.response = "";
+      this.statement = "";
     },
     handleSubmit() {
       this.getUser();
@@ -104,10 +112,6 @@ export default {
           this.statement = "You are konnected with your friend already";
           return false;
         }
-      }
-      if (this.userID == 0) {
-        this.statement = "User is not found";
-        return false;
       }
     }
   }
