@@ -11,14 +11,10 @@
               <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
             </b-form-group>
           </b-col>
+          <b-col md="3" lg="2"></b-col>
           <b-col md="3" lg="2">
             <b-form-group id="dateGroup" label="From:">
               <b-form-input id="date" type="date" required></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
             </b-form-group>
           </b-col>
           <b-col md="3" lg="2">
@@ -26,11 +22,7 @@
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2">
-            <b-form-group>
-              <b-form-input id="start" type="time" required></b-form-input>
-            </b-form-group>
-          </b-col>
+          <b-col md="3" lg="2"></b-col>
         </b-row>
       </b-collapse>
       <b-row class="mt-4">
@@ -41,11 +33,13 @@
             :title="event.name"
             v-for="event in events"
           >
-            <b-card-sub-title class="h6" >{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
+            <b-card-sub-title
+              class="h6"
+            >{{`${event.date[0]}, ${event.date[1]} ${event.date[2]}, ${event.date[3]}`}}</b-card-sub-title>
             <hr>
             <b-row class="mb-2">
               <b-col cols="1">
-              <font-awesome-icon fixed-width icon="clock"/>
+                <font-awesome-icon fixed-width icon="clock"/>
               </b-col>
               <b-col class="float-left text-left">
                 <span>{{event.start}} to {{event.end}}</span>
@@ -56,7 +50,7 @@
                 <font-awesome-icon fixed-width icon="map-marker-alt"/>
               </b-col>
               <b-col class="float-left text-left">
-              <span>{{event.location}}</span>
+                <span>{{event.location}}</span>
               </b-col>
             </b-row>
             <hr>
@@ -89,17 +83,45 @@ export default {
     Timestamp,
     EventDetails
   },
+  watch: {
+    selected(){
+      // console.log(this.filteredEvents);
+      this.events = this.filteredEvents;
+    }
+  },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");
+    }
+    
+  },
+
+  computed:{
+    filteredEvents() {
+      let count = 0;
+      if(this.firstRun){
+        this.allEvents = this.events;
+        this.firstRun = false;
+      }
+
+      
+      let filteredList = this.allEvents.filter(event => {
+        return event.type == this.selected;
+      });
+      if(this.selected == 0){
+        filteredList = this.allEvents;
+      }
+      return filteredList;
     }
   },
   data() {
     return {
       selected: 0,
       fields: [],
+      allEvents: [],
       events: [],
-      options: [{ value: 0, text: "Select an Event Type" }]
+      options: [{ value: 0, text: "Select an Event Type" }],
+      firstRun: true
     };
   },
   mounted() {
