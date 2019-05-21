@@ -251,7 +251,7 @@ export default {
       }
     },
     addFriend() {
-      if (this.newFriend != 0) {
+      if (this.newFriend.trim().length !== 0) {
         this.invitees.push({ invitees: this.newFriend });
         this.newFriend = "";
       }
@@ -313,9 +313,9 @@ export default {
         document.getElementById('thanosGif').style.display = "none";
         document.getElementById('thanosImg').style.display = "block";
       },2000);
-      if (this.soulStone.length === 0) {
+      if (this.invitees.length !== 0 && this.soulStone.length === 0) {
         this.remove();
-      } else {
+      } else if (this.soulStone.length !== 0) {
         this.restore();
       }
     },
@@ -342,8 +342,6 @@ export default {
       }
     },
     restore() {
-      //this.invitees = this.invitees.concat(this.soulStone);
-      //this.soulStone = [];
       let invitees = this.invitees;
       let soulStone = this.soulStone;   
       document.getElementById("listBox").className = "glow";
