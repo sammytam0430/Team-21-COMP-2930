@@ -6,23 +6,21 @@
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
-          <b-col lg="3">
+          <b-col md="4">
             <b-form-group id="typeGroup" label="Event Type" label-for="type">
               <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2"></b-col>
-          <b-col md="3" lg="2">
+          <b-col>
             <b-form-group id="dateGroup" label="From:">
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2">
+          <b-col>
             <b-form-group id="dateGroup" label="To:">
               <b-form-input id="date" type="date" required></b-form-input>
             </b-form-group>
           </b-col>
-          <b-col md="3" lg="2"></b-col>
         </b-row>
       </b-collapse>
       <b-row class="mt-4">
@@ -84,8 +82,7 @@ export default {
     EventDetails
   },
   watch: {
-    selected(){
-      // console.log(this.filteredEvents);
+    selected() {
       this.events = this.filteredEvents;
     }
   },
@@ -93,24 +90,15 @@ export default {
     if (!this.$session.exists()) {
       this.$router.push("/");
     }
-    
   },
-
-  computed:{
+  computed: {
     filteredEvents() {
-      let count = 0;
-      if(this.firstRun){
-        this.allEvents = this.events;
-        this.firstRun = false;
+      if (this.selected == 0) {
+        return this.allEvents;
       }
-
-      
       let filteredList = this.allEvents.filter(event => {
         return event.type == this.selected;
       });
-      if(this.selected == 0){
-        filteredList = this.allEvents;
-      }
       return filteredList;
     }
   },
@@ -130,7 +118,7 @@ export default {
   methods: {
     async loadEvents() {
       const response = await EventsService.getEvents();
-      this.events = response.data;
+      this.allEvents = this.events = response.data;
       for (let event of this.events) {
         event.date = new Date(event.date + " " + event.start)
           .toString()

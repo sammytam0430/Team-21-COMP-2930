@@ -218,7 +218,7 @@ export default {
     displayErrorMsg() {
       this.$bvToast.toast("Nooooo something went wrong", {
         title: "Notification",
-        toaster: 'b-toaster-bottom-right',
+        toaster: "b-toaster-bottom-right",
         autoHideDelay: 5000,
         appendToast: true
       });

@@ -73,7 +73,7 @@ export default {
       }
     },
     async setActive() {
-      const response = await UsersService.updateUser(this.$session.get("currentUser"), {isActive: true});
+      await UsersService.updateUser(this.$session.get("currentUser"), {isActive: true});
     },
     close() {
       if (this.$route.path !== "/signup") {

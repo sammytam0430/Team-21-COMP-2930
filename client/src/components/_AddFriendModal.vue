@@ -5,11 +5,10 @@
       id="modal-prevent-closing"
       ref="modal"
       title="Add Friend"
-      @show="resetModal"
       @hidden="resetModal"
-      @ok="handleOk"
+      @ok.prevent="emailState = handleSubmit()"
     >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
+      <form ref="form" @submit.stop.prevent>
         <b-form-group>
           <b-form-input
             id="Email-input"
@@ -32,46 +31,42 @@ import UsersService from "@/services/UsersService";
 
 export default {
   name: "addfriend",
-  props: ["friends", "user"],
+  props: ["friends"],
   data() {
     return {
       email: "",
       emailState: null,
-      submitEmails: [],
-      currentUser: false,
       statement: "",
-      submitEmail: "",
-      foundFriendID: 0
+      userID: 0,
+      response: ""
     };
   },
-  watch:{
-    foundFriendID(){
-      this.handleSubmit();
+  watch: {
+    userID() {
       this.addFriend();
-    },
-    submitEmail() {
-      this.getUser();
     }
   },
   methods: {
     async getUser() {
-      let id = 1;
-      const response = await UsersService.getUser(id);
-
-      while (response.data[0] != null) {
-        const response = await UsersService.getUser(id);
-        if (response.data[0].email == this.email) {
-          return this.foundFriendID = id;
-        }
-        id++;
-      }
+      const response = await UsersService.getUserByEmail(this.email);
+      this.response = response.data[0];
+      this.userID = this.response.userID;
     },
     async addFriend() {
       const data = {
-        userID: this.user.userID,
-        friendID: this.foundFriendID
+        userID: this.$session.get("currentUser"),
+        friendID: this.userID
       };
-
+      if (data.userID === data.friendID) {
+        this.$bvToast.toast("You can't add yourself as a friend", {
+          title: "Notification",
+          toaster: "b-toaster-bottom-right",
+          autoHideDelay: 5000,
+          appendToast: true
+        });
+        this.userID = 0;
+        return;
+      }
       const response = await FriendsService.addFriend(data);
       this.$bvToast.toast(response.data.message, {
         title: "Notification",
@@ -79,6 +74,10 @@ export default {
         autoHideDelay: 5000,
         appendToast: true
       });
+      if (response.data.success) {
+        this.$parent.getFriends();
+        this.$refs.modal.hide();
+      }
     },
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
@@ -89,20 +88,15 @@ export default {
       this.email = "";
       this.emailState = null;
     },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.emailState = this.handleSubmit();
-    },
     handleSubmit() {
-      this.submitEmail = this.email;
+      this.getUser();
       if (this.email == "") {
         this.statement = "Please enter email";
         return false;
       }
-      if (this.email == this.user.email) {
-        this.statement = "Please have a valid friend's email";
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        this.statement = "Please have a valid BCIT email";
         return false;
       }
       for (let i = 0; i < this.friends.length; i++) {
@@ -111,23 +105,10 @@ export default {
           return false;
         }
       }
-      if (this.foundFriendID == 0) {
-        this.statement = "Friend is not found";
+      if (this.userID == 0) {
+        this.statement = "User is not found";
         return false;
       }
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        this.statement = "Please have a valid BCIT email";
-        return false;
-      }
-      // Push the name to submitted names
-      this.submitEmails.push(this.email);
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$refs.modal.hide();
-      });
-      
-
     }
   }
 };

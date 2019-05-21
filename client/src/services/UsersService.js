@@ -7,6 +7,11 @@ export default {
   getUser(id) {
     return Api().get("/users/" + id);
   },
+
+  getUserByEmail(email) {
+    return Api().post("/users/" + email);
+  },
+
   createUser(data) {
     return Api().post("/users", data);
   },

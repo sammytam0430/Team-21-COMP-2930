@@ -1,52 +1,61 @@
 <template>
   <b-container class="p-4.5">
-    <span class="h3 font-weight-bold text-secondary">Profile</span>
-    <b-button
-      size="sm"
-      class="ml-2 mb-2"
-      variant="danger"
-      v-if="isFriend"
-      @click="removeFriend"
-    >Remove Friend</b-button>
+    <b-row class="mb-2">
+      <b-col>
+        <span class="h3 font-weight-bold text-secondary">Profile</span>
+      </b-col>
+      <b-col class="text-right">
+        <b-button
+          size="sm"
+          variant="danger"
+          v-if="isFriend"
+          @click="removeFriend"
+        >Remove Friend</b-button>
 
-    <b-button
-      size="sm"
-      class="ml-2 mb-2"
-      v-else-if="!isFriend && !currentUser"
-      @click="addFriend"
-    >Add Friend</b-button>
-    
-    <b-container class="border border-secondary rounded bg-white pb-4 pt-2">
+        <b-button
+          size="sm"
+          v-else-if="!isFriend && !currentUser"
+          @click="addFriend"
+        >Add Friend</b-button>
+      </b-col>
+    </b-row>
+
+    <b-container class="border border-secondary rounded bg-white pb-4 pt-2 shadow">
       <b-img
         center
         thumbnail
         class="w-50 rounded-circle my-3"
         :src="require('../assets/blop.png')"
-        style="min-width: 180px; max-width: 230px;"
+        style="min-width: 160px; max-width: 200px;"
       ></b-img>
-      
+
       <b-row class="text-center h4 font-weight-bold justify-content-center">
         <b-col cols="auto">
           <EditField v-model="user.fname"/>&nbsp;
           <EditField v-model="user.lname"/>
         </b-col>
       </b-row>
-      
-      <b-row class="text-center h5 justify-content-center">
+      <b-row class="text-center h6 justify-content-center">
         <b-col cols="auto">
-          <EditField v-model="user.prefEmail"></EditField>
+          <span>{{user.email}}</span>
         </b-col>
       </b-row>
-
-      <hr>
-
-      <b-row class="ml-0">
-        <b-col cols="2" sm="2" md="2" lg="1">
-          Interests:
+      <b-row class="text-center h6 justify-content-center">
+        <b-col cols="auto">
+          <EditField v-model="user.prefEmail"/>
         </b-col>
+      </b-row>
+      <hr>
+      <b-row class="ml-0">
+        <b-col cols="2" sm="2" md="2" lg="1">Interests:</b-col>
         <b-col class="mb-3 ml-4">
           {{selected.join(', ')}}
-          <b-img :src="require('../assets/edits.png')" style="width: 15px; height: 15px;" v-if="currentUser" v-b-modal.interestmodal/>
+          <b-img
+            :src="require('../assets/edits.png')"
+            style="width: 15px; height: 15px;"
+            v-if="currentUser"
+            v-b-modal.interestmodal
+          />
           <EditInterests/>
         </b-col>
       </b-row>
@@ -54,7 +63,7 @@
       <b-row class="ml-0 px-3">
         <p>
           Blurb:&nbsp;
-          <EditField v-model="user.randBlurb"></EditField>
+          <EditField v-model="user.randBlurb"/>
         </p>
       </b-row>
     </b-container>

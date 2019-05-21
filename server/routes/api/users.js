@@ -14,6 +14,15 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.post("/:email", (req, res) => {
+  db("users")
+    .where({ email: req.params.email })
+    .select()
+    .then(data => {
+      res.send(data);
+    });
+});
+
 router.post("/", (req, res) => {
   let salt = bcrypt.genSaltSync(saltRounds);
   req.body.password = bcrypt.hashSync(req.body.password, salt);

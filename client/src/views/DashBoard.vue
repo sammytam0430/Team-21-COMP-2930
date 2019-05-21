@@ -50,7 +50,7 @@
             <b-row class="p-2">
               <b-col font-size="1rem">Friend Konnect</b-col>
               <b-col cols="2" class="text-right">
-                <AddFriendModal :friends="friends" :user="user"/>
+                <AddFriendModal :friends="friends"/>
               </b-col>
             </b-row>
             <b-table
@@ -90,9 +90,7 @@
 import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";
-import ParticipantsService from "@/services/ParticipantsService";
 import FriendsService from "@/services/FriendsService";
-import UsersService from "@/services/UsersService";
 
 export default {
   name: "Dashboard",
@@ -117,32 +115,15 @@ export default {
       friends: [],
       selected: "",
       initalFirst: true,
-      user: []
     };
   },
-  watch:{
-    friends:{
-      deep:true,
-      handler(){
-        this.getFriends();
-      }
-    }
-  },
   mounted() {
-    this.loadEvents(), this.getFriends(), this.getUser();
+    this.loadEvents(), this.getFriends();
   },
   methods: {
     async loadEvents() {
       const response = await EventsService.getEvents();
       this.events = response.data;
-    },
-    async loadParticipants() {
-      const response = await ParticipantsService.getParticipants();
-      this.participants = response.data;
-    },
-    async getUser() {
-      const response = await UsersService.getUser(this.$session.get("currentUser"));
-      this.user = response.data[0];
     },
     async getFriends() {
       const response = await FriendsService.getFriends(

@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <GmapMap id="mapOne" :center="center" :zoom="16" ref="map" style="width: 100%; height: 550px">
@@ -32,6 +31,7 @@ export default {
   props: ["events", "selected"],
   watch: {
     selected() {
+      this.infoWinOpen = false;
       this.markers = this.filteredEvents;
     },
     events: {
@@ -53,16 +53,16 @@ export default {
   data() {
     return {
       name: "map",
-      infoWinOpen: false,
-      infoWindowPos: null,
       center: { lat: 49.2510589, lng: -123.0012234 },
       allMarkers: [],
       markers: [],
       place: null,
-      infoPosition: null,
       infoContent: null,
-      infoOpened: false,
       infoCurrentKey: null,
+      infoOpened: false,
+      infoPosition: null,
+      infoWindowPos: null,
+      infoWinOpen: false,
       infoOptions: {
         pixelOffset: {
           width: 0,
@@ -73,7 +73,6 @@ export default {
       placeName: ""
     };
   },
-
   methods: {
     initMap() {
       let latNew;
@@ -127,15 +126,8 @@ export default {
       }
     },
     getInfoWindowContent(marker) {
-      let eventName = this.$props.events[0].name;
-      let events = this.$props.events;
-      let i = 0;
-      for (i = 0; i < events.length; i++) {
-        if (marker.label == events[i].eventID) {
-          eventName = events[i].name;
-        }
-      }
-      return eventName;
+      const events = this.$props.events.filter(event => marker.label == event.eventID);
+      return events[0].name;
     }
   }
 };
