@@ -103,11 +103,7 @@ export default {
       if (this.agreed) {
         const response = await UsersService.createUser(this.signup);
         this.response = response.data;
-        if (this.response.success) {
-          this.showAlert = true;
-        } else {
-          this.showAlert = true;
-        }
+        this.showAlert = true;
       }
     },
     close() {
