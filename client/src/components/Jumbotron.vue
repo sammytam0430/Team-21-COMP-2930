@@ -4,7 +4,7 @@
       <p class="h4">connect to people with similar interest</p>
     <div class="my-5">
       <SignUpBtn class="d-inline-block"/>
-      <LogInBtn class="d-inline-block ml-3"/>
+      <LogInBtn class="d-inline-block ml-3 bg-white rounded"/>
     </div>
       <b-row>
         <b-col offset="6">
