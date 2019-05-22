@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import VueSession from "vue-session";
 import BootstrapVue from "bootstrap-vue";
-import * as VueGoogleMaps from 'vue2-google-maps'
+import * as VueGoogleMaps from "vue2-google-maps";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faUserGraduate,
@@ -17,10 +17,12 @@ import {
   faMapMarkerAlt,
   faClock,
   faTimes,
-  faSpa
+  faSpa,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
+import { faYoutube, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import '@/assets/custom.scss'
+import "@/assets/custom.scss";
 
 library.add(
   faUserGraduate,
@@ -34,7 +36,10 @@ library.add(
   faMapMarkerAlt,
   faClock,
   faTimes,
-  faSpa
+  faSpa,
+  faSearch,
+  faYoutube,
+  faGithubAlt
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
