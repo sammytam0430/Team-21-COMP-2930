@@ -12,12 +12,12 @@
           </b-form-row>
 
            <b-form-row>
-            <b-col cols="7">
+            <b-col sm="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
-            <b-col cols="6" sm="5">
+            <b-col sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
@@ -42,7 +42,7 @@
           <b-form-row>
             <b-col>
               <b-form-group id="descriptionGroup" label="Description / Additional Location Details (optional)" label-for="description">
-                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50" v-b-popover.focus.top="'Please add addional details about your location such as room number and if you are in a large room, then a brief description of your area (ie: back of the room by the windows)'"></b-form-textarea>
+                <b-form-textarea id="description" v-model="event.description" rows="5" cols="50" v-b-popover.focus.top="'Please add additional details about your location such as room number and if you are in a large room, then a brief description of your area (ie: back of the room by the windows).'"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -198,8 +198,8 @@ export default {
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
-      key: 0,
       transitionName: [""],
+      key: 0,
       soulStone: [],
       endTimeLabel: "End Time *",
       place: null,
@@ -354,12 +354,16 @@ export default {
     restore() {
       let invitees = this.invitees;
       let soulStone = this.soulStone;   
+      let name = this.transitionName;
+      
       document.getElementById("listBox").className = "glow";
       setTimeout(function(){
+        name[0] = "undust";
         unDust();
       }, 1100);
       setTimeout(function(){
         document.getElementById("listBox").className = "";
+        name[0] = "";
       }, 3000);
 
       function unDust() {
@@ -399,15 +403,19 @@ export default {
   @keyframes glowAnimation {
     0% {
       box-shadow: none;
+      border-color: lightgray;
     }
     25% {
-      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+      box-shadow: inset 0px 0px 5px 3px rgb(255, 216, 40),0px 0px 5px 3px rgb(255, 216, 40);
+      border-color: rgb(255, 216, 40);
     }
     75% {
-      box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
+      box-shadow: inset 0px 0px 5px 3px rgb(255, 216, 40),0px 0px 5px 3px rgb(255, 216, 40);
+      border-color: rgb(255, 216, 40);
     }
     100% {
       box-shadow: none;
+      border-color:  lightgray;
     }
   }
   #location {
@@ -425,7 +433,7 @@ export default {
     border-radius: 0.25rem;
   }
   #location:focus {
-    box-shadow: 2px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
+    box-shadow: 0px 0px 0px 3px#a5c2df;
     outline-width: 0px;
     transition: all 0.15s ease-in-out;
   }
@@ -436,9 +444,18 @@ export default {
     display: none;
   }
   .dust-leave-active {
-  transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
   }
   .dust-leave-to {
     opacity: 0;
+  }
+  .undust-enter-active {
+    transition: all 0.2s ease-in-out;
+  }
+  .undust-enter {
+    opacity: 0;
+  }
+  .undust-enter-to {
+    opacity: 1;
   }
 </style>
