@@ -110,16 +110,18 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol id="listBox">
-                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
-                    {{friend.invitees}} 
-                    <font-awesome-icon
-                      fixed-width
-                      class="float-right"
-                      variant="white"
-                      @click="removeFriend(friend)"
-                      icon="times"
-                    />
+                  <transition-group v-bind:name="this.transitionName[0]">
+                    <li v-for="friend in invitees" v-bind:key="friend.key" class="p-2">
+                      {{friend.name}}
+                      <font-awesome-icon
+                        fixed-width
+                        class="float-right"
+                        variant="white"
+                        @click="removeFriend(friend)"
+                        icon="times"
+                      />
                   </li>
+                  </transition-group>
                 </ol>
               </b-form-group>
             </b-container>
@@ -173,7 +175,6 @@
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
 import { gmapApi } from "vue2-google-maps";
-
 export default {
   name: "createEvent",
   components: {},
@@ -197,6 +198,8 @@ export default {
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
+      key: 0,
+      transitionName: [""],
       soulStone: [],
       endTimeLabel: "End Time *",
       place: null,
@@ -215,7 +218,6 @@ export default {
       }
     };
   },
-
   methods: {
     async getEventType() {
       const response = await InterestsService.getInterests();
@@ -223,7 +225,6 @@ export default {
         this.options.push({ value: option.interestID, text: option.name });
       }
     },
-
     async setPlace(place) {
       this.place = await place;
       this.event.location = this.place.name;
@@ -233,12 +234,10 @@ export default {
     parsePlace() {
       return this.place == null ? "" : this.place.name;
     },
-    
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
       var d = date.getDate();
-
       if (m < 10) {
         m = "0" + m;
       }
@@ -247,30 +246,23 @@ export default {
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
-
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":",""));
       let end = parseInt(this.event.end.replace(":",""));
-      if (end < start) {
-        this.alert = true;
-      }
+      this.alert = end < start ? true : false;
     },
-
     addFriend() {
-      if (this.newFriend != 0) {
-        this.invitees.push({ invitees: this.newFriend });
+      if (this.newFriend.trim().length !== 0) {
+        this.invitees.push({ name: this.newFriend, key: this.key++ });
         this.newFriend = "";
       }
     },
-
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
     },
-
     confirmReset() {
       this.resetModal = true;
     },
-
     reset() {
       this.event.name = "";
       this.event.description = "";
@@ -283,11 +275,12 @@ export default {
       this.newFriend = "";
       this.invitees = [];
       this.soulStone= [];
+      this.transitionName[0] = "";
       document.getElementById('thanosImg').style.display = "none";
       document.getElementById('thanosGif').style.display = "none";
       this.resetModal = false;
+      this.key = 0;
     },
-
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
@@ -295,7 +288,6 @@ export default {
         this.$router.push("events/" + this.response.eventID);
       }
     },
-
     barrelRoll() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
         document.body.animate(
@@ -307,7 +299,6 @@ export default {
         );
       }
     },
-
     thanos() {
       if (this.event.name.trim().toLowerCase() === "thanos") {
         this.endTimeLabel = "End Game *";
@@ -318,7 +309,6 @@ export default {
         document.getElementById('thanosGif').style.display = "none";
       }
     },
-
     snap() {
       document.getElementById('thanosGif').style.display = "block";
       document.getElementById('thanosImg').style.display = "none";
@@ -326,50 +316,51 @@ export default {
         document.getElementById('thanosGif').style.display = "none";
         document.getElementById('thanosImg').style.display = "block";
       },2000);
-
-      if (this.soulStone.length === 0) {
+      if (this.invitees.length !== 0 && this.soulStone.length === 0) {
         this.remove();
-      } else {
+      } else if (this.soulStone.length !== 0) {
         this.restore();
       }
     },
-
     remove(){
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-      }
       let invitees = this.invitees;
       let soulStone = this.soulStone;   
+      let name = this.transitionName;
       let original = this.invitees.length;
       let current = original;
-      document.getElementById("listBox").className = "";
-
+      name[0] = "dust";
+      
       let interval = setInterval(function(){
-          toDust();
-        }, 1000);
+        toDust();
+      }, 1000);
 
       function toDust() {
         let index = getRandomInt(current);
         let temp = invitees.splice(index, 1);
         soulStone.push(temp[0]);
         current--;
-
         if (current <= original / 2) {
           clearInterval(interval);
+          setTimeout(function(){
+            name[0] = "";
+          }, 1000)
         }
       }
-    },
 
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+    },
     restore() {
-      //this.invitees = this.invitees.concat(this.soulStone);
-      //this.soulStone = [];
       let invitees = this.invitees;
       let soulStone = this.soulStone;   
       document.getElementById("listBox").className = "glow";
-
       setTimeout(function(){
         unDust();
       }, 1100);
+      setTimeout(function(){
+        document.getElementById("listBox").className = "";
+      }, 3000);
 
       function unDust() {
         let length = soulStone.length;
@@ -380,7 +371,6 @@ export default {
       }
     }
   },
-
   mounted() {
     this.getEventType();
   }
@@ -397,36 +387,29 @@ export default {
     border-radius: 5px;
     padding: 0px;
   }
-
   li {
     padding: 2px;
     border-bottom: 1px solid lightgray;
   }
-
   .glow {
     animation-duration: 3s;
     animation-name: glowAnimation;
     animation-timing-function: ease-in-out;
   }
-
   @keyframes glowAnimation {
     0% {
       box-shadow: none;
     }
-
     25% {
       box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
     }
-
     75% {
       box-shadow: 2px 2px 1px 1px rgb(255, 216, 40), 2px -2px 1px 1px rgb(255, 216, 40), -2px 2px 1px 1px rgb(255, 216, 40), -2px -2px 1px 1px rgb(255, 216, 40);
     }
-
     100% {
       box-shadow: none;
     }
   }
-
   #location {
     display: block;
     width: 100%;
@@ -441,19 +424,21 @@ export default {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
   }
-
   #location:focus {
     box-shadow: 2px 2px 1px 1px#a5c2df, 2px -2px 1px 1px#a5c2df, -2px 2px 1px 1px#a5c2df, -2px -2px 1px 1px#a5c2df;
     outline-width: 0px;
     transition: all 0.15s ease-in-out;
   }
-
   .thanos {
     height: calc(1.5em + 0.75rem + 2px);
   }
-
   #thanosGif, #thanosImg {
     display: none;
   }
-
+  .dust-leave-active {
+  transition: all 1s ease-in-out;
+  }
+  .dust-leave-to {
+    opacity: 0;
+  }
 </style>

@@ -21,7 +21,7 @@
       <b-row class="text-center h4 font-weight-bold justify-content-center">
         <b-col cols="auto">
           <EditField v-model="user.fname"/>&nbsp;
-          <EditField v-model="user.lname"/>
+          <EditField v-model="user.lname" />
         </b-col>
       </b-row>
       <b-row class="text-center h6 justify-content-center">
