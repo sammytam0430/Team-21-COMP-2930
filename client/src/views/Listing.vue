@@ -11,16 +11,6 @@
               <b-form-select id="type" v-model="selected" :options="options" required></b-form-select>
             </b-form-group>
           </b-col>
-          <b-col>
-            <b-form-group id="dateGroup" label="From:">
-              <b-form-input id="date" type="date" required></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group id="dateGroup" label="To:">
-              <b-form-input id="date" type="date" required></b-form-input>
-            </b-form-group>
-          </b-col>
         </b-row>
       </b-collapse>
       <b-row class="mt-4">
