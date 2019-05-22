@@ -26,11 +26,10 @@
 <script>
 export default {
   name: "EditField",
-  props: ["label", "value"],
+  props: ["label", "value", "currentUser"],
   data() {
     return {
       editing: false,
-      currentUser: this.$session.get("currentUser") == this.$route.params.id
     };
   },
   methods: {
