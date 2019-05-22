@@ -4,7 +4,7 @@
       <b-row>
         <b-col md="7">
           <b-row class="p-2">
-            <b-col>Near By Events</b-col>
+            <b-col>Nearby Events</b-col>
             <b-col cols="5" class="text-right">
               <router-link to="/create">Create Event</router-link>
             </b-col>
@@ -17,7 +17,7 @@
         </b-col>
         <b-col md="5">
           <b-row class="p-2">
-            <b-col>Near By Events</b-col>
+            <b-col>Nearby Events</b-col>
             <b-col cols="4" class="float-right text-right">
               <router-link to="/events">Search</router-link>
             </b-col>
