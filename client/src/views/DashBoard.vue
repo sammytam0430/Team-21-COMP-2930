@@ -121,19 +121,23 @@ export default {
     this.loadEvents(), this.getFriends();
   },
   methods: {
+    //function loads the events from the database
     async loadEvents() {
       const response = await EventsService.getEvents();
       this.events = response.data;
     },
+    //function gets user's friends from the database
     async getFriends() {
       const response = await FriendsService.getFriends(
         this.$session.get("currentUser")
       );
       this.friends = response.data;
     },
+    //function tracks user clicks of the event
     eventClick(data) {
       this.selected = data;
     },
+    //function changes the css style when
     rowClass(item) {
       if (this.initalFirst) {
         this.initalFirst = false;
