@@ -34,7 +34,7 @@
           <b-form-row>
             <b-col>
               <b-form-group id="locationGroup" label="Location *" label-for="location">
-                <gmap-autocomplete id="location" @place_changed="setPlace"></gmap-autocomplete>
+                <gmap-autocomplete required id="location" @place_changed="setPlace"></gmap-autocomplete>
               </b-form-group>
             </b-col>
           </b-form-row>

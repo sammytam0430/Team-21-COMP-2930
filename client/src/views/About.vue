@@ -138,6 +138,6 @@ export default {
 .bioBox {
   border: 1px solid rgb(238, 234, 248);
   border-radius: 2%;
-  background-color: rgb(226, 235, 240);
+  background-color: #E2EBF0;
 }
 </style>

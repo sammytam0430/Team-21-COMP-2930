@@ -26,18 +26,14 @@
         <b-card v-bind:key="friend.userID" v-for="friend in filteredFriends" class="mt-3">
           <b-row>
             <b-col>
-              <b-img class="profileImage" thumbnail rounded="circle" v-bind:src="friend.image" left></b-img>
+              <InitialCircle
+                style="font-size: 50px; width: 95px; height: 95px"
+                class="justify-content-center"
+                :initial="friend.fname.substring(0, 1).toUpperCase() + friend.lname.substring(0, 1).toUpperCase()"
+              />
             </b-col>
             <b-col class="col-lg-8 col-md-8 col-5 float-left friendName">
               <router-link :to="`/user/${friend.userID}`">{{ friend.fname }} {{ friend.lname }}</router-link>
-            </b-col>
-            <b-col class="favToggleButtonDiv">
-              <b-button
-                class="favToggleButton"
-                size="sm"
-                variant="outline-primary"
-                :pressed.sync="friend.favourite"
-              >{{friend.favourite ? "UnFavourite" : "Favourite"}}</b-button>
             </b-col>
           </b-row>
         </b-card>
@@ -49,8 +45,11 @@
 
 <script>
 import FriendsService from "@/services/FriendsService";
+import InitialCircle from "@/components/InitialCircle";
+
 export default {
   name: "friends",
+  components: { InitialCircle },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");

@@ -54,7 +54,8 @@
         required
       >
         I agree to the
-        <a href v-on:click.prevent>Terms and Conditions</a>
+        <a href v-on:click.prevent v-b-modal.conditions>Terms and Conditions</a>
+        <Conditions/>
       </b-form-checkbox>
       <b-button class="w-100 mt-3" type="submit" variant="primary">Sign Up</b-button>
     </b-form>
@@ -69,9 +70,11 @@
 
 <script>
 import UsersService from "@/services/UsersService";
+import Conditions from "@/components/Conditions";
 
 export default {
   name: "SignUpModal",
+  components: { Conditions },
   data() {
     return {
       agreed: false,
