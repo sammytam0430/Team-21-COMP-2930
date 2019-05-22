@@ -47,6 +47,7 @@ export default {
     }
   },
   methods: {
+    // get user information by email from database
     async getUser() {
       const response = await UsersService.getUserByEmail(this.email);
       this.response = response.data;
@@ -57,6 +58,7 @@ export default {
         this.userID = this.response[0].userID;
       }
     },
+    // add user as freind
     async addFriend() {
       const data = {
         userID: this.$session.get("currentUser"),
