@@ -12,12 +12,12 @@
           </b-form-row>
 
            <b-form-row>
-            <b-col cols="7">
+            <b-col sm="7">
               <b-form-group id="typeGroup" label="Event Type *" label-for="type">
                 <b-form-select id="type" v-model="event.type" :options="options" required></b-form-select>
               </b-form-group>
             </b-col>
-            <b-col cols="6" sm="5">
+            <b-col sm="5">
               <b-form-group id="numberGroup" label="People Needed *" label-for="number">
                 <b-form-input
                   id="number"
