@@ -37,10 +37,10 @@ router.post("/", (req, res) => {
     });
 });
 
-router.delete("/:eventID/:userID", (req, res) => {
+router.delete("/:friendID/:userID", (req, res) => {
   db("friends")
-    .where({ friendID: req.params.eventID, userID: req.params.userID })
-    .orWhere({ userID: req.params.eventID, friendID: req.params.userID })
+    .where({ friendID: req.params.friendID, userID: req.params.userID })
+    .orWhere({ userID: req.params.friendID, friendID: req.params.userID })
     .del()
     .then(() => {
       res.json({
