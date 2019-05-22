@@ -1,6 +1,8 @@
 <template>
-  <b-jumbotron fluid class="mb-0">
-    <FormCard/>
+  <b-jumbotron header="Konnect" lead="connect to people with similar interest" fluid class="mb-0">
+    <!-- <FormCard/> -->
+    <SignUpBtn class="d-inline-block"/>
+    <LogInBtn class="d-inline-block ml-3"/>
     <b-row>
       <b-col offset="6">
         <font-awesome-icon class="my-5 ml-n4 text-white" size="2x" icon="angle-double-down" pulse/>
@@ -11,11 +13,15 @@
 
 <script>
 import FormCard from "@/components/FormCard.vue";
+import SignUpBtn from "@/components/SignUpBtn.vue";
+import LogInBtn from "@/components/LogInBtn.vue";
 
 export default {
   name: "jumbotron",
   components: {
-    FormCard
+    FormCard,
+    SignUpBtn,
+    LogInBtn
   }
 };
 </script>
