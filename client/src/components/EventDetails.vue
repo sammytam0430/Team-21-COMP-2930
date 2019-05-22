@@ -15,7 +15,11 @@
           <b-col class="float-right text-right">
             Hosted By
             <router-link :to="'/user/' + event.userID" class="text-decoration-none">
-              <InitialCircle v-b-popover.hover.bottom="fullname" :initial="initial"/>
+              <InitialCircle
+                style="width: 40px; height: 40px"
+                v-b-popover.hover.bottom="fullname"
+                :initial="initial"
+              />
             </router-link>
           </b-col>
         </b-row>
@@ -89,6 +93,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import EventsService from "@/services/EventsService";
 import ParticipantsService from "@/services/ParticipantsService";
 import InitialCircle from "@/components/InitialCircle";
@@ -160,6 +165,7 @@ export default {
     };
   },
   methods: {
+    // get number of participants of the event
     async getParticipants() {
       const response = await ParticipantsService.getParticipants(
         this.$route.params.id
@@ -172,6 +178,7 @@ export default {
         participant.fullname = participant.fname + " " + participant.lname;
       }
     },
+    // get event detail from db
     async getEventDetail() {
       const response = await EventsService.getEvent(this.$route.params.id);
       this.event = response.data[0];
@@ -180,6 +187,7 @@ export default {
         this.event.lname.substring(0, 1).toUpperCase();
       this.fullname = this.event.fname + " " + this.event.lname;
     },
+    // remove event from db
     async deleteEvent() {
       const response = await EventsService.deleteEvent(this.$route.params.id);
       this.response = response.data;
@@ -190,6 +198,7 @@ export default {
         this.displayErrorMsg();
       }
     },
+    // add participant to db
     async joinEvent() {
       const data = {
         eventID: this.event.eventID,
@@ -204,6 +213,7 @@ export default {
         this.displayErrorMsg();
       }
     },
+    // remove participant to db
     async quitEvent() {
       const eventID = this.event.eventID;
       const userID = this.$session.get("currentUser");
@@ -219,9 +229,11 @@ export default {
         this.displayErrorMsg();
       }
     },
+    // event handler on modal close
     close() {
       this.$router.push("/events");
     },
+    // display error message as toast
     displayErrorMsg() {
       this.$bvToast.toast("Nooooo something went wrong", {
         title: "Notification",
@@ -233,10 +245,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.icon {
-  width: 40px;
-  height: 40px;
-}
-</style>

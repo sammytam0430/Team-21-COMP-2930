@@ -20,6 +20,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import SignUpBtn from "@/components/SignUpBtn.vue";
 import LogInBtn from "@/components/LogInBtn.vue";
 

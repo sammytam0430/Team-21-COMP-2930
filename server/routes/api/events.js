@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db/connect.js");
 
+// handle get request to get events
 router.get("/", (req, res) => {
   db.select()
     .from("events")
@@ -12,6 +13,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// handle post request to create a new event
 router.post("/", (req, res) => {
   db.insert(req.body)
     .returning("*")
@@ -27,6 +29,7 @@ router.post("/", (req, res) => {
     .catch(err => {});
 });
 
+// handle patch request to update an event
 router.patch("/:id", (req, res) => {
   db("events")
     .where({ eventID: req.params.id })
@@ -37,6 +40,7 @@ router.patch("/:id", (req, res) => {
     });
 });
 
+// handle delete request to delete an event
 router.delete("/:id", (req, res) => {
   db("events")
     .where({ eventID: req.params.id })
@@ -46,6 +50,7 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// handle get request to get an event
 router.get("/:id", (req, res) => {
   db("events")
     .join("users", { "events.organizer": "users.userID" })

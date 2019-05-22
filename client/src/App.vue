@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 

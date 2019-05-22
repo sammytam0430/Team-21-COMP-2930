@@ -16,6 +16,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import InterestsService from "@/services/InterestsService";
 
 export default {
@@ -37,10 +38,12 @@ export default {
     this.selected = this.userInterest.map(interest => interest.interestID);
   },
   methods: {
+    // get all interest types
     async getInterests() {
       const response = await InterestsService.getInterests();
       this.interests = response.data;
     },
+    // added or delete user interest on db
     async changeInterest(interestID) {
       const interestExist = this.selected.includes(interestID);
       if (!interestExist) {

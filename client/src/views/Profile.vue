@@ -58,6 +58,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
 import InitialCircle from "@/components/InitialCircle";
@@ -115,6 +116,7 @@ export default {
     debouncer() {
       this.updateUser();
     },
+    // get user from db
     async getUser() {
       const response = await UsersService.getUser(this.$route.params.id);
       this.user = response.data[0];
@@ -123,6 +125,7 @@ export default {
         this.user.lname.substring(0, 1).toUpperCase();
       this.fullname = this.user.fname + " " + this.user.lname;
     },
+    // update user in db
     async updateUser() {
       const response = await UsersService.updateUser(
         this.user.userID,
@@ -130,6 +133,7 @@ export default {
       );
       this.response = response.data;
     },
+    // check if user is a friend
     async checkFriend() {
       const response = await FriendsService.getFriend(
         this.$session.get("currentUser"),
@@ -137,6 +141,7 @@ export default {
       );
       this.isFriend = response.data.length ? true : false;
     },
+    // add new friend to db
     async addFriend() {
       const data = {
         userID: this.$session.get("currentUser"),
@@ -151,6 +156,7 @@ export default {
       });
       this.checkFriend();
     },
+    // remove friend from db
     async removeFriend() {
       const response = await FriendsService.deleteFriend(
         this.$session.get("currentUser"),
@@ -164,6 +170,7 @@ export default {
       });
       this.checkFriend();
     },
+    // get interest on a user
     async getInterests() {
       const response = await InterestsService.getInterestsByUser(
         this.$route.params.id

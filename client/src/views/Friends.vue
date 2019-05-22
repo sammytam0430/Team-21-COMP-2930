@@ -15,7 +15,7 @@
         >
       </div>
     </b-container>
-    <b-container class="friendList bg-light">
+    <b-container class="bg-light">
       <b-container>
         <b-card v-bind:key="friend.userID" v-for="friend in filteredFriends" class="mt-3">
           <b-row>
@@ -38,6 +38,7 @@
 
 
 <script>
+// import necessary components and services
 import FriendsService from "@/services/FriendsService";
 import InitialCircle from "@/components/InitialCircle";
 
@@ -69,6 +70,7 @@ export default {
     }
   },
   methods: {
+    // get friends from db
     async getFriends() {
       const response = await FriendsService.getFriends(
         this.$session.get("currentUser")

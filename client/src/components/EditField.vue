@@ -33,6 +33,7 @@ export default {
     };
   },
   methods: {
+    // function to be executed when edit button is clicked
     clicked() {
       this.editing = true;
       this.$nextTick(() => {

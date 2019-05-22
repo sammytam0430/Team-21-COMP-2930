@@ -5,6 +5,7 @@ const db = require("../../db/connect.js");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+// handle get request and get a user by id
 router.get("/:id", (req, res) => {
   db("users")
     .where({ userID: req.params.id })
@@ -14,6 +15,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// handle post request and get a user by email
 router.post("/:email", (req, res) => {
   db("users")
     .where({ email: req.params.email })
@@ -23,6 +25,7 @@ router.post("/:email", (req, res) => {
     });
 });
 
+// handle post request and add a new user
 router.post("/", (req, res) => {
   let salt = bcrypt.genSaltSync(saltRounds);
   req.body.password = bcrypt.hashSync(req.body.password, salt);
@@ -43,6 +46,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// handle patch request and update a user
 router.patch("/:id", (req, res) => {
   db("users")
     .where({ userID: req.params.id })
@@ -53,21 +57,13 @@ router.patch("/:id", (req, res) => {
     });
 });
 
+// handle delete request and remove a user
 router.delete("/:id", (req, res) => {
   db("users")
     .where({ userID: req.params.id })
     .del()
     .then(() => {
       res.json({ success: true });
-    });
-});
-
-router.get("/:id/friends", (req, res) => {
-  db("friends")
-    .where({ userID: req.params.id })
-    .select()
-    .then(data => {
-      res.send(data);
     });
 });
 

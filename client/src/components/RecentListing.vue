@@ -12,14 +12,13 @@
 </template>
 
 <script>
+// import necessary components and services
 import EventsService from "@/services/EventsService";
 import Timestamp from "@/components/Timestamp.vue";
 
 export default {
   name: "recentListing",
-  components: {
-    Timestamp
-  },
+  components: { Timestamp },
   data() {
     return {
       events: {}
@@ -29,6 +28,7 @@ export default {
     this.loadEvents();
   },
   methods: {
+    // get events from db
     async loadEvents() {
       const response = await EventsService.getEvents();
       this.events = response.data;

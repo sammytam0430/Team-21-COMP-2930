@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db/connect.js");
 
+// handle get request and get all interest type
 router.get("/", (req, res) => {
   db.select()
     .from("interests")
@@ -10,6 +11,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// handle get request and get interests of a user
 router.get("/:id", (req, res) => {
   db("userInterest")
     .join("interests", { "interests.interestID": "userInterest.interestID" })
@@ -19,6 +21,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// handle post request and add new interest of a user
 router.post("/", (req, res) => {
   db.insert([{ userID: req.body.userID, interestID: req.body.friendID }])
     .returning("*")
@@ -32,6 +35,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// handle delete request and remove a interest of a user
 router.delete("/:userID/:interestID", (req, res) => {
   db("userInterest")
     .where({ userID: req.params.userID, interestID: req.params.interestID })

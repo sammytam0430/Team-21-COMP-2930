@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import GreetingForm from "@/components/GreetingForm.vue";
 
 export default {

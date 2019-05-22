@@ -3,8 +3,8 @@ const router = express.Router();
 const db = require("../../db/connect.js");
 
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
 
+// handle post request and validate user email and password
 router.post("/", (req, res) => {
   db("users")
     .where("email", req.body.email)

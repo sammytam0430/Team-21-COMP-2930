@@ -24,6 +24,7 @@
 
 
 <script>
+// import necessary components and services
 import { gmapApi } from "vue2-google-maps";
 
 export default {
@@ -74,6 +75,7 @@ export default {
     };
   },
   methods: {
+    // initialize map and get markers
     initMap() {
       let latNew;
       let lngNew;
@@ -98,22 +100,7 @@ export default {
         });
       }
     },
-    setPlace(place) {
-      this.place = place;
-    },
-    usePlace() {
-      if (this.place) {
-        this.markers.push({
-          label: this.$props.events[0].eventID.toString(),
-          position: {
-            lat: this.place.geometry.location.lat(),
-            lng: this.place.geometry.location.lng()
-          }
-        });
-
-        this.place = null;
-      }
-    },
+    // toggle marker info window
     toggleInfoWindow(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = this.getInfoWindowContent(marker);
@@ -125,6 +112,7 @@ export default {
         this.currentMidx = idx;
       }
     },
+    // set marker info window content
     getInfoWindowContent(marker) {
       const events = this.$props.events.filter(event => marker.label == event.eventID);
       return events[0].name;

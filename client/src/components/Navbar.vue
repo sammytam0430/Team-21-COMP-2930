@@ -91,12 +91,15 @@ export default {
     };
   },
   methods: {
+    // event handler for window vertical scroll
     handleScroll() {
       this.scrolled = window.scrollY > 0;
     },
+    // set user isActive to false on logout
     async setActive() {
       await UsersService.updateUser(this.$session.get("currentUser"), {isActive: false});
     },
+    // event handler on click on logout
     logout() {
       this.setActive();
       this.$session.destroy();

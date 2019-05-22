@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import EventsService from "@/services/EventsService";
 export default {
   data() {
@@ -44,6 +45,7 @@ export default {
     }
   },
   methods: {
+    // get events from db
     async loadEvents() {
       const response = await EventsService.getEvents();
       this.events =  response.data.filter(event => {
@@ -51,6 +53,7 @@ export default {
       });
       
     },
+    // convert date to desired format
     parseDate() {
       let date = new Date();
       let m = date.getMonth() + 1;
