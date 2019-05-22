@@ -29,7 +29,7 @@
       </b-row>
       <b-row class="text-center h6 justify-content-center">
         <b-col cols="auto">
-          <EditField v-model="user.prefEmail"/>
+          <EditField :currentUser="currentUser" v-model="user.prefEmail"/>
         </b-col>
       </b-row>
       <hr>
@@ -50,7 +50,7 @@
       <b-row class="ml-0 px-3">
         <p>
           Blurb:&nbsp;
-          <EditField v-model="user.randBlurb"/>
+          <EditField :currentUser="currentUser" v-model="user.randBlurb"/>
         </p>
       </b-row>
     </b-container>
