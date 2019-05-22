@@ -2,7 +2,7 @@
   <div>
     <router-link :to="{name: 'LogInModal'}">
       <b-button variant="outline-primary">
-        Log in
+        &nbsp;&nbsp;Login&nbsp;&nbsp;
       </b-button>
     </router-link>
   </div>
