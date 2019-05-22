@@ -2,7 +2,7 @@
   <b-container fluid class="px-5">
     <EventDetails/>
     <span class="mx- h3">Events</span>
-    <b-button v-b-toggle.collapse class="ml-3 mt-n2" variant="outline-primary">Filters</b-button>
+    <b-button v-b-toggle.collapse class="ml-3 mt-n2" variant="outline-primary">Filter</b-button>
     <b-container fluid>
       <b-collapse visible id="collapse" class="mt-2">
         <b-row class="rounded bg-white p-3" align-v="end">
