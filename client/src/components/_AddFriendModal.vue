@@ -86,11 +86,13 @@ export default {
         this.$refs.modal.hide();
       }
     },
+    //function check if the form valid
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
       this.emailState = valid ? "valid" : "invalid";
       return valid;
     },
+    //function reset the modal once submitted
     resetModal() {
       this.email = "";
       this.emailState = null;
@@ -98,6 +100,7 @@ export default {
       this.response = "";
       this.statement = "";
     },
+    //function hands the submit and validates the email and user
     handleSubmit() {
       this.getUser();
       if (this.email == "") {
