@@ -1,7 +1,7 @@
 <template>
   <b-jumbotron fluid class="mb-0">
       <p class="h1">Konnect</p>
-      <p class="h4">connect to people with similar interest</p>
+      <p class="h4">to people with similar interests</p>
     <div class="my-5">
       <SignUpBtn class="d-inline-block"/>
       <LogInBtn class="d-inline-block ml-3 bg-white rounded"/>
