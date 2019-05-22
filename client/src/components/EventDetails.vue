@@ -74,10 +74,17 @@
     <template slot="modal-footer" slot-scope="{ cancel }">
       <Timestamp :time="event.created_at" class="mr-auto"/>
       <b-button variant="white" class="text-primary" @click="cancel()">Cancel</b-button>
-      <b-button v-if="currentUser" variant="danger" @click="deleteEvent">Delete</b-button>
-      <b-button v-else-if="joined" variant="secondary" @click="quitEvent">Quit Event</b-button>
+      <b-button v-if="currentUser" variant="danger" v-b-modal.confirm>Delete</b-button>
+      <b-button v-else-if="joined" variant="secondary" @click="quitEvent()">Quit Event</b-button>
       <b-button v-else variant="primary" @click="joinEvent">Join Event</b-button>
     </template>
+    <b-modal id="confirm" :title="`Delete ${event.name}?`">
+      <p class="my-4">Are you sure you want to delete this event?</p>
+      <template slot="modal-footer" slot-scope="{ ok, cancel }">
+        <b-button size="sm" variant="outline-secondary" @click="cancel()">Bring me back</b-button>
+        <b-button size="sm" variant="primary" @click="deleteEvent()">I'm Sure</b-button>
+      </template>
+    </b-modal>
   </b-modal>
 </template>
 

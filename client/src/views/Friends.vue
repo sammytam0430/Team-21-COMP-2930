@@ -1,16 +1,10 @@
 <template>
   <div class="myfriend">
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous"
-    >
     <b-container>
       <div class="input-group md-form mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text purple lighten-3">
-            <i class="fas fa-search text-white"></i>
+            <font-awesome-icon id="dashboard" size="lg" fixed-width icon="search"/>
           </span>
         </div>
         <input
