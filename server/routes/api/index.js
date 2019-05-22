@@ -7,6 +7,7 @@ const login = require("./login.js");
 const participants = require("./participants.js");
 const friends = require("./friends.js");
 
+// set routes for api
 router.use("/events", events);
 router.use("/users", users);
 router.use("/interests", interests);

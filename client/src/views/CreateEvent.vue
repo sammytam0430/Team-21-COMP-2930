@@ -209,6 +209,7 @@
 </template>
  
 <script>
+// import necessary components and services
 import InterestsService from "@/services/InterestsService";
 import EventsService from "@/services/EventsService";
 import { gmapApi } from "vue2-google-maps";
@@ -251,26 +252,31 @@ export default {
         location: this.parsePlace(),
         lat: 0,
         lng: 0,
+        // convert date to disired format
         numOfPeople: 1
       }
     };
   },
   methods: {
+    // get all event type from db
     async getEventType() {
       const response = await InterestsService.getInterests();
       for (const option of response.data) {
         this.options.push({ value: option.interestID, text: option.name });
       }
     },
+    // event handler of location input change
     async setPlace(place) {
       this.place = await place;
       this.event.location = this.place.name;
       this.event.lat = this.place.geometry.location.lat();
       this.event.lng = this.place.geometry.location.lng();
     },
+    // set location to place
     parsePlace() {
       return this.place == null ? "" : this.place.name;
     },
+    // convert date to disired format
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
@@ -283,23 +289,28 @@ export default {
       }
       return date.getFullYear() + "-" + m + "-" + d;
     },
+    // check if end time is earlier thand start time
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":", ""));
       let end = parseInt(this.event.end.replace(":", ""));
       this.alert = end < start ? true : false;
     },
+    // add friend to invitee list
     addFriend() {
       if (this.newFriend.trim().length !== 0) {
         this.invitees.push({ name: this.newFriend, key: this.key++ });
         this.newFriend = "";
       }
     },
+    // remove friend from invitee list
     removeFriend(friend) {
       this.invitees.splice(this.invitees.indexOf(friend), 1);
     },
+    // set reset modal to true
     confirmReset() {
       this.resetModal = true;
     },
+    // reset modal
     reset() {
       this.event.name = "";
       this.event.description = "";
@@ -318,6 +329,7 @@ export default {
       this.resetModal = false;
       this.key = 0;
     },
+    // create event in db
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
       this.response = response.data;
@@ -325,6 +337,7 @@ export default {
         this.$router.push("events/" + this.response.eventID);
       }
     },
+    // execute barrel roll
     barrelRoll() {
       if (this.event.name.trim().toLowerCase() === "do a barrel roll") {
         document.body.animate(
@@ -336,6 +349,7 @@ export default {
         );
       }
     },
+    // display The Infinity Gauntlet
     thanos() {
       if (this.event.name.trim().toLowerCase() === "thanos") {
         this.endTimeLabel = "End Game *";
@@ -346,6 +360,7 @@ export default {
         document.getElementById("thanosGif").style.display = "none";
       }
     },
+    // execute snap
     snap() {
       if (this.transitionName[0].length === 0) {
         document.getElementById("thanosGif").style.display = "block";
@@ -361,6 +376,7 @@ export default {
         }
       }
     },
+    // remove half of the invitess
     remove() {
       let invitees = this.invitees;
       let soulStone = this.soulStone;
@@ -378,7 +394,7 @@ export default {
           }, 1000);
         }
       }, 3000);
-
+      // push invitees to soul stone
       function toDust() {
         let index = getRandomInt(current);
         let temp = invitees.splice(index, 1);
@@ -396,6 +412,7 @@ export default {
         return Math.floor(Math.random() * Math.floor(max));
       }
     },
+    // restore removed invitees
     restore() {
       let invitees = this.invitees;
       let soulStone = this.soulStone;

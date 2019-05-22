@@ -26,6 +26,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import FriendsService from "@/services/FriendsService";
 import UsersService from "@/services/UsersService";
 

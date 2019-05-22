@@ -36,6 +36,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import UsersService from "@/services/UsersService";
 
 export default {
@@ -60,6 +61,7 @@ export default {
     }
   },
   methods: {
+    // get user input and validate user email and password
     async verifyUser() {
       const response = await UsersService.authenticateUser(this.login);
       this.response = response.data;
@@ -72,9 +74,11 @@ export default {
         this.showAlert = true;
       }
     },
+    // set user isActive to true in db
     async setActive() {
       await UsersService.updateUser(this.$session.get("currentUser"), {isActive: true});
     },
+    // event handler on modal close
     close() {
       if (this.$route.path !== "/signup") {
         this.$router.push("/");

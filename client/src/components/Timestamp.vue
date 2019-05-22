@@ -11,6 +11,7 @@ export default {
     } 
   },
   methods: {
+    // convert date to desired format
     convertTime() {
       let seconds = Math.floor((new Date() - Date.parse(this.time)) / 1000);
       let interval = Math.floor(seconds / 31536000);

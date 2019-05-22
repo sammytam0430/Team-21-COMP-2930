@@ -87,6 +87,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import AddFriendModal from "@/components/_AddFriendModal.vue";
 import Map from "@/components/Map.vue";
 import EventsService from "@/services/EventsService";

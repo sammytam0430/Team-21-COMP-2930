@@ -60,6 +60,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import EventsService from "@/services/EventsService";
 import InterestsService from "@/services/InterestsService";
 import EventDetails from "@/components/EventDetails";
@@ -106,6 +107,7 @@ export default {
     this.loadEvents(), this.getEventType();
   },
   methods: {
+    // get events from db
     async loadEvents() {
       const response = await EventsService.getEvents();
       this.allEvents = this.events = response.data;
@@ -115,6 +117,7 @@ export default {
           .split(" ");
       }
     },
+    // get event types from db
     async getEventType() {
       const response = await InterestsService.getInterests();
       for (const option of response.data) {

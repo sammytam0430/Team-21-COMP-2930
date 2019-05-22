@@ -69,6 +69,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import UsersService from "@/services/UsersService";
 import Conditions from "@/components/Conditions";
 
@@ -99,6 +100,7 @@ export default {
     }
   },
   methods: {
+    // create user in db
     async createAccount() {
       if (this.agreed) {
         const response = await UsersService.createUser(this.signup);
@@ -106,6 +108,7 @@ export default {
         this.showAlert = true;
       }
     },
+    // event handler on modal close
     close() {
       if (this.$route.path !== "/login") {
         this.$router.push("/");

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// import necessary components and services
 import Jumbotron from "@/components/Jumbotron.vue";
 import RecentListing from "@/components/RecentListing.vue";
 import SignUpModal from "@/components/SignUpModal.vue";

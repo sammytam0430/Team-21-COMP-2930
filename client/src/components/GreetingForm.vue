@@ -72,6 +72,7 @@ export default {
     };
   },
   methods: {
+    // convert date time to desired format
     setTime() {
       let now = new Date();
       let year = now.getFullYear();
