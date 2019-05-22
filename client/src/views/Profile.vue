@@ -2,14 +2,14 @@
   <b-container class="p-4.5">
     <b-row class="mb-2">
       <b-col>
-        <span class="h3 font-weight-bold text-secondary">Profile</span>
+        <span class="h3 font-weight-bold text-primary">Profile</span>
       </b-col>
       <b-col class="text-right">
         <b-button size="sm" variant="danger" v-if="isFriend" @click="removeFriend">Remove Friend</b-button>
         <b-button size="sm" v-else-if="!isFriend && !currentUser" @click="addFriend">Add Friend</b-button>
       </b-col>
     </b-row>
-    <b-container class="border border-secondary rounded bg-white pb-4 pt-2 shadow">
+    <b-container class="border border-primary rounded bg-white pb-4 pt-2 shadow">
       <b-row class="justify-content-center">
         <InitialCircle
           style="font-size: 70px; width: 125px; height: 125px"
@@ -34,11 +34,12 @@
       </b-row>
       <hr>
       <b-row class="ml-0">
-        <b-col cols="2" sm="2" md="2" lg="1">Interests:</b-col>
+        <b-col cols="12" sm="2" md="2" lg="1">Interests:</b-col>
         <b-col class="mb-3">
-          {{interests.map(interest => interest.name).join(', ')}}
+          <span>{{interests.map(interest => interest.name).join(', ')}}</span>
           <b-img
             :src="require('../assets/edits.png')"
+            class="ml-2"
             style="width: 15px; height: 15px;"
             v-if="currentUser"
             v-b-modal.interestmodal
