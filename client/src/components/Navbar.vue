@@ -1,6 +1,6 @@
 <template>
   <b-navbar :class="scrolled ? 'scrolled' : 'normal'" toggleable="md" type="light" variant="light" sticky>
-    <b-navbar-brand to="/">
+    <b-navbar-brand :to="show ? '/dashboard' : '/'">
       <img class="mr-n4" src="../assets/logo.png" alt="K">
       <span class="text-primary font-weight-bolder font-italic h4">onnect</span>
     </b-navbar-brand>
