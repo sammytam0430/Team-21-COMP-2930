@@ -13,7 +13,13 @@
         autofocus="true"
       >
     </span>
-    <img src="../assets/edits.png" style="width: 15px; height: 15px" class="ml-2" v-if="!editing && currentUser" @click="clicked">
+    <img
+      src="../assets/edits.png"
+      style="width: 15px; height: 15px"
+      class="ml-2"
+      v-if="!editing && currentUser"
+      @click="clicked"
+    >
   </div>
 </template>
 
