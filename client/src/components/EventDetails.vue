@@ -81,8 +81,8 @@
     <b-modal id="confirm" :title="`Delete ${event.name}?`">
       <p class="my-4">Are you sure you want to delete this event?</p>
       <template slot="modal-footer" slot-scope="{ ok, cancel }">
-        <b-button size="sm" variant="outline-secondary" @click="cancel()">Bring me back</b-button>
-        <b-button size="sm" variant="primary" @click="deleteEvent()">I'm Sure</b-button>
+        <b-button variant="outline-secondary" @click="cancel()">Bring me back</b-button>
+        <b-button variant="primary" @click="deleteEvent()">I'm sure</b-button>
       </template>
     </b-modal>
   </b-modal>
