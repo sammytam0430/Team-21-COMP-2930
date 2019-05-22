@@ -5,7 +5,8 @@ const db = require("../../db/connect.js");
 router.get("/", (req, res) => {
   db.select()
     .from("events")
-    .orderBy("eventID", "desc")
+    .orderBy("date", "desc")
+    .orderBy("start", "desc")
     .then(data => {
       res.send(data);
     });
