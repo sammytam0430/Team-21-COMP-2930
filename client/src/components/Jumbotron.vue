@@ -12,14 +12,12 @@
 </template>
 
 <script>
-import FormCard from "@/components/FormCard.vue";
 import SignUpBtn from "@/components/SignUpBtn.vue";
 import LogInBtn from "@/components/LogInBtn.vue";
 
 export default {
   name: "jumbotron",
   components: {
-    FormCard,
     SignUpBtn,
     LogInBtn
   }
