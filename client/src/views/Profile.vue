@@ -10,14 +10,13 @@
       </b-col>
     </b-row>
     <b-container class="border border-secondary rounded bg-white pb-4 pt-2 shadow">
-      <b-img
-        center
-        thumbnail
-        class="w-50 rounded-circle my-3"
-        src="https://picsum.photos/200"
-        style="min-width: 160px; max-width: 200px;"
-      ></b-img>
-
+      <b-row class="justify-content-center">
+        <InitialCircle
+          style="font-size: 70px; width: 125px; height: 125px"
+          class="justify-content-center my-3"
+          :initial="initial"
+        />
+      </b-row>
       <b-row class="text-center h4 font-weight-bold justify-content-center">
         <b-col cols="auto">
           <span>{{user.fname}} {{user.lname}}</span>
@@ -60,6 +59,7 @@
 <script>
 import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
+import InitialCircle from "@/components/InitialCircle";
 import UsersService from "@/services/UsersService";
 import FriendsService from "@/services/FriendsService";
 import InterestsService from "@/services/InterestsService";
@@ -68,7 +68,7 @@ import _ from "lodash";
 export default {
   name: "profile",
   runtimeCompiler: true,
-  components: { EditField, EditInterests },
+  components: { EditField, EditInterests, InitialCircle },
   beforeCreate() {
     if (!this.$session.exists()) {
       this.$router.push("/");
@@ -82,6 +82,7 @@ export default {
       currentUser: false,
       isFriend: false,
       interests: [],
+      initial: ""
     };
   },
   mounted() {
@@ -104,7 +105,7 @@ export default {
       handler() {
         this.debouncer.call(this);
       }
-    },
+    }
   },
   created() {
     this.debouncer = _.debounce(this.debouncer, 1000);
@@ -116,6 +117,10 @@ export default {
     async getUser() {
       const response = await UsersService.getUser(this.$route.params.id);
       this.user = response.data[0];
+      this.initial =
+        this.user.fname.substring(0, 1).toUpperCase() +
+        this.user.lname.substring(0, 1).toUpperCase();
+      this.fullname = this.user.fname + " " + this.user.lname;
     },
     async updateUser() {
       const response = await UsersService.updateUser(
@@ -159,7 +164,9 @@ export default {
       this.checkFriend();
     },
     async getInterests() {
-      const response = await InterestsService.getInterestsByUser(this.$route.params.id);
+      const response = await InterestsService.getInterestsByUser(
+        this.$route.params.id
+      );
       this.interests = response.data;
     }
   }
