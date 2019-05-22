@@ -5,21 +5,10 @@
         <span class="h3 font-weight-bold text-secondary">Profile</span>
       </b-col>
       <b-col class="text-right">
-        <b-button
-          size="sm"
-          variant="danger"
-          v-if="isFriend"
-          @click="removeFriend"
-        >Remove Friend</b-button>
-
-        <b-button
-          size="sm"
-          v-else-if="!isFriend && !currentUser"
-          @click="addFriend"
-        >Add Friend</b-button>
+        <b-button size="sm" variant="danger" v-if="isFriend" @click="removeFriend">Remove Friend</b-button>
+        <b-button size="sm" v-else-if="!isFriend && !currentUser" @click="addFriend">Add Friend</b-button>
       </b-col>
     </b-row>
-
     <b-container class="border border-secondary rounded bg-white pb-4 pt-2 shadow">
       <b-img
         center
@@ -48,18 +37,17 @@
       <hr>
       <b-row class="ml-0">
         <b-col cols="2" sm="2" md="2" lg="1">Interests:</b-col>
-        <b-col class="mb-3 ml-4">
-          {{selected.join(', ')}}
+        <b-col class="mb-3">
+          {{interests.map(interest => interest.name).join(', ')}}
           <b-img
             :src="require('../assets/edits.png')"
             style="width: 15px; height: 15px;"
             v-if="currentUser"
             v-b-modal.interestmodal
           />
-          <EditInterests/>
+          <EditInterests :userInterest="interests"/>
         </b-col>
       </b-row>
-
       <b-row class="ml-0 px-3">
         <p>
           Blurb:&nbsp;
@@ -75,6 +63,7 @@ import EditField from "@/components/EditField.vue";
 import EditInterests from "@/components/EditInterests";
 import UsersService from "@/services/UsersService";
 import FriendsService from "@/services/FriendsService";
+import InterestsService from "@/services/InterestsService";
 import _ from "lodash";
 
 export default {
@@ -92,7 +81,8 @@ export default {
       selected: [],
       user: [],
       currentUser: false,
-      isFriend: false
+      isFriend: false,
+      interests: [],
     };
   },
   mounted() {
@@ -100,6 +90,7 @@ export default {
       this.$session.get("currentUser") == this.$route.params.id;
     this.getUser();
     this.checkFriend();
+    this.getInterests();
   },
   watch: {
     "$route.params.id"() {
@@ -107,13 +98,14 @@ export default {
         this.$session.get("currentUser") == this.$route.params.id;
       this.getUser();
       this.checkFriend();
+      this.getInterests();
     },
     user: {
       deep: true,
       handler() {
         this.debouncer.call(this);
       }
-    }
+    },
   },
   created() {
     this.debouncer = _.debounce(this.debouncer, 1000);
@@ -166,6 +158,10 @@ export default {
         appendToast: true
       });
       this.checkFriend();
+    },
+    async getInterests() {
+      const response = await InterestsService.getInterestsByUser(this.$route.params.id);
+      this.interests = response.data;
     }
   }
 };
