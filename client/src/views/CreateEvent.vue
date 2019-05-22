@@ -136,7 +136,8 @@
                       {{friend.name}}
                       <font-awesome-icon
                         fixed-width
-                        class="float-right"
+                        id = "times"
+                        class="float-right mt-1"
                         variant="white"
                         @click="removeFriend(friend)"
                         icon="times"
@@ -346,16 +347,18 @@ export default {
       }
     },
     snap() {
-      document.getElementById("thanosGif").style.display = "block";
-      document.getElementById("thanosImg").style.display = "none";
-      setTimeout(function() {
-        document.getElementById("thanosGif").style.display = "none";
-        document.getElementById("thanosImg").style.display = "block";
-      }, 2000);
-      if (this.invitees.length !== 0 && this.soulStone.length === 0) {
-        this.remove();
-      } else if (this.soulStone.length !== 0) {
-        this.restore();
+      if (this.transitionName[0].length === 0) {
+        document.getElementById("thanosGif").style.display = "block";
+        document.getElementById("thanosImg").style.display = "none";
+        setTimeout(function() {
+          document.getElementById("thanosGif").style.display = "none";
+          document.getElementById("thanosImg").style.display = "block";
+        }, 2000);
+        if (this.invitees.length !== 0 && this.soulStone.length === 0) {
+          this.remove();
+        } else if (this.soulStone.length !== 0) {
+          this.restore();
+        }
       }
     },
     remove() {
@@ -365,10 +368,16 @@ export default {
       let original = this.invitees.length;
       let current = original;
       name[0] = "dust";
-
-      let interval = setInterval(function() {
-        toDust();
-      }, 1000);
+      
+      let interval;
+      setTimeout(function() {
+        toDust();   
+        if (original > 2) {     
+          interval = setInterval(function() {
+            toDust();
+          }, 1000);
+        }
+      }, 3000);
 
       function toDust() {
         let index = getRandomInt(current);
@@ -392,15 +401,17 @@ export default {
       let soulStone = this.soulStone;
       let name = this.transitionName;
 
-      document.getElementById("listBox").className = "glow";
+      setTimeout(function() {
+        document.getElementById("listBox").className = "glow";
+      }, 2500);
       setTimeout(function() {
         name[0] = "undust";
         unDust();
-      }, 1100);
+      }, 3600);
       setTimeout(function() {
         document.getElementById("listBox").className = "";
         name[0] = "";
-      }, 3000);
+      }, 5500);
 
       function unDust() {
         let length = soulStone.length;
@@ -430,6 +441,9 @@ ol {
 li {
   padding: 2px;
   border-bottom: 1px solid lightgray;
+}
+#times {
+  cursor: pointer;
 }
 .glow {
   animation-duration: 3s;
