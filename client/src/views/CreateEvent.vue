@@ -110,16 +110,18 @@
             <b-container>
               <b-form-group id="listGroup" label="Invitees">
                 <ol id="listBox">
-                  <li v-for="friend in invitees" v-bind:key="friend.id" class="p-2">
-                    {{friend.invitees}} 
-                    <font-awesome-icon
-                      fixed-width
-                      class="float-right"
-                      variant="white"
-                      @click="removeFriend(friend)"
-                      icon="times"
-                    />
+                  <transition-group v-bind:name="this.transitionName[0]">
+                    <li v-for="friend in invitees" v-bind:key="friend.key" class="p-2">
+                      {{friend.name}}
+                      <font-awesome-icon
+                        fixed-width
+                        class="float-right"
+                        variant="white"
+                        @click="removeFriend(friend)"
+                        icon="times"
+                      />
                   </li>
+                  </transition-group>
                 </ol>
               </b-form-group>
             </b-container>
@@ -196,6 +198,8 @@ export default {
       response: null,
       options: [{ value: null, text: "Please select an event type" }],
       invitees: [],
+      key: 0,
+      transitionName: [""],
       soulStone: [],
       endTimeLabel: "End Time *",
       place: null,
@@ -230,7 +234,6 @@ export default {
     parsePlace() {
       return this.place == null ? "" : this.place.name;
     },
-    
     parseDate() {
       var date = new Date();
       var m = date.getMonth() + 1;
@@ -246,13 +249,11 @@ export default {
     checkEndTime() {
       let start = parseInt(this.event.start.replace(":",""));
       let end = parseInt(this.event.end.replace(":",""));
-      if (end < start) {
-        this.alert = true;
-      }
+      this.alert = end < start ? true : false;
     },
     addFriend() {
       if (this.newFriend.trim().length !== 0) {
-        this.invitees.push({ invitees: this.newFriend });
+        this.invitees.push({ name: this.newFriend, key: this.key++ });
         this.newFriend = "";
       }
     },
@@ -274,9 +275,11 @@ export default {
       this.newFriend = "";
       this.invitees = [];
       this.soulStone= [];
+      this.transitionName[0] = "";
       document.getElementById('thanosImg').style.display = "none";
       document.getElementById('thanosGif').style.display = "none";
       this.resetModal = false;
+      this.key = 0;
     },
     async createEvent() {
       const response = await EventsService.createEvent(this.event);
@@ -320,17 +323,17 @@ export default {
       }
     },
     remove(){
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-      }
       let invitees = this.invitees;
       let soulStone = this.soulStone;   
+      let name = this.transitionName;
       let original = this.invitees.length;
       let current = original;
-      document.getElementById("listBox").className = "";
+      name[0] = "dust";
+      
       let interval = setInterval(function(){
-          toDust();
-        }, 1000);
+        toDust();
+      }, 1000);
+
       function toDust() {
         let index = getRandomInt(current);
         let temp = invitees.splice(index, 1);
@@ -338,7 +341,14 @@ export default {
         current--;
         if (current <= original / 2) {
           clearInterval(interval);
+          setTimeout(function(){
+            name[0] = "";
+          }, 1000)
         }
+      }
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
       }
     },
     restore() {
@@ -348,6 +358,10 @@ export default {
       setTimeout(function(){
         unDust();
       }, 1100);
+      setTimeout(function(){
+        document.getElementById("listBox").className = "";
+      }, 3000);
+
       function unDust() {
         let length = soulStone.length;
         for (let i = 0; i < length; i++){
@@ -420,5 +434,11 @@ export default {
   }
   #thanosGif, #thanosImg {
     display: none;
+  }
+  .dust-leave-active {
+  transition: all 1s ease-in-out;
+  }
+  .dust-leave-to {
+    opacity: 0;
   }
 </style>
