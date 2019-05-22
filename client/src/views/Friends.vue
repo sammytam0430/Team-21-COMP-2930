@@ -26,7 +26,7 @@
         <b-card v-bind:key="friend.userID" v-for="friend in filteredFriends" class="mt-3">
           <b-row>
             <b-col>
-              <b-img class="profileImage" thumbnail rounded="circle" v-bind:src="friend.image" left></b-img>
+              <b-img class="profileImage" thumbnail rounded="circle" src="https://picsum.photos/200" left></b-img>
             </b-col>
             <b-col class="col-lg-8 col-md-8 col-5 float-left friendName">
               <router-link :to="`/user/${friend.userID}`">{{ friend.fname }} {{ friend.lname }}</router-link>

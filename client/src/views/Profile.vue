@@ -14,7 +14,7 @@
         center
         thumbnail
         class="w-50 rounded-circle my-3"
-        :src="require('../assets/blop.png')"
+        src="https://picsum.photos/200"
         style="min-width: 160px; max-width: 200px;"
       ></b-img>
 
