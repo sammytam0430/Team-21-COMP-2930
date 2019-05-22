@@ -10,6 +10,8 @@ import SignUpModal from "@/components/SignUpModal.vue";
 import LogInModal from "@/components/LogInModal.vue";
 import Listing from "@/views/Listing.vue";
 import About from "@/views/About.vue";
+import NotFound from "@/views/NotFound.vue";
+
 
 Vue.use(Router);
 
@@ -93,6 +95,11 @@ export default new Router({
       path: "/dashboard",
       name: "Dashboard",
       component: DashBoard
+    },
+    {
+      path: '*',
+      name: "NotFound",
+      component: NotFound
     }
   ]
 });
