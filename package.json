@@ -17,12 +17,12 @@
     "body-parser": "^1.19.0",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
     "knex": "^0.16.5",
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.0",
-    "pg": "^7.10.0"
+    "nodemon": "^1.19.3",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "json-loader": "^0.5.7"
