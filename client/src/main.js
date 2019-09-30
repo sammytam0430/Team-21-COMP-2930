@@ -23,6 +23,7 @@ import {
 import { faYoutube, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "@/assets/custom.scss";
+require("dotenv").config();
 
 library.add(
   faUserGraduate,
